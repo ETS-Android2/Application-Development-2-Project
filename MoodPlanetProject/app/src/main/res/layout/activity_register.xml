@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity">
+
+ <TextView
+     android:id="@+id/signUpTextView"
+     android:layout_width="239dp"
+     android:layout_height="48dp"
+     android:layout_marginTop="64dp"
+     android:gravity="center"
+     android:text="SIGN UP"
+     android:textSize="34sp"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toTopOf="parent" />
+
+ <EditText
+     android:id="@+id/editTextTextEmailAddress"
+     android:layout_width="258dp"
+     android:layout_height="43dp"
+     android:layout_marginTop="100dp"
+     android:layout_marginEnd="4dp"
+     android:ems="10"
+     android:hint="Email"
+     android:inputType="textEmailAddress"
+     android:textSize="14sp"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/signUpTextView"
+     tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+ <EditText
+     android:id="@+id/passwordEditText"
+     android:layout_width="258dp"
+     android:layout_height="48dp"
+     android:layout_marginTop="40dp"
+     android:layout_marginEnd="4dp"
+     android:ems="10"
+     android:hint="Password"
+     android:inputType="textPassword"
+     android:minHeight="48dp"
+     android:textSize="14sp"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/lastNameEditText"
+     tools:ignore="SpeakableTextPresentCheck" />
+
+ <EditText
+     android:id="@+id/confirmPasswordEditText"
+     android:layout_width="258dp"
+     android:layout_height="48dp"
+     android:layout_marginTop="24dp"
+     android:layout_marginEnd="4dp"
+     android:ems="10"
+     android:hint="Confirm Password"
+     android:inputType="textPassword"
+     android:minHeight="48dp"
+     android:textSize="14sp"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/passwordEditText"
+     tools:ignore="SpeakableTextPresentCheck" />
+
+ <TextView
+     android:id="@+id/firstNameTextView"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_marginStart="24dp"
+     android:layout_marginTop="40dp"
+     android:text="FIRST NAME:"
+     android:textSize="16sp"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/emailTextView" />
+
+ <TextView
+     android:id="@+id/lastNameTextView"
+     android:layout_width="103dp"
+     android:layout_height="24dp"
+     android:layout_marginStart="16dp"
+     android:layout_marginTop="56dp"
+     android:text="LAST NAME:"
+     android:textSize="16sp"
+     app:layout_constraintEnd_toStartOf="@+id/lastNameEditText"
+     app:layout_constraintHorizontal_bias="0.266"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/firstNameTextView" />
+
+ <TextView
+     android:id="@+id/passwordTextView"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_marginTop="52dp"
+     android:text="PASSWORD:"
+     android:textSize="16sp"
+     app:layout_constraintEnd_toStartOf="@+id/passwordEditText"
+     app:layout_constraintHorizontal_bias="0.393"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/lastNameTextView" />
+
+ <TextView
+     android:id="@+id/confirmPasswordTextView"
+     android:layout_width="111dp"
+     android:layout_height="47dp"
+     android:layout_marginStart="16dp"
+     android:layout_marginTop="44dp"
+     android:gravity="center"
+     android:text="CONFIRM PASSWORD:"
+     android:textSize="16sp"
+     app:layout_constraintEnd_toStartOf="@+id/confirmPasswordEditText"
+     app:layout_constraintHorizontal_bias="0.0"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/passwordTextView" />
+
+ <TextView
+     android:id="@+id/emailTextView"
+     android:layout_width="53dp"
+     android:layout_height="24dp"
+     android:layout_marginTop="108dp"
+     android:layout_marginEnd="36dp"
+     android:text="EMAIL:"
+     android:textSize="16sp"
+     app:layout_constraintEnd_toStartOf="@+id/editTextTextEmailAddress"
+     app:layout_constraintHorizontal_bias="0.666"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/signUpTextView" />
+
+ <Button
+     android:id="@+id/signUpMainButton"
+     android:layout_width="143dp"
+     android:layout_height="63dp"
+     android:layout_marginTop="64dp"
+     android:text="SIGN UP"
+     app:layout_constraintBottom_toBottomOf="parent"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintHorizontal_bias="0.473"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/confirmPasswordTextView"
+     app:layout_constraintVertical_bias="0.0" />
+
+ <EditText
+     android:id="@+id/firstNameEditText"
+     android:layout_width="258dp"
+     android:layout_height="48dp"
+     android:layout_marginTop="16dp"
+     android:ems="10"
+     android:hint="First Name"
+     android:inputType="textPersonName"
+     android:textSize="14sp"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintHorizontal_bias="0.973"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress" />
+
+ <EditText
+     android:id="@+id/lastNameEditText"
+     android:layout_width="258dp"
+     android:layout_height="48dp"
+     android:layout_marginEnd="4dp"
+     android:ems="10"
+     android:hint="Last Name"
+     android:inputType="textPersonName"
+     android:textSize="14sp"
+     app:layout_constraintBottom_toBottomOf="parent"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintTop_toTopOf="parent"
+     app:layout_constraintVertical_bias="0.499" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
