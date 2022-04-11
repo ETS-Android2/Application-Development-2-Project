@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "809969984760",
+    "project_id": "moodplanet-c6b16",
+    "storage_bucket": "moodplanet-c6b16.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:809969984760:android:00ab389b66f8bf61a8070d",
+        "android_client_info": {
+          "package_name": "com.example.moodplanet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "809969984760-tj1uef1fgip4t5e75fev6jii70d2jtam.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLv0OrDChP4WH-ejzwx2w8fRynnXZcR3c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "809969984760-tj1uef1fgip4t5e75fev6jii70d2jtam.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

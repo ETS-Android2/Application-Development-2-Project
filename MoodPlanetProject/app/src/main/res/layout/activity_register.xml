@@ -19,7 +19,7 @@
      app:layout_constraintTop_toTopOf="parent" />
 
  <EditText
-     android:id="@+id/editTextTextEmailAddress"
+     android:id="@+id/emailAddressEditText"
      android:layout_width="258dp"
      android:layout_height="43dp"
      android:layout_marginTop="100dp"
@@ -120,13 +120,13 @@
      android:layout_marginEnd="36dp"
      android:text="EMAIL:"
      android:textSize="16sp"
-     app:layout_constraintEnd_toStartOf="@+id/editTextTextEmailAddress"
+     app:layout_constraintEnd_toStartOf="@+id/emailAddressEditText"
      app:layout_constraintHorizontal_bias="0.666"
      app:layout_constraintStart_toStartOf="parent"
      app:layout_constraintTop_toBottomOf="@+id/signUpTextView" />
 
  <Button
-     android:id="@+id/signUpMainButton"
+     android:id="@+id/registerButton"
      android:layout_width="143dp"
      android:layout_height="63dp"
      android:layout_marginTop="64dp"
@@ -150,7 +150,7 @@
      app:layout_constraintEnd_toEndOf="parent"
      app:layout_constraintHorizontal_bias="0.973"
      app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress" />
+     app:layout_constraintTop_toBottomOf="@+id/emailAddressEditText" />
 
  <EditText
      android:id="@+id/lastNameEditText"
@@ -165,5 +165,15 @@
      app:layout_constraintEnd_toEndOf="parent"
      app:layout_constraintTop_toTopOf="parent"
      app:layout_constraintVertical_bias="0.499" />
+
+ <Button
+     android:id="@+id/returnToLoginButton"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_marginStart="16dp"
+     android:layout_marginTop="4dp"
+     android:text="Return To Login"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
