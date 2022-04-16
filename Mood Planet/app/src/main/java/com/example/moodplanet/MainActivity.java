@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private TextView register;
@@ -91,18 +92,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     // redirect to quote activity
-                    startActivity(new Intent(MainActivity.this, QuoteActivity.class));
+//                    startActivity(new Intent(MainActivity.this, QuoteActivity.class));
 
                     // Commenting this block because it is used for email verification
-//                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//                    if (user.isEmailVerified()) {
-//                        startActivity(new Intent(MainActivity.this, QuoteActivity.class));
-//                    }
-//                    else {
-//                        user.sendEmailVerification();
-//                        Toast.makeText(MainActivity.this, "Check your email to verify your account!",
-//                                Toast.LENGTH_LONG).show();
-//                    }
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    if (user.isEmailVerified()) {
+                        startActivity(new Intent(MainActivity.this, QuoteActivity.class));
+                    }
+                    else {
+                        user.sendEmailVerification();
+                        Toast.makeText(MainActivity.this, "Check your email to verify your account!",
+                                Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.GONE);
+                    }
 
                 }
                 else {
