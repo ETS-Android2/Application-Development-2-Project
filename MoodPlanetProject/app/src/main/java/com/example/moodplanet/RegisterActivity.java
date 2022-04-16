@@ -65,49 +65,28 @@ public class RegisterActivity extends AppCompatActivity {
                 // Verification if input fields are NOT empty
                 if (!email.isEmpty() && !firstName.isEmpty() && !lastName.isEmpty()
                         && !password.isEmpty() && !confirmPassword.isEmpty()) {
-//                    // to check all the email(unique id) of the user
-//                    databaseReference.child("User").addListenerForSingleValueEvent(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            // if email is already registered
-//                            if (snapshot.getValue()!=null) {
-//                                emailTxt.setError("Email already registered");
-//                                Toast.makeText(getApplicationContext(), "Email already registered", Toast.LENGTH_SHORT).show();
-//                            }
-                            // if email is not yet registered then continue adding user to database
-//                            else {
-                                // check if the input passwords are the same
-                                if (password.equals(confirmPassword)) {
-                                    User user = new User(email, firstName, lastName, password);
-                                    //Push data to database
-                                    databaseReference.child(String.valueOf(maxID + 1)).setValue(user); //use email as the unique id
-                                    Toast.makeText(getApplicationContext(), "User created successfully",
-                                            Toast.LENGTH_SHORT).show();
-                                    clearInputData();
 
-                                } else {
-                                    // Password not matching
-                                    passwordTxt.setError("Re-type password");
-                                    confirmPasswordTxt.setError("Re-type password");
-                                    Toast.makeText(getApplicationContext(), "Password doesn't match",
-                                            Toast.LENGTH_SHORT).show();
-                                }
+                        if (password.equals(confirmPassword)) {
+                            User user = new User(email, firstName, lastName, password);
+                            //Push data to database
+                            databaseReference.child(String.valueOf(maxID + 1)).setValue(user); //use email as the unique id
+                            Toast.makeText(getApplicationContext(), "User created successfully",
+                                    Toast.LENGTH_SHORT).show();
+                            clearInputData();
 
-                            }
-
+                        } else {
+                            // Password not matching
+                            passwordTxt.setError("Re-type password");
+                            confirmPasswordTxt.setError("Re-type password");
+                            Toast.makeText(getApplicationContext(), "Password doesn't match",
+                                    Toast.LENGTH_SHORT).show();
                         }
-//
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError error) {
-//
-//                        }
-//                    });
 
-//                }
+                    }
 
+                }
 
-//            }
-        });
+            });
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
