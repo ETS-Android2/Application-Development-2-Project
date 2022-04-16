@@ -1,4 +1,4 @@
-package com.example.moodplanet;
+package com.example.moodplanet.Model;
 
 /**
  * Created by Chilka Castro on 4/16/2022.

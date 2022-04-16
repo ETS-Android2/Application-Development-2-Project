@@ -13,7 +13,7 @@
             android:name=".QuoteActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterUser"
+            android:name=".RegisterUserActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
