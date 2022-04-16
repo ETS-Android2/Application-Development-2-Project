@@ -17,11 +17,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 
 public class RegisterUser extends AppCompatActivity implements View.OnClickListener {
-    private TextView banner, registerUser;
+    private TextView banner, registerUser, returnToLogin;
     private EditText editTextFirstName, editTextLastName, editTextEmail, editTextPassword;
     private ProgressBar progressBar;
 
@@ -35,6 +36,9 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         mAuth = FirebaseAuth.getInstance();
         banner = (TextView) findViewById(R.id.banner);
         banner.setOnClickListener(this);
+
+        returnToLogin = (TextView) findViewById(R.id.returnToLogin);
+        returnToLogin.setOnClickListener(this);
 
         registerUser = (Button) findViewById(R.id.registerUser);
         registerUser.setOnClickListener(this);
@@ -52,13 +56,13 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         editTextPassword.setOnClickListener(this);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
-
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.banner:
+            case R.id.returnToLogin:
                 startActivity(new Intent(this, MainActivity.class));
                 break;
             case R.id.registerUser:

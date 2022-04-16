@@ -7,7 +7,6 @@ public class User {
     public String firstName, lastName, email;
 
     public User() {
-
     }
 
     public User(String firstName, String lastName, String email) {
@@ -15,6 +14,4 @@ public class User {
         this.lastName = lastName;
         this.email = email;
     }
-
-
 }
