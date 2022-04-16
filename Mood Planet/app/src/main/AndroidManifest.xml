@@ -10,10 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MoodPlanet">
         <activity
-            android:name=".QuoteActivity"
-            android:exported="false" />
-        <activity
-            android:name=".RegisterActivity"
+            android:name=".RegisterUser"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
