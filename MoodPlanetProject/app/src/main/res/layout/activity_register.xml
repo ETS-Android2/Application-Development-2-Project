@@ -10,169 +10,163 @@
      android:id="@+id/signUpTextView"
      android:layout_width="239dp"
      android:layout_height="48dp"
-     android:layout_marginTop="64dp"
+     android:layout_marginTop="12dp"
      android:gravity="center"
      android:text="SIGN UP"
      android:textSize="34sp"
      app:layout_constraintEnd_toEndOf="parent"
      app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintTop_toTopOf="parent" />
+     app:layout_constraintTop_toBottomOf="@+id/returnToLoginButton" />
 
  <EditText
      android:id="@+id/emailAddressEditText"
      android:layout_width="258dp"
      android:layout_height="43dp"
-     android:layout_marginTop="100dp"
-     android:layout_marginEnd="4dp"
+     android:layout_marginStart="48dp"
+     android:layout_marginTop="44dp"
      android:ems="10"
      android:hint="Email"
      android:inputType="textEmailAddress"
      android:textSize="14sp"
-     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintStart_toEndOf="@+id/emailTextView"
      app:layout_constraintTop_toBottomOf="@+id/signUpTextView"
      tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
+ <TextView
+     android:id="@+id/emailTextView"
+     android:layout_width="53dp"
+     android:layout_height="24dp"
+     android:layout_marginStart="48dp"
+     android:layout_marginTop="44dp"
+     android:text="EMAIL:"
+     android:textSize="16sp"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/signUpTextView" />
+
+ <TextView
+     android:id="@+id/confirmPasswordTextView"
+     android:layout_width="111dp"
+     android:layout_height="47dp"
+     android:layout_marginStart="24dp"
+     android:layout_marginTop="40dp"
+     android:gravity="center"
+     android:text="CONFIRM PASSWORD:"
+     android:textSize="16sp"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/passwordTextView" />
+
+ <TextView
+     android:id="@+id/lastNameTextView"
+     android:layout_width="103dp"
+     android:layout_height="24dp"
+     android:layout_marginStart="32dp"
+     android:layout_marginTop="48dp"
+     android:text="LAST NAME:"
+     android:textSize="16sp"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/firstNameTextView" />
+
  <EditText
-     android:id="@+id/passwordEditText"
+     android:id="@+id/firstNameEditText"
      android:layout_width="258dp"
      android:layout_height="48dp"
-     android:layout_marginTop="40dp"
+     android:layout_marginTop="28dp"
      android:layout_marginEnd="4dp"
      android:ems="10"
-     android:hint="Password"
-     android:inputType="textPassword"
-     android:minHeight="48dp"
+     android:hint="First Name"
+     android:inputType="textPersonName"
      android:textSize="14sp"
      app:layout_constraintEnd_toEndOf="parent"
-     app:layout_constraintTop_toBottomOf="@+id/lastNameEditText"
-     tools:ignore="SpeakableTextPresentCheck" />
+     app:layout_constraintTop_toBottomOf="@+id/emailAddressEditText" />
+
+ <TextView
+     android:id="@+id/firstNameTextView"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_marginTop="48dp"
+     android:text="FIRST NAME:"
+     android:textSize="16sp"
+     app:layout_constraintEnd_toStartOf="@+id/firstNameEditText"
+     app:layout_constraintHorizontal_bias="0.592"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/emailTextView" />
+
+ <EditText
+     android:id="@+id/lastNameEditText"
+     android:layout_width="258dp"
+     android:layout_height="48dp"
+     android:layout_marginStart="16dp"
+     android:layout_marginTop="20dp"
+     android:ems="10"
+     android:hint="Last Name"
+     android:inputType="textPersonName"
+     android:textSize="14sp"
+     app:layout_constraintStart_toEndOf="@+id/lastNameTextView"
+     app:layout_constraintTop_toBottomOf="@+id/firstNameEditText" />
+
+ <TextView
+     android:id="@+id/passwordTextView"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_marginStart="36dp"
+     android:layout_marginTop="48dp"
+     android:text="PASSWORD:"
+     android:textSize="16sp"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/lastNameTextView" />
 
  <EditText
      android:id="@+id/confirmPasswordEditText"
      android:layout_width="258dp"
      android:layout_height="48dp"
-     android:layout_marginTop="24dp"
-     android:layout_marginEnd="4dp"
+     android:layout_marginStart="19dp"
+     android:layout_marginTop="20dp"
      android:ems="10"
      android:hint="Confirm Password"
      android:inputType="textPassword"
      android:minHeight="48dp"
      android:textSize="14sp"
      app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintHorizontal_bias="1.0"
+     app:layout_constraintStart_toEndOf="@+id/confirmPasswordTextView"
      app:layout_constraintTop_toBottomOf="@+id/passwordEditText"
      tools:ignore="SpeakableTextPresentCheck" />
 
- <TextView
-     android:id="@+id/firstNameTextView"
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
-     android:layout_marginStart="24dp"
-     android:layout_marginTop="40dp"
-     android:text="FIRST NAME:"
-     android:textSize="16sp"
-     app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintTop_toBottomOf="@+id/emailTextView" />
-
- <TextView
-     android:id="@+id/lastNameTextView"
-     android:layout_width="103dp"
-     android:layout_height="24dp"
-     android:layout_marginStart="16dp"
-     android:layout_marginTop="56dp"
-     android:text="LAST NAME:"
-     android:textSize="16sp"
-     app:layout_constraintEnd_toStartOf="@+id/lastNameEditText"
-     app:layout_constraintHorizontal_bias="0.266"
-     app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintTop_toBottomOf="@+id/firstNameTextView" />
-
- <TextView
-     android:id="@+id/passwordTextView"
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
-     android:layout_marginTop="52dp"
-     android:text="PASSWORD:"
-     android:textSize="16sp"
-     app:layout_constraintEnd_toStartOf="@+id/passwordEditText"
-     app:layout_constraintHorizontal_bias="0.393"
-     app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintTop_toBottomOf="@+id/lastNameTextView" />
-
- <TextView
-     android:id="@+id/confirmPasswordTextView"
-     android:layout_width="111dp"
-     android:layout_height="47dp"
-     android:layout_marginStart="16dp"
-     android:layout_marginTop="44dp"
-     android:gravity="center"
-     android:text="CONFIRM PASSWORD:"
-     android:textSize="16sp"
-     app:layout_constraintEnd_toStartOf="@+id/confirmPasswordEditText"
-     app:layout_constraintHorizontal_bias="0.0"
-     app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintTop_toBottomOf="@+id/passwordTextView" />
-
- <TextView
-     android:id="@+id/emailTextView"
-     android:layout_width="53dp"
-     android:layout_height="24dp"
-     android:layout_marginTop="108dp"
-     android:layout_marginEnd="36dp"
-     android:text="EMAIL:"
-     android:textSize="16sp"
-     app:layout_constraintEnd_toStartOf="@+id/emailAddressEditText"
-     app:layout_constraintHorizontal_bias="0.666"
-     app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintTop_toBottomOf="@+id/signUpTextView" />
+ <EditText
+     android:id="@+id/passwordEditText"
+     android:layout_width="258dp"
+     android:layout_height="48dp"
+     android:layout_marginStart="28dp"
+     android:layout_marginTop="20dp"
+     android:ems="10"
+     android:hint="Password"
+     android:inputType="textPassword"
+     android:minHeight="48dp"
+     android:textSize="14sp"
+     app:layout_constraintStart_toEndOf="@+id/passwordTextView"
+     app:layout_constraintTop_toBottomOf="@+id/lastNameEditText"
+     tools:ignore="SpeakableTextPresentCheck" />
 
  <Button
      android:id="@+id/registerButton"
      android:layout_width="143dp"
      android:layout_height="63dp"
-     android:layout_marginTop="64dp"
      android:text="SIGN UP"
      app:layout_constraintBottom_toBottomOf="parent"
      app:layout_constraintEnd_toEndOf="parent"
-     app:layout_constraintHorizontal_bias="0.473"
+     app:layout_constraintHorizontal_bias="0.503"
      app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintTop_toBottomOf="@+id/confirmPasswordTextView"
-     app:layout_constraintVertical_bias="0.0" />
-
- <EditText
-     android:id="@+id/firstNameEditText"
-     android:layout_width="258dp"
-     android:layout_height="48dp"
-     android:layout_marginTop="16dp"
-     android:ems="10"
-     android:hint="First Name"
-     android:inputType="textPersonName"
-     android:textSize="14sp"
-     app:layout_constraintEnd_toEndOf="parent"
-     app:layout_constraintHorizontal_bias="0.973"
-     app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintTop_toBottomOf="@+id/emailAddressEditText" />
-
- <EditText
-     android:id="@+id/lastNameEditText"
-     android:layout_width="258dp"
-     android:layout_height="48dp"
-     android:layout_marginEnd="4dp"
-     android:ems="10"
-     android:hint="Last Name"
-     android:inputType="textPersonName"
-     android:textSize="14sp"
-     app:layout_constraintBottom_toBottomOf="parent"
-     app:layout_constraintEnd_toEndOf="parent"
-     app:layout_constraintTop_toTopOf="parent"
-     app:layout_constraintVertical_bias="0.499" />
+     app:layout_constraintTop_toBottomOf="@+id/confirmPasswordEditText"
+     app:layout_constraintVertical_bias="0.324" />
 
  <Button
      android:id="@+id/returnToLoginButton"
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
-     android:layout_marginStart="16dp"
-     android:layout_marginTop="4dp"
+     android:layout_marginTop="16dp"
      android:text="Return To Login"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintHorizontal_bias="0.066"
      app:layout_constraintStart_toStartOf="parent"
      app:layout_constraintTop_toTopOf="parent" />
 

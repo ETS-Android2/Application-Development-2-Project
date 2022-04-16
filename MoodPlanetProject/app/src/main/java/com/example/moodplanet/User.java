@@ -14,14 +14,12 @@ public class User {
      * Constructor for the User class
      * @param email the email of the user
      * @param password the password of the user
-     * @param confirmPassword the confirm password of the user
      * @param firstName the first name of the user
      * @param lastName the last name of the user
      */
-    public User(String email, String firstName, String lastName, String password, String confirmPassword) {
+    public User(String email, String firstName, String lastName, String password) {
         this.email = email;
         this.password = password;
-        this.confirmPassword = confirmPassword;
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -40,14 +38,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
     }
 
     public String getFirstName() {

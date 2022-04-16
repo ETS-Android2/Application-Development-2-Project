@@ -22,7 +22,6 @@ public class RegisterActivity extends AppCompatActivity {
     Button returnToLoginBtn, signUpBtn;
     EditText emailTxt, passwordTxt, firstNameTxt, lastNameTxt, confirmPasswordTxt;
     long maxID = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +29,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         // Set Up firebase
         database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference().child("User");
+        databaseReference = database.getReference().child("User");   // User table
 
         // Connect to xml views
         emailTxt = findViewById(R.id.emailAddressEditText);
@@ -41,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
         returnToLoginBtn = findViewById(R.id.returnToLoginButton);
         signUpBtn = findViewById(R.id.registerButton);
 
-        // Do the button functionality
+        // Sign Up button functionality
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,52 +50,70 @@ public class RegisterActivity extends AppCompatActivity {
                 String password = passwordTxt.getText().toString().trim();
                 String confirmPassword = confirmPasswordTxt.getText().toString().trim();
 
-                if (!email.isEmpty() && !firstName.isEmpty() && !lastName.isEmpty() && !password.isEmpty()
-                        && !confirmPassword.isEmpty()) {
-
-                    if (password.equals(confirmPassword)) {
-                        User user = new User(email, firstName, lastName, password, confirmPassword);
-                        //Push data to database
-                        databaseReference.child(String.valueOf(maxID + 1)).setValue(user);
-                        Toast.makeText(getApplicationContext(), "User created successfully", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                else {
-                    if (email.isEmpty() || firstName.isEmpty() || lastName.isEmpty() ||
-                            password.isEmpty() || confirmPassword.isEmpty()) {
-                        emailTxt.setError("Please enter email");
-                        firstNameTxt.setError("Please enter first name");
-                        lastNameTxt.setError("Please enter last name");
-                        passwordTxt.setError("Please enter password");
-                        confirmPasswordTxt.setError("Please enter confirm password");
-                    }
-
-                    if (!password.equals(confirmPassword)) {
-                        passwordTxt.setError("Please enter matching password");
-                        confirmPasswordTxt.setError("Please enter matching password");
-                    }
-
+                // Input field/s empty
+                if (email.isEmpty() || firstName.isEmpty() || lastName.isEmpty() ||
+                        password.isEmpty() || confirmPassword.isEmpty()) {
+                    emailTxt.setError("Please enter email");
+                    firstNameTxt.setError("Please enter first name");
+                    lastNameTxt.setError("Please enter last name");
+                    passwordTxt.setError("Please enter password");
+                    confirmPasswordTxt.setError("Please enter confirm password");
                     Toast.makeText(getApplicationContext(), "Please complete all the " +
                             "fields.", Toast.LENGTH_SHORT).show();
                 }
-            }
+
+                // Verification if input fields are NOT empty
+                if (!email.isEmpty() && !firstName.isEmpty() && !lastName.isEmpty()
+                        && !password.isEmpty() && !confirmPassword.isEmpty()) {
+//                    // to check all the email(unique id) of the user
+//                    databaseReference.child("User").addListenerForSingleValueEvent(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            // if email is already registered
+//                            if (snapshot.getValue()!=null) {
+//                                emailTxt.setError("Email already registered");
+//                                Toast.makeText(getApplicationContext(), "Email already registered", Toast.LENGTH_SHORT).show();
+//                            }
+                            // if email is not yet registered then continue adding user to database
+//                            else {
+                                // check if the input passwords are the same
+                                if (password.equals(confirmPassword)) {
+                                    User user = new User(email, firstName, lastName, password);
+                                    //Push data to database
+                                    databaseReference.child(String.valueOf(maxID + 1)).setValue(user); //use email as the unique id
+                                    Toast.makeText(getApplicationContext(), "User created successfully",
+                                            Toast.LENGTH_SHORT).show();
+                                    clearInputData();
+
+                                } else {
+                                    // Password not matching
+                                    passwordTxt.setError("Re-type password");
+                                    confirmPasswordTxt.setError("Re-type password");
+                                    Toast.makeText(getApplicationContext(), "Password doesn't match",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+
+                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError error) {
+//
+//                        }
+//                    });
+
+//                }
+
+
+//            }
         });
 
-        returnToLoginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        // If the data added increased then update maxID using snapshot
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    maxID = snapshot.getChildrenCount();
+                    maxID = (snapshot).getChildrenCount();
                 }
             }
 
@@ -105,5 +122,28 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
+
+        // Return To Login button functionality
+        returnToLoginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            }
+        });
+
+    }
+
+
+    /**
+     * Clear the input data
+     */
+    public void clearInputData() {
+        // clear the input fields
+        emailTxt.getText().clear();
+        firstNameTxt.getText().clear();
+        lastNameTxt.getText().clear();
+        passwordTxt.getText().clear();
+        confirmPasswordTxt.getText().clear();
+
     }
 }
