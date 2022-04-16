@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +19,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.database.FirebaseDatabase;
 
 
@@ -122,40 +124,55 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
         }
 
         progressBar.setVisibility(View.VISIBLE);
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+        mAuth.fetchSignInMethodsForEmail(email)
+                .addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            User user = new User(firstName, lastName, email);
+                    public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                        boolean isNewUser = task.getResult().getSignInMethods().isEmpty();
+                        if (isNewUser) {
+                            mAuth.createUserWithEmailAndPassword(email, password)
+                                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                            if (task.isSuccessful()) {
+                                                User user = new User(firstName, lastName, email);
 
-                            FirebaseDatabase.getInstance().getReference("Users")
-                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                FirebaseDatabase.getInstance().getReference("Users")
+                                                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                                        .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
 
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(RegisterUserActivity.this,
-                                                "User has been registered successfully", Toast.LENGTH_LONG).show();
-                                        progressBar.setVisibility(View.VISIBLE);
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if (task.isSuccessful()) {
+                                                            Toast.makeText(RegisterUserActivity.this,
+                                                                    "User has been registered successfully", Toast.LENGTH_LONG).show();
+                                                            progressBar.setVisibility(View.VISIBLE);
 
-                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                    }
-                                    else {
-                                        Toast.makeText(RegisterUserActivity.this,
-                                                "Failed to register! Try again!", Toast.LENGTH_LONG).show();
-                                        progressBar.setVisibility(View.GONE);
-                                    }
-                                }
-                            });
-                        }
-                        else {
-                            Toast.makeText(RegisterUserActivity.this,
-                                    "Failed to register! Try again!", Toast.LENGTH_LONG).show();
+                                                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                                        } else {
+                                                            Toast.makeText(RegisterUserActivity.this,
+                                                                    "Failed to register! Try again!", Toast.LENGTH_LONG).show();
+                                                            progressBar.setVisibility(View.GONE);
+                                                        }
+                                                    }
+                                                });
+                                            } else {
+                                                Toast.makeText(RegisterUserActivity.this,
+                                                        "Failed to register! Try again!", Toast.LENGTH_LONG).show();
+                                                progressBar.setVisibility(View.GONE);
+                                            }
+                                        }
+                                    });
+                        } else {
+                            Toast.makeText(RegisterUserActivity.this, " Failed to register! Email exists already!", Toast.LENGTH_LONG).show();
+                            editTextEmail.setError("Email exists already!");
+                            editTextEmail.requestFocus();
                             progressBar.setVisibility(View.GONE);
+                            return;
                         }
                     }
                 });
     }
+
 }
