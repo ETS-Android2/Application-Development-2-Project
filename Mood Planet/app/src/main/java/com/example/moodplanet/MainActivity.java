@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.forgotPassword:
                 startActivity(new Intent(this, ForgotPasswordActivity.class));
+                break;
         }
     }
 
@@ -116,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(MainActivity.this,
                             "Failed to login! Please check your credentials",
                             Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.GONE);
                 }
             }
         });
