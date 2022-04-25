@@ -1,5 +1,6 @@
 package com.example.moodplanet;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,14 +8,17 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link MenuFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MenuFragment extends Fragment {
+public class
+MenuFragment extends Fragment {
 
+    ImageButton addBtn, homeBtn, chartBtn, journalBtn, settingBtn;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -58,7 +62,56 @@ public class MenuFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        View v = inflater.inflate(R.layout.fragment_menu, container, false);
+
+        // get image button view
+        homeBtn = v.findViewById(R.id.homeButton);
+        chartBtn = v.findViewById(R.id.chartButton);
+        addBtn = v.findViewById(R.id.addButton);
+        journalBtn = v.findViewById(R.id.journalButton);
+        settingBtn = v.findViewById(R.id.settingButton);
+
+        homeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity().getBaseContext(), HomeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity().getBaseContext(), AddEntryActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        chartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity().getBaseContext(), ChartActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        settingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity().getBaseContext(), SettingActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        journalBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity().getBaseContext(), JournalActivity.class);
+                startActivity(intent);
+            }
+        });
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_menu, container, false);
+        return v;
     }
 }
