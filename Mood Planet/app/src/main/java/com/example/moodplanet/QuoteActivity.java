@@ -39,7 +39,7 @@ public class QuoteActivity extends AppCompatActivity {
     private FirebaseUser firebaseUser;
     private DatabaseReference databaseReference;
     private String userID;
-    private List<Quotes> quotesList;
+    private  List<Quotes> quotesList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +117,7 @@ public class QuoteActivity extends AppCompatActivity {
                 }
             });
     }
-    private void putDataIntoFragment() {
+    private  void putDataIntoFragment() {
         TextView quotes = (TextView) findViewById(R.id.quoteEditText);
 
         Random rand = new Random(); //instance of random class

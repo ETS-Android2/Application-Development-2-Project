@@ -1,10 +1,8 @@
 package com.example.moodplanet;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -47,14 +45,24 @@ public class AddJournalActivity extends AppCompatActivity {
         databaseReference = firebaseDatabase.getReference("journals");
 
         save.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
                 try {
                     journalContent = content.getText().toString();
                     String currentTime = LocalDateTime.now().toString();
                     journalEntry = new JournalEntry(currentTime, journalContent, MainActivity.userID);
-
+//                    databaseReference.addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                            databaseReference.push().setValue(journalEntry);
+//                            Toast.makeText(AddJournalActivity.this, "inserted", Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError error) {
+//                            Toast.makeText(AddJournalActivity.this, "Fail to add data " + error, Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
 
                     databaseReference.push().setValue(journalEntry)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -76,5 +84,7 @@ public class AddJournalActivity extends AppCompatActivity {
                 }
             }
         });
+
+
     }
 }

@@ -14,18 +14,16 @@ public class MoodEntry {
     private String description;
     private LocalDateTime localDateTime;
     private String userID;
-    private int moodRate;
 
     public MoodEntry() {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public MoodEntry(String chosenMood, String description, String userID, int moodRate) {
+    public MoodEntry(String chosenMood, String description, String userID) {
         this.chosenMood = chosenMood;
         this.description = description;
         this.localDateTime = LocalDateTime.now();
         this.userID = userID;
-        this.moodRate = moodRate;
     }
 
     public String getChosenMood() {
@@ -59,13 +57,5 @@ public class MoodEntry {
 
     public void setUserID(String userID) {
         this.userID = userID;
-    }
-
-    public int getMoodRate() {
-        return moodRate;
-    }
-
-    public void setMoodRate(int moodRate) {
-        this.moodRate = moodRate;
     }
 }
