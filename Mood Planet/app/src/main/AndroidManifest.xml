@@ -13,6 +13,12 @@
         android:theme="@style/Theme.MoodPlanet"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".MoodReportActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SpecificMoodEntryActivity"
+            android:exported="false" />
+        <activity
             android:name=".MoodOfTheDayActivity"
             android:exported="false" />
         <activity
