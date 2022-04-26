@@ -13,6 +13,9 @@
         android:theme="@style/Theme.MoodPlanet"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".MoodOfTheDayActivity"
+            android:exported="false" />
+        <activity
             android:name=".ChartActivity"
             android:exported="false" />
         <activity
