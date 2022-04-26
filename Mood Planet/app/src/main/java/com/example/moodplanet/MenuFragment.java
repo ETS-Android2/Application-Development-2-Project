@@ -112,15 +112,8 @@ MenuFragment extends Fragment {
             }
         });
         // Inflate the layout for this fragment
-<<<<<<< HEAD
-        return v;
-=======
+
         return inflater.inflate(R.layout.fragment_menu, container, false);
-        
 
-
-
-
->>>>>>> 7ebea987adb256516de26890a13a2a905d8706c4
     }
 }

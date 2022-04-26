@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MenuFragment" >
+    tools:context=".MenuFragment">
 
     <ImageButton
         android:id="@+id/addButton"
@@ -14,8 +14,9 @@
         android:layout_marginStart="40dp"
         android:backgroundTint="#f2f2f2"
         android:src="@drawable/add"
+        app:layout_constraintBottom_toBottomOf="@+id/journalButton"
         app:layout_constraintStart_toEndOf="@+id/journalButton"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/journalButton"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
@@ -23,10 +24,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:src="@drawable/settings_24"
         android:backgroundTint="#f2f2f2"
+        android:src="@drawable/settings_24"
+        app:layout_constraintBottom_toBottomOf="@+id/chartButton"
         app:layout_constraintStart_toEndOf="@+id/chartButton"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/chartButton"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
@@ -34,10 +36,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:src="@drawable/chart_24"
         android:backgroundTint="#f2f2f2"
+        android:src="@drawable/chart_24"
+        app:layout_constraintBottom_toBottomOf="@+id/addButton"
         app:layout_constraintStart_toEndOf="@+id/addButton"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/addButton"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
@@ -47,8 +50,9 @@
         android:layout_marginStart="32dp"
         android:backgroundTint="#f2f2f2"
         android:src="@drawable/journal_24"
+        app:layout_constraintBottom_toBottomOf="@+id/homeButton"
         app:layout_constraintStart_toEndOf="@+id/homeButton"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/homeButton"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
@@ -56,9 +60,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:backgroundTint="#f2f2f2"
         android:src="@drawable/home_24"
         app:layout_constraintStart_toStartOf="parent"
-        android:backgroundTint="#f2f2f2"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

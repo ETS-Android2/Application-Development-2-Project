@@ -7,271 +7,174 @@
     android:background="@mipmap/bg"
     tools:context=".AddEntryActivity">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="104dp"
-        android:layout_marginTop="40dp"
-        android:fontFamily="casual"
-        android:text="New Mood Entry"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageButton
+            android:id="@+id/hmmIB"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="28dp"
+            android:backgroundTint="#00FFFFFF"
+            android:scaleType="centerInside"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:srcCompat="@mipmap/hmmm"
+            tools:ignore="SpeakableTextPresentCheck" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-<<<<<<< HEAD
-        android:layout_marginTop="268dp"
-        android:layout_marginEnd="96dp"
-=======
-        android:layout_marginTop="236dp"
-        android:layout_marginEnd="172dp"
->>>>>>> 7ebea987adb256516de26890a13a2a905d8706c4
-        android:fontFamily="casual"
-        android:text="How do"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        <ImageButton
+            android:id="@+id/okIB"
+            android:layout_width="111dp"
+            android:layout_height="92dp"
+            android:layout_marginTop="120dp"
+            android:layout_marginEnd="108dp"
+            android:layout_marginBottom="15dp"
+            android:backgroundTint="#00FFFFFF"
+            android:scaleType="centerInside"
+            app:layout_constraintBottom_toTopOf="@+id/fragmentContainerView6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@mipmap/ok"
+            tools:ignore="SpeakableTextPresentCheck" />
 
-    <ImageButton
-<<<<<<< HEAD
-        android:id="@+id/calmIB"
-        android:layout_width="132dp"
-        android:layout_height="145dp"
-        android:layout_marginTop="148dp"
-        android:layout_marginEnd="260dp"
-        android:backgroundTint="#00FFFFFF"
-        android:scaleType="centerInside"
-=======
-        android:id="@+id/calmImageButton"
-        android:layout_width="114dp"
-        android:layout_height="137dp"
-        android:layout_marginTop="468dp"
-        android:layout_marginEnd="268dp"
-        android:backgroundTint="#00D39465"
-        android:scaleType="centerCrop"
->>>>>>> 7ebea987adb256516de26890a13a2a905d8706c4
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/calm"
-        tools:ignore="SpeakableTextPresentCheck" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="130dp"
+            android:layout_height="72dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="116dp"
+            android:layout_marginEnd="12dp"
+            android:fontFamily="casual"
+            android:gravity="center"
+            android:text="How do you feel today?"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/zzzIB"
+            app:layout_constraintHorizontal_bias="0.416"
+            app:layout_constraintStart_toEndOf="@+id/loveIB"
+            app:layout_constraintTop_toBottomOf="@+id/sadIB" />
 
-    <ImageButton
-<<<<<<< HEAD
-        android:id="@+id/heheIB"
-        android:layout_width="201dp"
-        android:layout_height="194dp"
-        android:layout_marginStart="240dp"
-        android:layout_marginTop="280dp"
-        android:backgroundTint="#00FFFFFF"
-        android:scaleType="centerInside"
-=======
-        android:id="@+id/heheheImageButton"
-        android:layout_width="117dp"
-        android:layout_height="131dp"
-        android:layout_marginStart="296dp"
-        android:layout_marginTop="224dp"
-        android:backgroundTint="#00D50000"
-        android:scaleType="centerCrop"
->>>>>>> 7ebea987adb256516de26890a13a2a905d8706c4
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:srcCompat="@mipmap/hehehe"
-        tools:ignore="SpeakableTextPresentCheck" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="52dp"
+            android:fontFamily="casual"
+            android:text="New Mood Entry"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-<<<<<<< HEAD
-        android:id="@+id/hmmIB"
-        android:layout_width="167dp"
-        android:layout_height="219dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="108dp"
-        android:backgroundTint="#00FFFFFF"
-        android:scaleType="centerInside"
-        app:layout_constraintStart_toStartOf="@+id/heheIB"
-=======
-        android:id="@+id/hmmImageButton"
-        android:layout_width="120dp"
-        android:layout_height="121dp"
-        android:layout_marginStart="280dp"
-        android:layout_marginTop="172dp"
-        android:backgroundTint="#009E2323"
-        android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="parent"
->>>>>>> 7ebea987adb256516de26890a13a2a905d8706c4
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/hmmm"
-        tools:ignore="SpeakableTextPresentCheck" />
+        <ImageButton
+            android:id="@+id/heheIB"
+            android:layout_width="89dp"
+            android:layout_height="101dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="28dp"
+            android:backgroundTint="#00FFFFFF"
+            android:scaleType="centerInside"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/okIB"
+            app:layout_constraintTop_toBottomOf="@+id/zzzIB"
+            app:srcCompat="@mipmap/hehehe"
+            tools:ignore="SpeakableTextPresentCheck" />
 
-    <ImageButton
-<<<<<<< HEAD
-        android:id="@+id/loveIB"
-        android:layout_width="161dp"
-        android:layout_height="178dp"
-        android:layout_marginTop="248dp"
-        android:layout_marginEnd="276dp"
-        android:backgroundTint="#00FFFFFF"
-        android:scaleType="centerInside"
-=======
-        android:id="@+id/loveImageButton"
-        android:layout_width="118dp"
-        android:layout_height="130dp"
-        android:layout_marginTop="164dp"
-        android:layout_marginEnd="268dp"
-        android:backgroundTint="#0067F105"
-        android:scaleType="centerCrop"
->>>>>>> 7ebea987adb256516de26890a13a2a905d8706c4
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/love"
-        tools:ignore="SpeakableTextPresentCheck" />
+        <ImageButton
+            android:id="@+id/zzzIB"
+            android:layout_width="88dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="20dp"
+            android:backgroundTint="#00FFFFFF"
+            android:scaleType="centerInside"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hmmIB"
+            app:srcCompat="@mipmap/zzz"
+            tools:ignore="SpeakableTextPresentCheck" />
 
-    <ImageButton
-<<<<<<< HEAD
-        android:id="@+id/ohnoIB"
-        android:layout_width="181dp"
-        android:layout_height="202dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="192dp"
-        android:backgroundTint="#00FFFFFF"
-        android:scaleType="centerInside"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calmIB"
-=======
-        android:id="@+id/imageButton9"
-        android:layout_width="108dp"
-        android:layout_height="123dp"
-        android:layout_marginStart="208dp"
-        android:layout_marginTop="180dp"
-        android:backgroundTint="#00FB1C1C"
-        android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calmImageButton"
->>>>>>> 7ebea987adb256516de26890a13a2a905d8706c4
-        app:srcCompat="@mipmap/ohno"
-        tools:ignore="SpeakableTextPresentCheck" />
+        <ImageButton
+            android:id="@+id/yayIB"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="132dp"
+            android:layout_marginEnd="37dp"
+            android:backgroundTint="#00FFFFFF"
+            android:scaleType="centerInside"
+            app:layout_constraintEnd_toStartOf="@+id/textView3"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/calmIB"
+            app:srcCompat="@mipmap/yay"
+            tools:ignore="SpeakableTextPresentCheck" />
 
-    <ImageButton
-<<<<<<< HEAD
-        android:id="@+id/okIB"
-        android:layout_width="221dp"
-        android:layout_height="241dp"
-        android:layout_marginTop="460dp"
-        android:layout_marginEnd="4dp"
-        android:backgroundTint="#00FFFFFF"
-        android:scaleType="centerInside"
-=======
-        android:id="@+id/okImageButton"
-        android:layout_width="120dp"
-        android:layout_height="129dp"
-        android:layout_marginTop="516dp"
-        android:layout_marginEnd="132dp"
-        android:backgroundTint="#00B10B0B"
-        android:scaleType="centerCrop"
->>>>>>> 7ebea987adb256516de26890a13a2a905d8706c4
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ok"
-        tools:ignore="SpeakableTextPresentCheck" />
+        <ImageButton
+            android:id="@+id/ohnoIB"
+            android:layout_width="95dp"
+            android:layout_height="124dp"
+            android:layout_marginStart="72dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="11dp"
+            android:backgroundTint="#00FFFFFF"
+            android:scaleType="centerInside"
+            app:layout_constraintEnd_toStartOf="@+id/okIB"
+            app:layout_constraintHorizontal_bias="0.09"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            app:srcCompat="@mipmap/ohno"
+            tools:ignore="SpeakableTextPresentCheck" />
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView6"
-        android:name="com.example.moodplanet.MenuFragment"
-        android:layout_width="408dp"
-        android:layout_height="43dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <ImageButton
+            android:id="@+id/calmIB"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="52dp"
+            android:backgroundTint="#00FFFFFF"
+            android:scaleType="centerInside"
+            app:layout_constraintEnd_toStartOf="@+id/sadIB"
+            app:layout_constraintHorizontal_bias="0.559"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:srcCompat="@mipmap/calm"
+            tools:ignore="SpeakableTextPresentCheck" />
 
-    <ImageButton
-<<<<<<< HEAD
-        android:id="@+id/sadIB"
-        android:layout_width="164dp"
-        android:layout_height="196dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="124dp"
-        android:backgroundTint="#00FFFFFF"
-        android:scaleType="centerInside"
-        app:layout_constraintEnd_toEndOf="parent"
-=======
-        android:id="@+id/sadImageButton"
-        android:layout_width="104dp"
-        android:layout_height="123dp"
-        android:layout_marginStart="296dp"
-        android:layout_marginTop="468dp"
-        android:backgroundTint="#0000BCD4"
-        android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="parent"
->>>>>>> 7ebea987adb256516de26890a13a2a905d8706c4
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/sad"
-        tools:ignore="SpeakableTextPresentCheck" />
+        <ImageButton
+            android:id="@+id/sadIB"
+            android:layout_width="83dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:backgroundTint="#00FFFFFF"
+            android:scaleType="centerInside"
+            app:layout_constraintEnd_toStartOf="@+id/hmmIB"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:srcCompat="@mipmap/sad"
+            tools:ignore="SpeakableTextPresentCheck" />
 
-    <ImageButton
-<<<<<<< HEAD
-        android:id="@+id/yayIB"
-        android:layout_width="202dp"
-        android:layout_height="202dp"
-        android:layout_marginTop="392dp"
-        android:layout_marginEnd="224dp"
-        android:backgroundTint="#00FFFFFF"
-        android:scaleType="centerInside"
-=======
-        android:id="@+id/yayImageButton"
-        android:layout_width="117dp"
-        android:layout_height="141dp"
-        android:layout_marginTop="320dp"
-        android:layout_marginEnd="276dp"
-        android:backgroundTint="#00CDDC39"
-        android:scaleType="centerCrop"
->>>>>>> 7ebea987adb256516de26890a13a2a905d8706c4
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/yay"
-        tools:ignore="SpeakableTextPresentCheck" />
+        <ImageButton
+            android:id="@+id/loveIB"
+            android:layout_width="91dp"
+            android:layout_height="107dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="#00FFFFFF"
+            android:scaleType="centerInside"
+            app:layout_constraintBottom_toTopOf="@+id/yayIB"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/calmIB"
+            app:srcCompat="@mipmap/love"
+            tools:ignore="SpeakableTextPresentCheck" />
 
-    <ImageButton
-<<<<<<< HEAD
-        android:id="@+id/zzzIB"
-        android:layout_width="188dp"
-        android:layout_height="170dp"
-        android:layout_marginStart="252dp"
-        android:layout_marginTop="256dp"
-        android:backgroundTint="#00FFFFFF"
-        android:scaleType="centerInside"
-=======
-        android:id="@+id/zzzImageButton"
-        android:layout_width="123dp"
-        android:layout_height="131dp"
-        android:layout_marginStart="156dp"
-        android:layout_marginTop="124dp"
-        android:backgroundTint="#00CDDC39"
-        android:scaleType="centerCrop"
->>>>>>> 7ebea987adb256516de26890a13a2a905d8706c4
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/zzz"
-        tools:ignore="SpeakableTextPresentCheck" />
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerView6"
+            android:name="com.example.moodplanet.MenuFragment"
+            android:layout_width="408dp"
+            android:layout_height="43dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout="@layout/fragment_menu" />
 
-<<<<<<< HEAD
-=======
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="32dp"
-        android:fontFamily="casual"
-        android:text="you feel today?"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
->>>>>>> 7ebea987adb256516de26890a13a2a905d8706c4
 </androidx.constraintlayout.widget.ConstraintLayout>

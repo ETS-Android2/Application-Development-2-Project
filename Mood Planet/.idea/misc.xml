@@ -3,13 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Project/Application-Development-2-Project/Mood Planet/app/src/main/res/layout/activity_add_entry.xml" value="0.264" />
-        <entry key="..\:/Project/Application-Development-2-Project/Mood Planet/app/src/main/res/layout/activity_home.xml" value="0.16666666666666666" />
-        <entry key="..\:/Project/Application-Development-2-Project/Mood Planet/app/src/main/res/layout/activity_journal.xml" value="0.228125" />
-        <entry key="..\:/Project/Application-Development-2-Project/Mood Planet/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
-        <entry key="..\:/Project/Application-Development-2-Project/Mood Planet/app/src/main/res/layout/activity_quote.xml" value="0.16666666666666666" />
-        <entry key="..\:/Project/Application-Development-2-Project/Mood Planet/app/src/main/res/layout/fragment_menu.xml" value="0.4" />
-        <entry key="..\:/Project/Application-Development-2-Project/Mood Planet/app/src/main/res/layout/fragment_quote.xml" value="0.4" />
         <entry key="..\:/Users/25683/Desktop/Application-Development-2-Project/Mood Planet/app/src/main/res/drawable/add.xml" value="0.2535" />
         <entry key="..\:/Users/25683/Desktop/Application-Development-2-Project/Mood Planet/app/src/main/res/drawable/home_24.xml" value="0.2535" />
         <entry key="..\:/Users/25683/Desktop/Application-Development-2-Project/Mood Planet/app/src/main/res/drawable/settings_24.xml" value="0.2535" />
@@ -23,11 +16,14 @@
         <entry key="..\:/Users/25683/Desktop/Application-Development-2-Project/Mood Planet/app/src/main/res/layout/fragment_quote.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/25683/Desktop/Application-Development-2-Project/Mood Planet/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.255" />
         <entry key="..\:/Users/25683/Desktop/Application-Development-2-Project/Mood Planet/app/src/main/res/mipmap-anydpi-v26/try.xml" value="0.2535" />
+        <entry key="..\:/Users/chilc/Desktop/Application-Development-2/Application-Development-2-Project/Mood Planet/app/src/main/res/layout/activity_add_entry.xml" value="0.264" />
+        <entry key="..\:/Users/chilc/Desktop/Application-Development-2/Application-Development-2-Project/Mood Planet/app/src/main/res/layout/activity_chart.xml" value="0.21197916666666666" />
         <entry key="..\:/Users/chilc/Desktop/Application-Development-2/Application-Development-2-Project/Mood Planet/app/src/main/res/layout/activity_forgot_password.xml" value="0.2" />
         <entry key="..\:/Users/chilc/Desktop/Application-Development-2/Application-Development-2-Project/Mood Planet/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/chilc/Desktop/Application-Development-2/Application-Development-2-Project/Mood Planet/app/src/main/res/layout/activity_quote.xml" value="0.152" />
         <entry key="..\:/Users/chilc/Desktop/Application-Development-2/Application-Development-2-Project/Mood Planet/app/src/main/res/layout/activity_register_user.xml" value="0.264" />
         <entry key="..\:/Users/chilc/Desktop/Application-Development-2/Application-Development-2-Project/Mood Planet/app/src/main/res/layout/activity_reset_password.xml" value="0.275" />
+        <entry key="..\:/Users/chilc/Desktop/Application-Development-2/Application-Development-2-Project/Mood Planet/app/src/main/res/layout/fragment_menu.xml" value="0.275" />
         <entry key="..\:/Users/chilc/Desktop/Application-Development-2/Application-Development-2-Project/Mood Planet/app/src/main/res/layout/fragment_quote.xml" value="0.275" />
         <entry key="..\:/Users/chilc/Desktop/Mood Planet/app/src/main/res/layout/activity_main.xml" value="0.3685185185185185" />
         <entry key="..\:/Users/chilc/Desktop/Mood Planet/app/src/main/res/layout/activity_register_user.xml" value="0.3685185185185185" />
