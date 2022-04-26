@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
         userID = firebaseUser.getUid();
 
+
         // get specific value of this child
         databaseReference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

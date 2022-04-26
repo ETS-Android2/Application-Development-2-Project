@@ -54,18 +54,7 @@ public class AddJournalActivity extends AppCompatActivity {
                     journalContent = content.getText().toString();
                     String currentTime = LocalDateTime.now().toString();
                     journalEntry = new JournalEntry(currentTime, journalContent, MainActivity.userID);
-//                    databaseReference.addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                            databaseReference.push().setValue(journalEntry);
-//                            Toast.makeText(AddJournalActivity.this, "inserted", Toast.LENGTH_SHORT).show();
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError error) {
-//                            Toast.makeText(AddJournalActivity.this, "Fail to add data " + error, Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
+
 
                     databaseReference.push().setValue(journalEntry)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -87,7 +76,5 @@ public class AddJournalActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 }
