@@ -1,6 +1,6 @@
 package com.example.moodplanet;
-import com.example.moodplanet.Model.Quotes;
 
+import com.example.moodplanet.Model.Quotes;
 
 import java.util.List;
 

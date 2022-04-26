@@ -62,7 +62,7 @@ MenuFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_menu, container, false);
 
         // get image button view
@@ -111,9 +111,8 @@ MenuFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        // Inflate the layout for this fragment
 
-        return inflater.inflate(R.layout.fragment_menu, container, false);
+        return v;
 
     }
 }
