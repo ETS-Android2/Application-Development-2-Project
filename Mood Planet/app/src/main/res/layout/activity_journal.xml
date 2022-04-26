@@ -7,7 +7,6 @@
     tools:context=".JournalActivity">
 
     <androidx.fragment.app.FragmentContainerView
-<<<<<<< HEAD
         android:id="@+id/fragmentContainerView4"
         android:name="com.example.moodplanet.MenuFragment"
         android:layout_width="412dp"
@@ -25,7 +24,8 @@
         android:layout_marginEnd="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_add" />
+        app:srcCompat="@android:drawable/ic_menu_add"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="410dp"
@@ -36,15 +36,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.818" />
-=======
-        android:id="@+id/fragmentContainerView8"
-        android:name="com.example.moodplanet.MenuFragment"
-        android:layout_width="408dp"
-        android:layout_height="43dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout="@layout/fragment_menu" />
->>>>>>> 886bb9682ef43f0d554acd4f11bec00950c4ff67
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,17 +13,13 @@
         android:theme="@style/Theme.MoodPlanet"
         android:usesCleartextTraffic="true">
         <activity
-<<<<<<< HEAD
             android:name=".AddJournalActivity"
-=======
-            android:name=".MoodReportActivity"
             android:exported="false" />
         <activity
             android:name=".SpecificMoodEntryActivity"
             android:exported="false" />
         <activity
             android:name=".MoodOfTheDayActivity"
->>>>>>> 886bb9682ef43f0d554acd4f11bec00950c4ff67
             android:exported="false" />
         <activity
             android:name=".ChartActivity"
