@@ -47,7 +47,7 @@
             android:background="#BDC1C6">
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/chosenMoodImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
