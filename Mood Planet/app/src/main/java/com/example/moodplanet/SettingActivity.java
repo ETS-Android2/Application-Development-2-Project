@@ -37,6 +37,7 @@ public class SettingActivity extends AppCompatActivity {
         fname = findViewById(R.id.firstNameTV);
         lname = findViewById(R.id.lastNameTV);
 
+        
         //-------------logout button------------------
         logout = findViewById(R.id.setringLogoutButton);
         logout.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +78,10 @@ public class SettingActivity extends AppCompatActivity {
         });
 
         //        -------------end display the user first name and last name------------------
+
+//        -------------------------------edit-------------------------------
+
+//
 
 
     }
