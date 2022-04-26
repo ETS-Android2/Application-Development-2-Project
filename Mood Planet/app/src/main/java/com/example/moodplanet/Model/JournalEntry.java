@@ -1,39 +1,43 @@
 package com.example.moodplanet.Model;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 
 /**
  * Created by Chilka Castro on 4/25/2022.
  */
 public class JournalEntry {
-    private LocalDateTime localDateTime;
-    private String description;
+//    private LocalDateTime localDateTime;
+//    private Timestamp timestamp;
+    private String localDateTime;
+    private String content;
     private String userID;
 
     public JournalEntry() {
     }
 
-    public JournalEntry(String description, String userID) {
+    public JournalEntry(String localDateTime, String content, String userID) {
         this.localDateTime = localDateTime;
-        this.description = description;
+        this.content = content;
         this.userID = userID;
     }
 
-    // need to format this to have pretty date and time
-    public LocalDateTime getLocalDateTime() {
+    public String getLocalDateTime() {
         return localDateTime;
     }
 
-    public void setLocalDateTime(LocalDateTime localDateTime) {
+    public void setLocalDateTime(String localDateTime) {
         this.localDateTime = localDateTime;
     }
 
-    public String getDescription() {
-        return description;
+    public String getContent() {
+        return content;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getUserID() {
@@ -43,4 +47,20 @@ public class JournalEntry {
     public void setUserID(String userID) {
         this.userID = userID;
     }
+
+    // get day of week and date
+//    public String getDate() {
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, MMM d, ''yy");
+//        return simpleDateFormat.format(localDateTime);
+//    }
+//
+//    public LocalDateTime getLocalDateTime() {
+//        return localDateTime;
+//    }
+//
+//    public void setLocalDateTime(LocalDateTime localDateTime) {
+//        this.localDateTime = localDateTime;
+//    }
+
+
 }

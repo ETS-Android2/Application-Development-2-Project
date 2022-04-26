@@ -137,8 +137,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
         userID = firebaseUser.getUid();
 
-//        final TextView greetingTextView = (TextView) findViewById(R.id.userGreetingTextView);
-
         // get specific value of this child
         databaseReference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -147,7 +145,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 if (user != null) {
                     userName = user.firstName;
-//                    greetingTextView.setText("Welcome, " + firstName + "!");
                 }
             }
 

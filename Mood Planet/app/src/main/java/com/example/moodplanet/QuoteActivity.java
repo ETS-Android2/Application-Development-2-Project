@@ -24,8 +24,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.core.Tag;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -51,20 +49,11 @@ public class QuoteActivity extends AppCompatActivity {
 
         logout = (Button) findViewById(R.id.logoutButton);
 
-//        Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                getQuotes();
-//            }
-//        }, 1000);
-
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(QuoteActivity.this, MainActivity.class));
-
             }
         });
 
