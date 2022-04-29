@@ -96,13 +96,13 @@ MenuFragment extends Fragment {
             }
         });
 
-        settingBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity().getBaseContext(), SettingActivity.class);
-                startActivity(intent);
-            }
-        });
+//        settingBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getActivity().getBaseContext(), SettingActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         journalBtn.setOnClickListener(new View.OnClickListener() {
             @Override
