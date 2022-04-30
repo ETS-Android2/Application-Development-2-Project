@@ -4,28 +4,46 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Created by Chilka Castro on 4/25/2022.
  */
 public class JournalEntry {
-//    private LocalDateTime localDateTime;
-//    private Timestamp timestamp;
     private String localDateTime;
+    private String dayOfWeek;
     private String content;
     private String userID;
+    private String key;
 
     public JournalEntry() {
     }
 
-    public JournalEntry(String localDateTime, String content, String userID) {
+    public JournalEntry(String localDateTime, String dayOfWeek, String content, String userID) {
         this.localDateTime = localDateTime;
+        this.dayOfWeek = dayOfWeek;
         this.content = content;
         this.userID = userID;
     }
 
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
     public String getLocalDateTime() {
         return localDateTime;
+    }
+
+    public String getDayOfWeek() {
+        return dayOfWeek;
+    }
+
+    public void setDayOfWeek(String dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
     }
 
     public void setLocalDateTime(String localDateTime) {

@@ -58,6 +58,9 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.2.1"
     implementation "androidx.recyclerview:recyclerview-selection:1.1.0"
     implementation 'com.github.bumptech.glide:glide:4.13.0'
+    // swipe to delete
     // add this in order to use localdatetime
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+
+
 }

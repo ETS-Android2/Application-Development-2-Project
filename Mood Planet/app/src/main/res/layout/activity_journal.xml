@@ -27,6 +27,7 @@
         app:srcCompat="@android:drawable/ic_menu_add" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/journalRecyclerView"
         android:layout_width="410dp"
         android:layout_height="575dp"
         app:layout_constraintBottom_toTopOf="@+id/fragmentContainerView4"

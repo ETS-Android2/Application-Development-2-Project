@@ -12,18 +12,27 @@ import java.time.LocalDateTime;
 public class MoodEntry {
     private String chosenMood;
     private String description;
-    private LocalDateTime localDateTime;
+    private String localDateTime;
     private String userID;
+    // to get key of mood entry
+    String key;
 
     public MoodEntry() {
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public MoodEntry(String chosenMood, String description, String userID) {
+    public MoodEntry(String chosenMood, String description, String userID, String localDateTime) {
         this.chosenMood = chosenMood;
         this.description = description;
-        this.localDateTime = LocalDateTime.now();
+        this.localDateTime = localDateTime;
         this.userID = userID;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getChosenMood() {
@@ -43,11 +52,11 @@ public class MoodEntry {
     }
 
     // need to format this to have pretty date and time
-    public LocalDateTime getLocalDateTime() {
+    public String getLocalDateTime() {
         return localDateTime;
     }
 
-    public void setLocalDateTime(LocalDateTime localDateTime) {
+    public void setLocalDateTime(String localDateTime) {
         this.localDateTime = localDateTime;
     }
 

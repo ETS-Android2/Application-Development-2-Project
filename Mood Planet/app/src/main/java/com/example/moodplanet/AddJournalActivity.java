@@ -3,7 +3,9 @@ package com.example.moodplanet;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,13 +14,16 @@ import android.widget.Toast;
 import com.example.moodplanet.Model.JournalEntry;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Date;
 
 public class AddJournalActivity extends AppCompatActivity {
@@ -38,8 +43,8 @@ public class AddJournalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_journal);
 
-        content = findViewById(R.id.contentEdittv);
-        save = findViewById(R.id.saveJournalBtn);
+        content = findViewById(R.id.editJournalEditTv);
+        save = findViewById(R.id.cancelEditJournalBtn);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("journals");
@@ -49,8 +54,18 @@ public class AddJournalActivity extends AppCompatActivity {
             public void onClick(View view) {
                 try {
                     journalContent = content.getText().toString();
-                    String currentTime = LocalDateTime.now().toString();
-                    journalEntry = new JournalEntry(currentTime, journalContent, MainActivity.userID);
+                    if (journalContent.length() == 0) {
+                        content.setError("You forgot to write something...");
+                        content.requestFocus();
+                        return;
+                    }
+
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss a");
+                    String dayOfWeek = new SimpleDateFormat("EEEE").format(new Date());
+
+
+                    String currentTime = LocalDateTime.now().format(formatter);
+                    journalEntry = new JournalEntry(currentTime, dayOfWeek, journalContent, MainActivity.userID);
 //                    databaseReference.addValueEventListener(new ValueEventListener() {
 //                        @Override
 //                        public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -79,6 +94,12 @@ public class AddJournalActivity extends AppCompatActivity {
                             });
 
                     content.setText("");
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            finish();
+                        }
+                    }, 1000);
                 } catch (Exception e) {
                     Toast.makeText(AddJournalActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
