@@ -129,6 +129,7 @@ public class JournalActivity extends AppCompatActivity implements JournalRecycle
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:
+                                recyclerViewAdapter.notifyDataSetChanged();
                                 dialog.cancel();
                                 break;
                         }
@@ -138,23 +139,6 @@ public class JournalActivity extends AppCompatActivity implements JournalRecycle
                 AlertDialog.Builder builder = new AlertDialog.Builder(JournalActivity.this);
                 builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
                         .setNegativeButton("No", dialogClickListener).show();
-
-//                firebaseDatabase = FirebaseDatabase.getInstance();
-//                databaseReference = firebaseDatabase.getReference("journals");
-//                String key = journalEntry.getKey();
-//                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                        databaseReference.child(key).removeValue();
-//                        journalEntryList.remove(position);
-//                        recyclerViewAdapter.notifyDataSetChanged();
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//                        Log.e("remove error", "onCancelled", error.toException());
-//                    }
-//                });
             }
         };
 
