@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -21,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.core.Tag;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +36,7 @@ public class JournalActivity extends AppCompatActivity implements JournalRecycle
     ImageButton add;
     JournalRecyclerViewAdapter recyclerViewAdapter;
     DatabaseReference databaseReference;
+    FirebaseDatabase firebaseDatabase;
     RecyclerView recyclerView;
     List<JournalEntry> journalEntryList;
     String key;
@@ -54,32 +57,12 @@ public class JournalActivity extends AppCompatActivity implements JournalRecycle
         recyclerViewAdapter = new JournalRecyclerViewAdapter(this, journalEntryList, this);
         recyclerView.setAdapter(recyclerViewAdapter);
 
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT|  ItemTouchHelper.LEFT ) {
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                return false;
-            }
 
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                int position = viewHolder.getLayoutPosition();
-//                Student std = studentList.get(position);
-//                String id = std.getId();
-//                myDb.deleteData(id);
-//                studentList.remove(position);
-//                adapter.notifyDataSetChanged();
-                journalEntryList.get(position);
-
-
-            }
-        };
-
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallback);
-        itemTouchHelper.attachToRecyclerView(recyclerView);
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // clear the previous list whenever the view is called again
                 journalEntryList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     JournalEntry journalEntry = dataSnapshot.getValue(JournalEntry.class);
@@ -107,6 +90,41 @@ public class JournalActivity extends AppCompatActivity implements JournalRecycle
             }
         });
 
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT|  ItemTouchHelper.LEFT ) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                int position = viewHolder.getLayoutPosition();
+                JournalEntry journalEntry = journalEntryList.get(position);
+
+
+                journalEntryList.remove(position);
+                recyclerViewAdapter.notifyDataSetChanged();
+
+                firebaseDatabase = FirebaseDatabase.getInstance();
+                databaseReference = firebaseDatabase.getReference("journals");
+                String key = journalEntry.getKey();
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                            databaseReference.getRef().removeValue();
+                        databaseReference.child(key).removeValue();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.e("remove error", "onCancelled", error.toException());
+                    }
+                });
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
     @Override

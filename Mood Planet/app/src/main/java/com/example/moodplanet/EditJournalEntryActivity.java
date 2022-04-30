@@ -54,17 +54,16 @@ public class EditJournalEntryActivity extends AppCompatActivity {
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("journals");
-        Query query = databaseReference.orderByKey().equalTo(key);
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                query.addValueEventListener(new ValueEventListener() {
+                databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         String journalContent = editContentEditTv.getText().toString();
                         journalEntry = new JournalEntry(time, dayOfWeek, journalContent, MainActivity.userID);
+                        databaseReference.child(key).setValue(journalEntry);
 
-                        databaseReference.push().setValue(journalEntry);
                         finish();
                     }
 
