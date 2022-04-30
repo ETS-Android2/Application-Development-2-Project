@@ -60,12 +60,14 @@ public class JournalActivity extends AppCompatActivity implements JournalRecycle
         recyclerViewAdapter = new JournalRecyclerViewAdapter(this, journalEntryList, this);
         recyclerView.setAdapter(recyclerViewAdapter);
 
-
-
+        /**
+         * this will fetch all the data from firebase
+         */
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                // clear the previous list whenever the view is called again
+                // clear the previous list whenever the view is being called again
+                // avoid add-up from previous list
                 journalEntryList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     JournalEntry journalEntry = dataSnapshot.getValue(JournalEntry.class);
@@ -85,6 +87,9 @@ public class JournalActivity extends AppCompatActivity implements JournalRecycle
             }
         });
 
+        /**
+         * add journal button
+         */
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,6 +98,10 @@ public class JournalActivity extends AppCompatActivity implements JournalRecycle
             }
         });
 
+        /**
+         * itemTouchHelper is for swiping either left or right to delete (u can set it in the param)
+         * when the user swipe either left or right, there will be a dialog appears asking are you sure
+         */
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT|  ItemTouchHelper.LEFT ) {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
@@ -108,6 +117,9 @@ public class JournalActivity extends AppCompatActivity implements JournalRecycle
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which){
+                            /**
+                             * if yes, implement the code to delete the specific data here
+                             */
                             case DialogInterface.BUTTON_POSITIVE:
 
                                 firebaseDatabase = FirebaseDatabase.getInstance();
@@ -128,6 +140,10 @@ public class JournalActivity extends AppCompatActivity implements JournalRecycle
                                 });
                                 break;
 
+                            /**
+                             * if no, first, notify the recyclerview again to fetch the data again
+                             * cuz after user swipe, the row will disappear even when user clicks no
+                             */
                             case DialogInterface.BUTTON_NEGATIVE:
                                 recyclerViewAdapter.notifyDataSetChanged();
                                 dialog.cancel();
@@ -136,16 +152,23 @@ public class JournalActivity extends AppCompatActivity implements JournalRecycle
                     }
                 };
 
+                // build the dialog
                 AlertDialog.Builder builder = new AlertDialog.Builder(JournalActivity.this);
                 builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
                         .setNegativeButton("No", dialogClickListener).show();
             }
         };
 
+        // link the itemtouchelper to the recycler view
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
+    /**
+     * implements this method here
+     * sending all the needed data to edit journal view
+     * @param position
+     */
     @Override
     public void onJournalClick(int position) {
         journalEntryList.get(position);

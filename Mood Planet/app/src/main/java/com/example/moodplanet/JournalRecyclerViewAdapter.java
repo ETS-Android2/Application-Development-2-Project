@@ -71,6 +71,9 @@ public class JournalRecyclerViewAdapter extends RecyclerView.Adapter<JournalRecy
         }
     }
 
+    /**
+     * interface to get the item's position
+     */
     public interface OnJournalListener {
         void onJournalClick(int position);
     }

@@ -63,10 +63,8 @@ public class AddJournalActivity extends AppCompatActivity {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss a");
                     String dayOfWeek = new SimpleDateFormat("EEEE").format(new Date());
 
-
                     String currentTime = LocalDateTime.now().format(formatter);
                     journalEntry = new JournalEntry(currentTime, dayOfWeek, journalContent, MainActivity.userID);
-
 
                     databaseReference.push().setValue(journalEntry)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -82,13 +80,17 @@ public class AddJournalActivity extends AppCompatActivity {
                                 }
                             });
 
-                    content.setText("");
+                    /**
+                     * to delay the view 500 mili before it jumps back to journal main view
+                     */
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             finish();
                         }
-                    }, 1000);
+                    }, 500);
+
+                    content.setText("");
                 } catch (Exception e) {
                     Toast.makeText(AddJournalActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
