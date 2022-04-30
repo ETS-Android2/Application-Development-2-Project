@@ -1,11 +1,13 @@
 package com.example.moodplanet;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -102,25 +104,57 @@ public class JournalActivity extends AppCompatActivity implements JournalRecycle
                 int position = viewHolder.getLayoutPosition();
                 JournalEntry journalEntry = journalEntryList.get(position);
 
-
-                journalEntryList.remove(position);
-                recyclerViewAdapter.notifyDataSetChanged();
-
-                firebaseDatabase = FirebaseDatabase.getInstance();
-                databaseReference = firebaseDatabase.getReference("journals");
-                String key = journalEntry.getKey();
-                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                            databaseReference.getRef().removeValue();
-                        databaseReference.child(key).removeValue();
-                    }
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Log.e("remove error", "onCancelled", error.toException());
+                                firebaseDatabase = FirebaseDatabase.getInstance();
+                                databaseReference = firebaseDatabase.getReference("journals");
+                                String key = journalEntry.getKey();
+                                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        databaseReference.child(key).removeValue();
+                                        journalEntryList.remove(position);
+                                        recyclerViewAdapter.notifyDataSetChanged();
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                        Log.e("remove error", "onCancelled", error.toException());
+                                    }
+                                });
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                dialog.cancel();
+                                break;
+                        }
                     }
-                });
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(JournalActivity.this);
+                builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
+
+//                firebaseDatabase = FirebaseDatabase.getInstance();
+//                databaseReference = firebaseDatabase.getReference("journals");
+//                String key = journalEntry.getKey();
+//                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        databaseReference.child(key).removeValue();
+//                        journalEntryList.remove(position);
+//                        recyclerViewAdapter.notifyDataSetChanged();
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//                        Log.e("remove error", "onCancelled", error.toException());
+//                    }
+//                });
             }
         };
 
