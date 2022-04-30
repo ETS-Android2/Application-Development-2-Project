@@ -36,7 +36,6 @@
         android:layout_width="410dp"
         android:layout_height="141dp"
         android:layout_marginTop="12dp"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,9 +43,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="138dp"
-            android:background="#BDC1C6">
-
+            android:layout_height="match_parent">
             <ImageView
                 android:id="@+id/chosenMoodImage"
                 android:layout_width="105dp"
@@ -69,9 +66,9 @@
                 android:textSize="35sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
 
     <SeekBar
         android:id="@+id/moodSeekBar"
