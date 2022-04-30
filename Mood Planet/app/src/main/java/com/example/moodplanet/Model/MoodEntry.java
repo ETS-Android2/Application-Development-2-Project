@@ -12,27 +12,33 @@ import java.time.LocalDateTime;
 public class MoodEntry {
     private String chosenMood;
     private String description;
+    private String dayOfWeek;
     private String localDateTime;
     private String userID;
+    private int moodRate;
     // to get key of mood entry
-    String key;
+    private String key;
 
     public MoodEntry() {
     }
 
-    public MoodEntry(String chosenMood, String description, String userID, String localDateTime) {
+    public MoodEntry(String key, String chosenMood, String description, String userID, int moodRate, String localDateTime, String dayOfWeek) {
         this.chosenMood = chosenMood;
+        this.dayOfWeek = dayOfWeek;
         this.description = description;
         this.localDateTime = localDateTime;
+        this.moodRate = moodRate;
         this.userID = userID;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
         this.key = key;
+
+    }
+
+    public int getMoodRate() {
+        return moodRate;
+    }
+
+    public void setMoodRate(int moodRate) {
+        this.moodRate = moodRate;
     }
 
     public String getChosenMood() {
@@ -51,7 +57,14 @@ public class MoodEntry {
         this.description = description;
     }
 
-    // need to format this to have pretty date and time
+    public String getDayOfWeek() {
+        return dayOfWeek;
+    }
+
+    public void setDayOfWeek(String dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
+    }
+
     public String getLocalDateTime() {
         return localDateTime;
     }
@@ -66,5 +79,13 @@ public class MoodEntry {
 
     public void setUserID(String userID) {
         this.userID = userID;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }

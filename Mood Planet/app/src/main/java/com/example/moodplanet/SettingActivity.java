@@ -27,6 +27,7 @@ public class SettingActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private String userID;
     private TextView fname, lname;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +37,14 @@ public class SettingActivity extends AppCompatActivity {
         edit = findViewById(R.id.editAccountBtn);
         fname = findViewById(R.id.firstNameTV);
         lname = findViewById(R.id.lastNameTV);
-
+        mAuth = FirebaseAuth.getInstance();
 
         //-------------logout button------------------
         logout = findViewById(R.id.setringLogoutButton);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
+                mAuth.signOut();
                 startActivity(new Intent(SettingActivity.this, MainActivity.class));
             }
         });

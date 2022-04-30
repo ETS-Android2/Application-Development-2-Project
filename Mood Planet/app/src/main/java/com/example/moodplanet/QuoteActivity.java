@@ -40,19 +40,20 @@ public class QuoteActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private String userID;
     private  List<Quotes> quotesList;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quote);
         quotesList = new ArrayList<>();
-
+        mAuth = FirebaseAuth.getInstance();
         logout = (Button) findViewById(R.id.logoutButton);
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
+                mAuth.signOut();
                 startActivity(new Intent(QuoteActivity.this, MainActivity.class));
             }
         });

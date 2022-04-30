@@ -13,13 +13,14 @@
         android:theme="@style/Theme.MoodPlanet"
         android:usesCleartextTraffic="true">
         <activity
-
+            android:name=".MoodRecyclerViewAdapter"
+            android:exported="false" />
+        <activity
             android:name=".EditJournalEntryActivity"
             android:exported="false" />
         <activity
             android:name=".SpecificMoodEntryActivitiy"
-            android:exported="false"
-            />
+            android:exported="false" />
         <activity
             android:name=".MoodOfTheDayActivity"
             android:exported="false" />
