@@ -47,7 +47,8 @@ public class JournalActivity extends AppCompatActivity implements JournalRecycle
 
         recyclerView = findViewById(R.id.journalRecyclerView);
         databaseReference = FirebaseDatabase.getInstance().getReference("journals");
-        Query query = databaseReference.orderByChild("userID").equalTo(MainActivity.userID);
+
+        Query query = databaseReference.orderByChild("userID").equalTo(FirebaseAuth.getInstance().getUid());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         journalEntryList = new ArrayList<>();

@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/moodOfTheDayLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/bg"
@@ -60,12 +61,12 @@
 
             <TextView
                 android:id="@+id/dateTextView"
-                android:layout_width="200dp"
-                android:layout_height="25dp"
+                android:layout_width="266dp"
+                android:layout_height="88dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="16dp"
                 android:hint="Date and Time"
-                android:textSize="16sp"
+                android:textSize="35sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -80,7 +81,7 @@
         android:indeterminate="false"
         android:max="5"
         android:padding="6dp"
-        android:progress="1"
+        android:progress="0"
         android:progressDrawable="@drawable/seekbar_background"
         android:thumb="@drawable/thumb"
         app:layout_constraintEnd_toEndOf="parent"
@@ -94,6 +95,7 @@
         android:layout_height="200dp"
         android:layout_marginTop="8dp"
         android:background="@android:color/transparent"
+        android:backgroundTint="#DFD9D9"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
