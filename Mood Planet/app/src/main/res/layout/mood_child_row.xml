@@ -23,15 +23,15 @@
 
             <TextView
                 android:id="@+id/dateTimeTextView"
-                android:layout_width="200dp"
-                android:layout_height="40dp"
+                android:layout_width="181dp"
+                android:layout_height="57dp"
                 android:layout_marginStart="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/moodImageView"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.065" />
+                app:layout_constraintVertical_bias="0.062" />
 
             <ImageView
                 android:id="@+id/moodImageView"
@@ -46,8 +46,8 @@
 
             <TextView
                 android:id="@+id/descriptionTV"
-                android:layout_width="234dp"
-                android:layout_height="77dp"
+                android:layout_width="244dp"
+                android:layout_height="68dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"

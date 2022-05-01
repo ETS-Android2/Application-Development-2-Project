@@ -4,12 +4,13 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * Created by Chilka Castro on 4/25/2022.
  */
-public class MoodEntry {
+public class MoodEntry implements Serializable {
     private String chosenMood;
     private String description;
     private String dayOfWeek;

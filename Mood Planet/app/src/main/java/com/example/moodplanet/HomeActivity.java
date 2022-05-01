@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.moodplanet.Model.MoodEntry;
@@ -16,10 +17,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity implements MoodRecyclerViewAdapter.MoodEntriesOnClickListener {
+public class HomeActivity extends AppCompatActivity implements MoodRecyclerViewAdapter.MoodEntriesOnClickListener, Serializable {
     RecyclerView moodRecyclerView;
     DatabaseReference databaseReference;
     MoodRecyclerViewAdapter moodRecyclerViewAdapter;
@@ -60,7 +62,10 @@ public class HomeActivity extends AppCompatActivity implements MoodRecyclerViewA
 
     @Override
     public void onMoodEntryClick(int position) {
-        moodEntries.get(position);
-//        Intent intent = new Intenet(this, )
+        MoodEntry moodEntry = moodEntries.get(position);
+        Intent intent = new Intent(HomeActivity.this,
+                SpecificMoodEntryActivity.class);
+        intent.putExtra("entry", moodEntry);
+        startActivity(intent);
     }
 }
