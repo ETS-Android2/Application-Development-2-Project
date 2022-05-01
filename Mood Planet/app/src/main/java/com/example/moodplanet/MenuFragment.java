@@ -91,7 +91,7 @@ MenuFragment extends Fragment {
         chartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity().getBaseContext(), ChartActivity.class);
+                Intent intent = new Intent(getActivity().getBaseContext(), ChartMainActivity.class);
                 startActivity(intent);
             }
         });
