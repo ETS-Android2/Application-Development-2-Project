@@ -36,11 +36,12 @@ public class HomeActivity extends AppCompatActivity {
         moodRecyclerViewAdapter = new MoodRecyclerViewAdapter(this, moodEntries);
         moodRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         Query query = databaseReference.orderByChild("userID").equalTo(FirebaseAuth.getInstance().getUid());
+        moodRecyclerView.setAdapter(moodRecyclerViewAdapter);
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                moodEntries.clear();
+                moodEntries.clear();
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     MoodEntry moodEntry = dataSnapshot.getValue(MoodEntry.class);

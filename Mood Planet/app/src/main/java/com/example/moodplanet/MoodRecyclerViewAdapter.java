@@ -35,53 +35,39 @@ public class MoodRecyclerViewAdapter extends RecyclerView.Adapter<MoodRecyclerVi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.date.setText(moodEntryList.get(position).getLocalDateTime());
-        holder.description.setText(moodEntryList.get(position).getDescription());
+        holder.date.setText(moodEntryList.get(position).getLocalDateTime().toString());
+        holder.description.setText(moodEntryList.get(position).getDescription().toString());
         String mood = moodEntryList.get(position).getChosenMood();
 
-        switch (mood) {
-            case "sad" :
-                holder.moodImage.setImageDrawable(context.getResources().
-                        getDrawable(R.drawable.sad));
-                break;
+         if (mood.equalsIgnoreCase("sad"))
+            holder.moodImage.setImageDrawable(context.getResources().getDrawable(R.drawable.sad));
 
-            case "happy":
-                holder.moodImage.setImageDrawable(context.getResources().getDrawable(R.drawable.hehe));
-                break;
+         if (mood.equalsIgnoreCase("happy"))
+            holder.moodImage.setImageDrawable(context.getResources().getDrawable(R.drawable.hehe));
 
-            case "sleepy":
-                holder.moodImage.setImageDrawable(context.getResources().getDrawable(R.drawable.zzz));
-                break;
+        if (mood.equalsIgnoreCase("sleepy"))
+            holder.moodImage.setImageDrawable(context.getResources().getDrawable(R.drawable.zzz));
 
-            case "calm":
-                holder.moodImage.setImageDrawable(context.getResources().getDrawable(R.drawable.calm));
-                break;
+        if (mood.equalsIgnoreCase("calm"))
+            holder.moodImage.setImageDrawable(context.getResources().getDrawable(R.drawable.calm));
 
-            case "scared":
-                holder.moodImage.setImageDrawable(context.getResources().getDrawable(R.drawable.ohno));
-                break;
+        if (mood.equalsIgnoreCase("scared"))
+            holder.moodImage.setImageDrawable(context.getResources().getDrawable(R.drawable.ohno));
 
-            case "inlove":
-                holder.moodImage.setImageDrawable(context.getResources().getDrawable(R.drawable.love));
-                break;
+        if (mood.equalsIgnoreCase("inlove"))
+            holder.moodImage.setImageDrawable(context.getResources().getDrawable(R.drawable.love));
 
-            case "cheerful":
-                holder.moodImage.setImageDrawable(context.getResources().getDrawable(R.drawable.yay));
-                break;
+        if (mood.equalsIgnoreCase("cheerful"))
+            holder.moodImage.setImageDrawable(context.getResources().getDrawable(R.drawable.yay));
 
-            case "optimistic":
-                holder.moodImage.setImageDrawable(context.getResources().getDrawable(R.drawable.ok));
-                break;
+        if (mood.equalsIgnoreCase("optimistic"))
+            holder.moodImage.setImageDrawable(context.getResources().getDrawable(R.drawable.ok));
 
-            case "pensive":
-                holder.moodImage.setImageDrawable(context.getResources().getDrawable(R.drawable.hmm));
-                break;
+        if (mood.equalsIgnoreCase("pensive"))
+            holder.moodImage.setImageDrawable(context.getResources().getDrawable(R.drawable.hmm));
 
-            default :
-                holder.moodImage.setImageDrawable(context.getResources().getDrawable(R.drawable.angry));
-                break;
-        }
-
+        if (mood.equalsIgnoreCase("angry"))
+            holder.moodImage.setImageDrawable(context.getResources().getDrawable(R.drawable.angry));
     }
 
     @Override
