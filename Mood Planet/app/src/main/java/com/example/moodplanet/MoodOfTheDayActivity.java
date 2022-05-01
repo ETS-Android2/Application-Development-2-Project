@@ -66,13 +66,13 @@ public class MoodOfTheDayActivity extends AppCompatActivity {
         uid = firebaseCurrentUser.getUid(); // gets user UID
 
         // connect to xml views
-        moodImage = findViewById(R.id.chosenMoodImage);
+        moodImage = findViewById(R.id.mood_image_view);
         chosenMood = getIntent().getStringExtra("mood");
         moodRateSeekBar = findViewById(R.id.moodSeekBar);
-        moodRateTextView = findViewById(R.id.moodRateTextView);
+        moodRateTextView = findViewById(R.id.desciption_text_view);
         addButton = findViewById(R.id.saveButton);
         moodDescription = findViewById(R.id.descriptionEditText);
-        dateTimeTextView = findViewById(R.id.dateTextView);
+        dateTimeTextView = findViewById(R.id.date_time_textview);
 
         // Date & Time and Day of the Week
         formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss a");

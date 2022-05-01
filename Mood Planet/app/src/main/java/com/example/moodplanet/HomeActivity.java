@@ -19,7 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements MoodRecyclerViewAdapter.MoodEntriesOnClickListener {
     RecyclerView moodRecyclerView;
     DatabaseReference databaseReference;
     MoodRecyclerViewAdapter moodRecyclerViewAdapter;
@@ -33,7 +33,7 @@ public class HomeActivity extends AppCompatActivity {
         moodEntries = new ArrayList<>();
         moodRecyclerView = findViewById(R.id.moodRecyclerView);
         databaseReference = FirebaseDatabase.getInstance().getReference("Mood_Entries");
-        moodRecyclerViewAdapter = new MoodRecyclerViewAdapter(this, moodEntries);
+        moodRecyclerViewAdapter = new MoodRecyclerViewAdapter(this, moodEntries, this);
         moodRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         Query query = databaseReference.orderByChild("userID").equalTo(FirebaseAuth.getInstance().getUid());
         moodRecyclerView.setAdapter(moodRecyclerViewAdapter);
@@ -56,5 +56,11 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onMoodEntryClick(int position) {
+        moodEntries.get(position);
+//        Intent intent = new Intenet(this, )
     }
 }

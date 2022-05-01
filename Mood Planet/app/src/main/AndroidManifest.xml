@@ -19,7 +19,7 @@
             android:name=".EditJournalEntryActivity"
             android:exported="false" />
         <activity
-            android:name=".SpecificMoodEntryActivitiy"
+            android:name=".SpecificMoodEntryActivity"
             android:exported="false" />
         <activity
             android:name=".MoodOfTheDayActivity"

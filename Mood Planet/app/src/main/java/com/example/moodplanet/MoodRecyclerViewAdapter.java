@@ -19,10 +19,13 @@ public class MoodRecyclerViewAdapter extends RecyclerView.Adapter<MoodRecyclerVi
     Context context;
     List<MoodEntry> moodEntryList;
     LayoutInflater inflater;
+    MoodEntriesOnClickListener moodEntryOnClickListener;
 
-    public MoodRecyclerViewAdapter(Context context, List<MoodEntry> moodEntryList) {
+    public MoodRecyclerViewAdapter(Context context, List<MoodEntry> moodEntryList,
+                                   MoodEntriesOnClickListener moodEntryOnClickListener) {
         this.context = context;
         this.moodEntryList = moodEntryList;
+        this.moodEntryOnClickListener = moodEntryOnClickListener;
     }
 
     @NonNull
@@ -30,7 +33,7 @@ public class MoodRecyclerViewAdapter extends RecyclerView.Adapter<MoodRecyclerVi
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.from(parent.getContext()).inflate(R.layout.mood_child_row, parent,
                 false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, moodEntryOnClickListener);
     }
 
     @Override
@@ -78,17 +81,28 @@ public class MoodRecyclerViewAdapter extends RecyclerView.Adapter<MoodRecyclerVi
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
             TextView date, description;
             ImageView moodImage;
+            MoodEntriesOnClickListener moodEntriesOnClickListener;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, MoodEntriesOnClickListener moodEntriesOnClickListener) {
             super(itemView);
             date = itemView.findViewById(R.id.dateTimeTextView);
             moodImage = itemView.findViewById(R.id.moodImageView);
             description = itemView.findViewById(R.id.descriptionTV);
+            this.moodEntriesOnClickListener = moodEntriesOnClickListener;
+            itemView.setOnClickListener(this); // connects to onClick method below
         }
 
         @Override
         public void onClick(View view) {
-
+            // Home Activity implements the interface(home activity object that implements the interface)
+            moodEntriesOnClickListener.onMoodEntryClick(getLayoutPosition());
         }
+    }
+
+    /**
+     * Takes the position of the clicked entry from the recycler view
+     */
+    public interface MoodEntriesOnClickListener {
+        void onMoodEntryClick(int position);
     }
 }
