@@ -35,8 +35,8 @@ public class MoodRecyclerViewAdapter extends RecyclerView.Adapter<MoodRecyclerVi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.date.setText(moodEntryList.get(position).getLocalDateTime().toString());
-        holder.description.setText(moodEntryList.get(position).getDescription().toString());
+        holder.date.setText(moodEntryList.get(position).getLocalDateTime());
+        holder.description.setText(moodEntryList.get(position).getDescription());
         String mood = moodEntryList.get(position).getChosenMood();
 
          if (mood.equalsIgnoreCase("sad"))
@@ -81,8 +81,8 @@ public class MoodRecyclerViewAdapter extends RecyclerView.Adapter<MoodRecyclerVi
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            date = itemView.findViewById(R.id.dateTextView);
-            moodImage = itemView.findViewById(R.id.chosenMoodImage);
+            date = itemView.findViewById(R.id.dateTimeTextView);
+            moodImage = itemView.findViewById(R.id.moodImageView);
             description = itemView.findViewById(R.id.descriptionTV);
         }
 

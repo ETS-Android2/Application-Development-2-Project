@@ -21,6 +21,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/moodRecyclerView"
+        android:layout_width="412dp"
+        android:layout_height="481dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView3"
         android:name="com.example.moodplanet.MenuFragment"
@@ -32,13 +41,5 @@
         app:layout_constraintTop_toBottomOf="@+id/moodRecyclerView"
         tools:layout="@layout/fragment_menu" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/moodRecyclerView"
-        android:layout_width="412dp"
-        android:layout_height="481dp"
-        android:layout_marginTop="36dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
