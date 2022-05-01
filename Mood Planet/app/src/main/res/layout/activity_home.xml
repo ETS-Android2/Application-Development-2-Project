@@ -23,10 +23,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/moodRecyclerView"
-        android:layout_width="412dp"
-        android:layout_height="481dp"
-        android:layout_marginTop="36dp"
+        android:layout_width="430dp"
+        android:layout_height="393dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -38,8 +39,10 @@
         android:layout_marginTop="108dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/moodRecyclerView"
+        app:layout_constraintVertical_bias="0.0"
         tools:layout="@layout/fragment_menu" />
 
 
