@@ -1,14 +1,21 @@
 package com.example.moodplanet;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 
+import com.example.moodplanet.Model.JournalEntry;
 import com.example.moodplanet.Model.MoodEntry;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,6 +33,7 @@ public class HomeActivity extends AppCompatActivity implements MoodRecyclerViewA
     DatabaseReference databaseReference;
     MoodRecyclerViewAdapter moodRecyclerViewAdapter;
     List<MoodEntry> moodEntries;
+    Snackbar snack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +66,80 @@ public class HomeActivity extends AppCompatActivity implements MoodRecyclerViewA
             }
         });
 
+        /**
+         * itemTouchHelper is for swiping either left or right to delete (u can set it in the param)
+         * when the user swipe either left or right, there will be a dialog appears asking are you sure
+         */
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT|  ItemTouchHelper.LEFT ) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                int position = viewHolder.getLayoutPosition();
+                MoodEntry entry = moodEntries.get(position);
+
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            /**
+                             * if yes, implement the code to delete the specific data here
+                             */
+                            case DialogInterface.BUTTON_POSITIVE:
+                                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        databaseReference.child(entry.getKey()).removeValue();
+                                        moodEntries.remove(position);
+                                        moodRecyclerViewAdapter.notifyDataSetChanged();
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                        Log.e("Remove Error", "onCancelled", error.toException());
+                                        // TESTING THIS LATER
+//                                        // used snackbar instead to display message
+//                                        View view = snack.getView();
+//                                        snack = Snackbar.make(view, "Please complete the required fields",
+//                                                Snackbar.LENGTH_INDEFINITE);
+//
+//                                        snack.setAction("Close", new View.OnClickListener() {
+//
+//                                            @Override
+//                                            public void onClick(View view) {
+//                                                snack.dismiss();
+//                                            }
+//                                        }).setActionTextColor(getResources().getColor(android.R.color.holo_blue_dark)).show();         //
+                                    }
+                                });
+                                break;
+
+                            /**
+                             * if no, first, notify the recyclerview again to fetch the data again
+                             * cuz after user swipe, the row will disappear even when user clicks no
+                             */
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                moodRecyclerViewAdapter.notifyDataSetChanged();
+                                dialog.cancel();
+                                break;
+                        }
+                    }
+                };
+
+                // build the dialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+                builder.setTitle("Delete Mood Entry")
+                        .setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
+            }
+        };
+
+        // link the itemtouchelper to the recycler view
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallback);
+        itemTouchHelper.attachToRecyclerView(moodRecyclerView);
     }
 
     @Override

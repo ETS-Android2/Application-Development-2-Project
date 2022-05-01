@@ -154,7 +154,8 @@ public class JournalActivity extends AppCompatActivity implements JournalRecycle
 
                 // build the dialog
                 AlertDialog.Builder builder = new AlertDialog.Builder(JournalActivity.this);
-                builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
+                builder.setTitle("Delete Journal Entry")
+                        .setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
                         .setNegativeButton("No", dialogClickListener).show();
             }
         };
