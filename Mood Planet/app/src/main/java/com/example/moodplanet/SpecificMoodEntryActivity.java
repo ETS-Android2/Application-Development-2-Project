@@ -1,22 +1,18 @@
 package com.example.moodplanet;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.moodplanet.Model.MoodEntry;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
 
@@ -42,10 +38,10 @@ public class SpecificMoodEntryActivity extends AppCompatActivity implements Seri
         entry = null;
         moodRate = findViewById(R.id.moodrate_text_view);
         description = findViewById(R.id.description_text_view);
-        moodImage = findViewById(R.id.mood_image_view);
+        moodImage = findViewById(R.id.edit_moodimageview);
         editBtn = findViewById(R.id.editButton);
         deleteBtn = findViewById(R.id.deleteButton);
-        moodDate = findViewById(R.id.date_time_textview);
+        moodDate = findViewById(R.id.edit_date_time_textview);
 
         // For the intent object
         if (getIntent().getExtras() != null) {
@@ -102,7 +98,10 @@ public class SpecificMoodEntryActivity extends AppCompatActivity implements Seri
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent()
+                Intent intent = new Intent(SpecificMoodEntryActivity.this,
+                        AddEntryActivity.class);
+                intent.putExtra("entry", entry);
+                startActivity(intent);
             }
         });
 

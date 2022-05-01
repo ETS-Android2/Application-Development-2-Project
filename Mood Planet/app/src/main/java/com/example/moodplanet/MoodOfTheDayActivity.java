@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,7 +38,7 @@ public class MoodOfTheDayActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
 
     // xml variables
-    ImageView moodImage;
+    ImageButton moodImage;
     Button addButton;  //  to add the mood entry to the database
     EditText moodDescription;
     SeekBar moodRateSeekBar;
@@ -66,13 +66,13 @@ public class MoodOfTheDayActivity extends AppCompatActivity {
         uid = firebaseCurrentUser.getUid(); // gets user UID
 
         // connect to xml views
-        moodImage = findViewById(R.id.mood_image_view);
+        moodImage = findViewById(R.id.imageBtn);    // CHILKA: MIGHT MODIFY LATER
         chosenMood = getIntent().getStringExtra("mood");
-        moodRateSeekBar = findViewById(R.id.moodSeekBar);
-        moodRateTextView = findViewById(R.id.desciption_text_view);
-        addButton = findViewById(R.id.saveButton);
-        moodDescription = findViewById(R.id.descriptionEditText);
-        dateTimeTextView = findViewById(R.id.date_time_textview);
+        moodRateSeekBar = findViewById(R.id.edit_moodSeekBar);
+        moodRateTextView = findViewById(R.id.edit_moodrate_text_view);
+        addButton = findViewById(R.id.updateButton);
+        moodDescription = findViewById(R.id.edit_descriptionEditText);
+        dateTimeTextView = findViewById(R.id.edit_date_time_textview);
 
         // Date & Time and Day of the Week
         formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss a");

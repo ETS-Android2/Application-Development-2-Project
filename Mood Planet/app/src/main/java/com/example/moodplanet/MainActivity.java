@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-//                Toast.makeText(QuoteActivity.this, "Something wrong happened!", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Something wrong happened!", Toast.LENGTH_LONG).show();
             }
         });
 

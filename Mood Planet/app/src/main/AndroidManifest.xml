@@ -18,11 +18,11 @@
         <activity
             android:name=".ChartMainActivity"
             android:exported="false" />
-        <!-- <activity -->
-        <!-- android:name=".MoodRecyclerViewAdapter" -->
-        <!-- android:exported="false" /> -->
         <activity
             android:name=".EditJournalEntryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditMoodEntryActivity"
             android:exported="false" />
         <activity
             android:name=".SpecificMoodEntryActivity"
