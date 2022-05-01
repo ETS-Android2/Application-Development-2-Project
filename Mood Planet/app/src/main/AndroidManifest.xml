@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.moodplanet">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.moodplanet" >
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
+        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MoodPlanet"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:replace="android:appComponentFactory" >
         <activity
-            android:name=".MoodRecyclerViewAdapter"
+            android:name=".ChartMainActivity"
             android:exported="false" />
+        <!-- <activity -->
+        <!-- android:name=".MoodRecyclerViewAdapter" -->
+        <!-- android:exported="false" /> -->
         <activity
             android:name=".EditJournalEntryActivity"
             android:exported="false" />
@@ -26,9 +32,6 @@
             android:exported="false" />
         <activity
             android:name=".AddJournalActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ChartActivity"
             android:exported="false" />
         <activity
             android:name=".SettingActivity"
@@ -53,7 +56,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
