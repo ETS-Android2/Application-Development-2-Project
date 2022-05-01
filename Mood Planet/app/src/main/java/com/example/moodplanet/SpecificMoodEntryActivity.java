@@ -1,5 +1,6 @@
 package com.example.moodplanet;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -7,23 +8,38 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.moodplanet.Model.MoodEntry;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
 
 public class SpecificMoodEntryActivity extends AppCompatActivity implements Serializable {
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
     TextView moodRate, description, moodDate;
     Button editBtn, deleteBtn;
     ImageView moodImage;
     MoodEntry entry;
+    Snackbar snack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_specific_mood_entry_activity);
-        entry = null;
+
+        // database setup
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("Mood_Entries");
+
         // connect xml views
+        entry = null;
         moodRate = findViewById(R.id.moodrate_text_view);
         description = findViewById(R.id.description_text_view);
         moodImage = findViewById(R.id.mood_image_view);
@@ -86,7 +102,7 @@ public class SpecificMoodEntryActivity extends AppCompatActivity implements Seri
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+//                Intent intent = new Intent()
             }
         });
 
@@ -94,9 +110,20 @@ public class SpecificMoodEntryActivity extends AppCompatActivity implements Seri
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                firebaseDatabase = FirebaseDatabase.getInstance();
+                databaseReference.child(entry.getKey()).removeValue();
+                snack = Snackbar.make(view, "Mood entry deleted",
+                        Snackbar.LENGTH_INDEFINITE);
 
+                snack.setAction("Close", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+                        snack.dismiss();
+                    }
+                }).setActionTextColor(getResources().getColor(android.R.color.holo_blue_dark)).show();         //
             }
-        });
 
+        });
     }
 }

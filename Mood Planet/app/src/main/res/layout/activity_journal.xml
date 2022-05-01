@@ -9,8 +9,8 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView4"
         android:name="com.example.moodplanet.MenuFragment"
-        android:layout_width="412dp"
-        android:layout_height="46dp"
+        android:layout_width="409dp"
+        android:layout_height="47dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
