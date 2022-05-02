@@ -56,15 +56,9 @@ public class QuoteActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mAuth.signOut();
-
-                if(mAuth.getCurrentUser() == null){
-                    //closing this activity
-                    finish();
-                    //starting login activity
-                    startActivity(new Intent(QuoteActivity.this, MainActivity.class));
+                startActivity(new Intent(QuoteActivity.this, MainActivity.class));
                 }
 
-            }
         });
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -131,8 +125,9 @@ public class QuoteActivity extends AppCompatActivity {
             public void run() {
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivity(intent);
+                finish();
             }
-        }, 3000);
+        }, 8000);
     }
     private  void putDataIntoFragment() {
         TextView quotes = (TextView) findViewById(R.id.quoteEditText);

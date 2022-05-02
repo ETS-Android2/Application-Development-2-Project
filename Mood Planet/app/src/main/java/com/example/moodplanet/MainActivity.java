@@ -30,9 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView register, forgotPassword;
     private EditText editTextEmail, editTextPassword;
     private Button signIn;
-    public static String userID;
-    public static String userName;
-    private FirebaseUser firebaseUser;
+    public String userID;
     private DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
@@ -56,6 +54,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         forgotPassword = (TextView) findViewById(R.id.forgotPassword);
         forgotPassword.setOnClickListener(this);
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+
     }
 
     @Override
@@ -108,12 +109,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     // redirect to quote activity
-//                    startActivity(new Intent(MainActivity.this, QuoteActivity.class));
 
                     // Commenting this block because it is used for email verification
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     if (user.isEmailVerified()) {
+//                        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+//                        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+//
+//                        // write all the data entered by the user in SharedPreference and apply
+//                        myEdit.putString("email",email);
+//                        myEdit.putString("password", password);
+//                        myEdit.apply();
                         startActivity(new Intent(MainActivity.this, QuoteActivity.class));
+                        finish();
                     }
                     else {
                         user.sendEmailVerification();
@@ -132,35 +140,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
-        userID = firebaseUser.getUid();
-
-
-        // get specific value of this child
-        databaseReference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User user = snapshot.getValue(User.class);
-
-                if (user != null) {
-                    userName = user.firstName;
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(MainActivity.this, "Something wrong happened!", Toast.LENGTH_LONG).show();
-            }
-        });
-
-        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
-        SharedPreferences.Editor myEdit = sharedPreferences.edit();
-
-        // write all the data entered by the user in SharedPreference and apply
-        myEdit.putString("email",email);
-        myEdit.putString("password", password);
-        myEdit.apply();
     }
 
     @Override

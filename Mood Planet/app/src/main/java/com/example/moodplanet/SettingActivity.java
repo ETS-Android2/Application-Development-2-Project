@@ -49,28 +49,14 @@ public class SettingActivity extends AppCompatActivity {
         //-------------logout button------------------
         logout = findViewById(R.id.setringLogoutButton);
         logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mAuth.signOut();
-                mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
-                    @Override
-                    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                        if (firebaseAuth.getCurrentUser() == null) {
-                            Log.i("firebase", "AuthState changed to null");
-                            startActivity(new Intent(SettingActivity.this, MainActivity.class));
+        @Override
+        public void onClick(View view) {
+            mAuth.signOut();
 
-                        }
-                        else {
-                            Log.i("firebase", "AuthState changed to "+firebaseAuth.getCurrentUser().getUid());
-                        }
-                    }
-                });
-            }
+          startActivity(new Intent(SettingActivity.this, MainActivity.class));
+        }
         });
 //        ----------------------end logout button---------------------------
-
-
-
 
 
         databaseReference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
