@@ -37,7 +37,7 @@ public class SpecificMoodEntryActivity extends AppCompatActivity implements Seri
         // connect xml views
         entry = null;
         moodRate = findViewById(R.id.moodrate_text_view);
-        description = findViewById(R.id.description_text_view);
+        description = findViewById(R.id.descriptionContentTV);
         moodImage = findViewById(R.id.edit_moodimageview);
         editBtn = findViewById(R.id.editButton);
         deleteBtn = findViewById(R.id.deleteButton);
