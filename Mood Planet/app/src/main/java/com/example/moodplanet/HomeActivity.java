@@ -12,9 +12,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.moodplanet.Model.JournalEntry;
 import com.example.moodplanet.Model.MoodEntry;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -115,6 +118,29 @@ public class HomeActivity extends AppCompatActivity implements MoodRecyclerViewA
 //                                        }).setActionTextColor(getResources().getColor(android.R.color.holo_blue_dark)).show();         //
                                     }
                                 });
+
+                                /**
+                                 * Undo snackbar
+                                 */
+                                Snackbar.make(moodRecyclerView,"Mood: " + entry.getChosenMood(), Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        databaseReference.push().setValue(entry)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Toast.makeText(HomeActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                        moodEntries.clear();
+                                        moodRecyclerViewAdapter.notifyDataSetChanged();
+                                    }
+                                }).show();
                                 break;
 
                             /**
@@ -140,6 +166,8 @@ public class HomeActivity extends AppCompatActivity implements MoodRecyclerViewA
         // link the itemtouchelper to the recycler view
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallback);
         itemTouchHelper.attachToRecyclerView(moodRecyclerView);
+
+
     }
 
     @Override

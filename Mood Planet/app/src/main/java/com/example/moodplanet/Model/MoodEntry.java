@@ -17,13 +17,14 @@ public class MoodEntry implements Serializable {
     private String localDateTime;
     private String userID;
     private int moodRate;
+    private String weekOfYear;
     // to get key of mood entry
     private String key;
 
     public MoodEntry() {
     }
 
-    public MoodEntry(String key, String chosenMood, String description, String userID, int moodRate, String localDateTime, String dayOfWeek) {
+    public MoodEntry(String key, String chosenMood, String description, String userID, int moodRate, String localDateTime, String dayOfWeek, String weekOfYear) {
         this.chosenMood = chosenMood;
         this.dayOfWeek = dayOfWeek;
         this.description = description;
@@ -31,7 +32,16 @@ public class MoodEntry implements Serializable {
         this.moodRate = moodRate;
         this.userID = userID;
         this.key = key;
+        this.weekOfYear = weekOfYear;
 
+    }
+
+    public String getWeekOfYear() {
+        return weekOfYear;
+    }
+
+    public void setWeekOfYear(String weekOfYear) {
+        this.weekOfYear = weekOfYear;
     }
 
     public int getMoodRate() {

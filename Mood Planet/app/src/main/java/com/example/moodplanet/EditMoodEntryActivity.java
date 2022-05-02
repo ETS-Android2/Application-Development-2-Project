@@ -22,6 +22,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.LocalDate;
+import java.time.temporal.TemporalField;
+import java.time.temporal.WeekFields;
+import java.util.Locale;
+
 public class EditMoodEntryActivity extends AppCompatActivity {
     TextView moodRate, dateTime;
     Button update;
@@ -123,6 +128,7 @@ public class EditMoodEntryActivity extends AppCompatActivity {
             }
         });
 
+
         // update button functionality
         update.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,7 +136,7 @@ public class EditMoodEntryActivity extends AppCompatActivity {
 
                 String content = description.getText().toString();
                 MoodEntry updateEntry = new MoodEntry(moodEntry.getKey(), moodEntry.getChosenMood()
-                                , content, moodEntry.getUserID(), progressRate, moodEntry.getLocalDateTime(), moodEntry.getDayOfWeek());
+                                , content, moodEntry.getUserID(), progressRate, moodEntry.getLocalDateTime(), moodEntry.getDayOfWeek(), moodEntry.getWeekOfYear());
                 databaseReference.child(moodEntry.getKey()).setValue(updateEntry)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override

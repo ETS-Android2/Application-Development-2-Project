@@ -72,6 +72,7 @@ public class BarChartFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // get range from one week
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_bar_chart, container, false);
         AnyChartView anyChartView = v.findViewById(R.id.any_chart_view);

@@ -24,7 +24,10 @@ import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.time.temporal.TemporalField;
+import java.time.temporal.WeekFields;
 import java.util.Date;
+import java.util.Locale;
 
 public class AddJournalActivity extends AppCompatActivity {
 
@@ -96,7 +99,5 @@ public class AddJournalActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 }

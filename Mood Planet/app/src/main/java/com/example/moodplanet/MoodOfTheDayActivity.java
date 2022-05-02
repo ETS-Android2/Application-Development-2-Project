@@ -5,6 +5,7 @@ import static android.text.TextUtils.isEmpty;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,9 +26,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalField;
+import java.time.temporal.WeekFields;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Mood of the Day Activity Entry Actvity
@@ -170,9 +175,15 @@ public class MoodOfTheDayActivity extends AppCompatActivity {
                 else {
                     // get the mood entry key
                     String key = databaseReference.push().getKey();
+
+                    // get week of year
+                    LocalDate date = LocalDate. now();
+                    TemporalField woy = WeekFields. of(Locale. getDefault()). weekOfWeekBasedYear();
+                    int weekNumber = date. get(woy);
+
                     // Create a mood entry object
                     MoodEntry moodEntry = new MoodEntry(key, chosenMood, moodDescription.getText().toString(),
-                            uid, progressRate, currentTime, dayOfWeek);
+                            uid, progressRate, currentTime, dayOfWeek, weekNumber + "");
 
                     databaseReference.child(moodEntry.getKey()).setValue(moodEntry)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -180,6 +191,8 @@ public class MoodOfTheDayActivity extends AppCompatActivity {
                                 public void onSuccess(Void unused) {
                                     Toast.makeText(MoodOfTheDayActivity.this, "Mood Entry Added  ",
                                             Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(MoodOfTheDayActivity.this, HomeActivity.class));
+
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {

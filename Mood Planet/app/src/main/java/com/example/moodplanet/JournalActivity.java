@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.moodplanet.Model.JournalEntry;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -185,27 +186,6 @@ public class JournalActivity extends AppCompatActivity implements JournalRecycle
                         .setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
                         .setNegativeButton("No", dialogClickListener).show();
 
-//                Snackbar.make(recyclerView, journalEntry.getDayOfWeek(), Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-////                        journalEntryList.add(position, journalEntry);
-//                        databaseReference.push().setValue(journalEntry)
-//                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                    @Override
-//                                    public void onSuccess(Void unused) {
-////                                        Toast.makeText(AddJournalActivity.this, "Inserted", Toast.LENGTH_SHORT).show();
-//                                    }
-//                                })
-//                                .addOnFailureListener(new OnFailureListener() {
-//                                    @Override
-//                                    public void onFailure(@NonNull Exception e) {
-//                                        Toast.makeText(JournalActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//                                    }
-//                                });
-//                        journalEntryList.clear();
-//                        recyclerViewAdapter.notifyDataSetChanged();
-//                    }
-//                }).show();
             }
         };
 
