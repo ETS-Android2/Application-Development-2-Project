@@ -12,10 +12,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
-public class AddEntryActivity extends AppCompatActivity implements View.OnClickListener{
+import java.io.Serializable;
+
+public class AddEntryActivity extends AppCompatActivity implements View.OnClickListener, Serializable {
     ImageButton sad, happy, calm, inlove, sleepy, cheerful, scared, optimistic, pensive, angry;
     MoodEntry moodEntry;
-    Intent editIntent;
+    Intent editIntent, intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,7 +25,7 @@ public class AddEntryActivity extends AppCompatActivity implements View.OnClickL
         moodEntry = null;
         // For the intent object
         if (getIntent().getExtras() != null) {
-            moodEntry = (MoodEntry) getIntent().getSerializableExtra("entry");
+            moodEntry = (MoodEntry) getIntent().getSerializableExtra("entryKey");
             editIntent = new Intent (AddEntryActivity.this, EditMoodEntryActivity.class);
         }
 
@@ -60,49 +62,69 @@ public class AddEntryActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent(getApplicationContext(), MoodOfTheDayActivity.class);
+        intent = new Intent(getApplicationContext(), MoodOfTheDayActivity.class);
         String key = "mood";
 
         switch (view.getId()) {
             case R.id.sadIB:
                 intent.putExtra(key, "sad");
-                moodEntry.setChosenMood("sad");
+                if (moodEntry != null) {
+                    moodEntry.setChosenMood("sad");
+                }
                 break;
             case R.id.heheIB:
                 intent.putExtra(key, "happy");
-                moodEntry.setChosenMood("happy");
+                if (moodEntry != null) {
+                    moodEntry.setChosenMood("happy");
+                }
                 break;
             case R.id.zzzIB:
                 intent.putExtra(key, "sleepy");
-                moodEntry.setChosenMood("sleepy");
+                if (moodEntry != null) {
+                    moodEntry.setChosenMood("sleepy");
+                }
                 break;
             case R.id.calmIB:
                 intent.putExtra(key, "calm");
-                moodEntry.setChosenMood("calm");
+                if (moodEntry != null) {
+                    moodEntry.setChosenMood("calm");
+                }
                 break;
             case R.id.ohnoIB:
                 intent.putExtra(key, "scared");
-                moodEntry.setChosenMood("scared");
+                if (moodEntry != null) {
+                    moodEntry.setChosenMood("scared");
+                }
                 break;
             case R.id.loveIB:
                 intent.putExtra(key, "inlove");
-                moodEntry.setChosenMood("inlove");
+                if (moodEntry != null) {
+                    moodEntry.setChosenMood("inlove");
+                }
                 break;
             case R.id.yayIB:
                 intent.putExtra(key, "cheerful");
-                moodEntry.setChosenMood("cheerful");
+                if (moodEntry != null) {
+                    moodEntry.setChosenMood("cheerful");
+                }
                 break;
             case R.id.okIB:
                 intent.putExtra(key, "optimistic");
-                moodEntry.setChosenMood("optimistic");
+                if (moodEntry != null) {
+                    moodEntry.setChosenMood("optimistic");
+                }
                 break;
             case R.id.hmmIB:
                 intent.putExtra(key, "pensive");
-                moodEntry.setChosenMood("pensive");
+                if (moodEntry != null) {
+                    moodEntry.setChosenMood("pensive");
+                }
                 break;
             default:
                 intent.putExtra(key, "angry");
-                moodEntry.setChosenMood("angry");
+                if (moodEntry != null) {
+                    moodEntry.setChosenMood("angry");
+                }
         }
 
         if (moodEntry == null) {

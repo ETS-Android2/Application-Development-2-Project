@@ -100,7 +100,7 @@ public class SpecificMoodEntryActivity extends AppCompatActivity implements Seri
             public void onClick(View view) {
                 Intent intent = new Intent(SpecificMoodEntryActivity.this,
                         AddEntryActivity.class);
-                intent.putExtra("entry", entry);
+                intent.putExtra("entryKey", entry);
                 startActivity(intent);
             }
         });

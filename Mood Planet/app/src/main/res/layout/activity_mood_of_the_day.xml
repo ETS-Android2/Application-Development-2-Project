@@ -53,11 +53,11 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:hint="Date and Time"
-                android:textSize="35sp"
+                android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/imageBtn"
                 android:layout_width="126dp"
                 android:layout_height="111dp"
