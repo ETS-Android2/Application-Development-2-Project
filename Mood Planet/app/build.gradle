@@ -61,7 +61,8 @@ dependencies {
     // add this in order to use localdatetime
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
     //anychart
-    implementation 'com.github.AnyChart:AnyChart-Android:1.1.2'
+    implementation 'com.github.AnyChart:AnyChart-Android:1.1.4'
+
     // MPAndroid Chart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
