@@ -136,7 +136,7 @@ public class EditMoodEntryActivity extends AppCompatActivity {
 
                 String content = description.getText().toString();
                 MoodEntry updateEntry = new MoodEntry(moodEntry.getKey(), moodEntry.getChosenMood()
-                                , content, moodEntry.getUserID(), progressRate, moodEntry.getLocalDateTime(), moodEntry.getDayOfWeek(), moodEntry.getWeekOfYear());
+                                , content, moodEntry.getUserID(), progressRate, moodEntry.getLocalDateTime(), moodEntry.getDayOfWeek(), moodEntry.getWeekOfYear(), moodEntry.getYear());
                 databaseReference.child(moodEntry.getKey()).setValue(updateEntry)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override

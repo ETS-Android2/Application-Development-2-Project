@@ -180,10 +180,11 @@ public class MoodOfTheDayActivity extends AppCompatActivity {
                     LocalDate date = LocalDate. now();
                     TemporalField woy = WeekFields. of(Locale. getDefault()). weekOfWeekBasedYear();
                     int weekNumber = date. get(woy);
+                    String year = date.getYear() + "";
 
                     // Create a mood entry object
                     MoodEntry moodEntry = new MoodEntry(key, chosenMood, moodDescription.getText().toString(),
-                            uid, progressRate, currentTime, dayOfWeek, weekNumber + "");
+                            uid, progressRate, currentTime, dayOfWeek, weekNumber + "", year);
 
                     databaseReference.child(moodEntry.getKey()).setValue(moodEntry)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
