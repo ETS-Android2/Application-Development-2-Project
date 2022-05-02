@@ -24,6 +24,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -54,7 +56,14 @@ public class QuoteActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mAuth.signOut();
-                startActivity(new Intent(QuoteActivity.this, MainActivity.class));
+
+                if(mAuth.getCurrentUser() == null){
+                    //closing this activity
+                    finish();
+                    //starting login activity
+                    startActivity(new Intent(QuoteActivity.this, MainActivity.class));
+                }
+
             }
         });
 

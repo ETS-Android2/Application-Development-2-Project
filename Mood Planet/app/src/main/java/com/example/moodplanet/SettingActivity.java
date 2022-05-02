@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -38,6 +39,12 @@ public class SettingActivity extends AppCompatActivity {
         fname = findViewById(R.id.firstNameTV);
         lname = findViewById(R.id.lastNameTV);
         mAuth = FirebaseAuth.getInstance();
+//        ---------------------------display the user first name and last name------------------
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+        userID = firebaseUser.getUid();
+
+
 
         //-------------logout button------------------
         logout = findViewById(R.id.setringLogoutButton);
@@ -45,7 +52,19 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mAuth.signOut();
-                startActivity(new Intent(SettingActivity.this, MainActivity.class));
+                mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+                    @Override
+                    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                        if (firebaseAuth.getCurrentUser() == null) {
+                            Log.i("firebase", "AuthState changed to null");
+                            startActivity(new Intent(SettingActivity.this, MainActivity.class));
+
+                        }
+                        else {
+                            Log.i("firebase", "AuthState changed to "+firebaseAuth.getCurrentUser().getUid());
+                        }
+                    }
+                });
             }
         });
 //        ----------------------end logout button---------------------------
@@ -53,10 +72,6 @@ public class SettingActivity extends AppCompatActivity {
 
 
 
-//        ---------------------------display the user first name and last name------------------
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
-        userID = firebaseUser.getUid();
 
         databaseReference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
