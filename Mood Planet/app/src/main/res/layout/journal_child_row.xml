@@ -10,23 +10,26 @@
         android:layout_width="82dp"
         android:layout_height="53dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="18dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/journalEntryTv"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/journalEntryTv"
         android:layout_width="212dp"
         android:layout_height="91dp"
-        android:layout_marginEnd="44dp"
-        android:text="TextView"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="40dp"
         android:ellipsize="end"
         android:maxLines="3"
+        android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.025" />
+        app:layout_constraintVertical_bias="1.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
