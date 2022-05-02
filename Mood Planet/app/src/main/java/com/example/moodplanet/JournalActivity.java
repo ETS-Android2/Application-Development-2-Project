@@ -14,8 +14,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.moodplanet.Model.JournalEntry;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -138,6 +142,29 @@ public class JournalActivity extends AppCompatActivity implements JournalRecycle
                                         Log.e("remove error", "onCancelled", error.toException());
                                     }
                                 });
+
+                                /**
+                                 * Undo snackbar
+                                 */
+                                Snackbar.make(recyclerView,"journal on " + journalEntry.getDayOfWeek(), Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        databaseReference.push().setValue(journalEntry)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Toast.makeText(JournalActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                        journalEntryList.clear();
+                                        recyclerViewAdapter.notifyDataSetChanged();
+                                    }
+                                }).show();
                                 break;
 
                             /**
@@ -157,6 +184,28 @@ public class JournalActivity extends AppCompatActivity implements JournalRecycle
                 builder.setTitle("Delete Journal Entry")
                         .setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
                         .setNegativeButton("No", dialogClickListener).show();
+
+//                Snackbar.make(recyclerView, journalEntry.getDayOfWeek(), Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+////                        journalEntryList.add(position, journalEntry);
+//                        databaseReference.push().setValue(journalEntry)
+//                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                    @Override
+//                                    public void onSuccess(Void unused) {
+////                                        Toast.makeText(AddJournalActivity.this, "Inserted", Toast.LENGTH_SHORT).show();
+//                                    }
+//                                })
+//                                .addOnFailureListener(new OnFailureListener() {
+//                                    @Override
+//                                    public void onFailure(@NonNull Exception e) {
+//                                        Toast.makeText(JournalActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                                    }
+//                                });
+//                        journalEntryList.clear();
+//                        recyclerViewAdapter.notifyDataSetChanged();
+//                    }
+//                }).show();
             }
         };
 
@@ -164,6 +213,8 @@ public class JournalActivity extends AppCompatActivity implements JournalRecycle
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
     }
+
+
 
     /**
      * implements this method here
