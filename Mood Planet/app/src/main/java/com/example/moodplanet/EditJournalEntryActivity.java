@@ -9,8 +9,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.moodplanet.Model.JournalEntry;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -54,24 +57,42 @@ public class EditJournalEntryActivity extends AppCompatActivity {
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("journals");
+
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                databaseReference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String journalContent = editContentEditTv.getText().toString();
-                        journalEntry = new JournalEntry(time, dayOfWeek, journalContent, MainActivity.userID);
-                        databaseReference.child(key).setValue(journalEntry);
+//                databaseReference.addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        String journalContent = editContentEditTv.getText().toString();
+//                        journalEntry = new JournalEntry(time, dayOfWeek, journalContent, MainActivity.userID);
+//                        databaseReference.child(key).setValue(journalEntry);
+//
+//                        finish();
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
+                String journalContent = editContentEditTv.getText().toString();
+                journalEntry = new JournalEntry(time, dayOfWeek, journalContent, MainActivity.userID);
+                databaseReference.child(key).setValue(journalEntry)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(getApplicationContext(), "Mood Entry Updated", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(getApplicationContext(), "Mood Entry Update Failed", Toast.LENGTH_SHORT).show();
 
-                        finish();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+                            }
+                        });
             }
         });
 
