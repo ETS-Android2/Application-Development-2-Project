@@ -14,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.moodplanet.Model.MoodEntry;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -125,23 +127,39 @@ public class EditMoodEntryActivity extends AppCompatActivity {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                databaseReference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String content = description.getText().toString();
-                        MoodEntry updateEntry = new MoodEntry(moodEntry.getKey(), moodEntry.getChosenMood()
+
+                String content = description.getText().toString();
+                MoodEntry updateEntry = new MoodEntry(moodEntry.getKey(), moodEntry.getChosenMood()
                                 , content, moodEntry.getUserID(), progressRate, moodEntry.getLocalDateTime(), moodEntry.getDayOfWeek());
-                        databaseReference.child(moodEntry.getKey()).setValue(updateEntry);
-                        Toast.makeText(getApplicationContext(), "Mood Entry Updated", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                    }
+                databaseReference.child(moodEntry.getKey()).setValue(updateEntry)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(getApplicationContext(), "Mood Entry Updated", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(EditMoodEntryActivity.this, HomeActivity.class));
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(getApplicationContext(), "Mood Entry Update Failed", Toast.LENGTH_SHORT).show();
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+                            }
+                        });
             }
+//                databaseReference.addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//
+//
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
+//            }
         });
 
     }
