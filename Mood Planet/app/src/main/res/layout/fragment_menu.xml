@@ -11,24 +11,26 @@
         android:id="@+id/addButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="20dp"
         android:backgroundTint="#f2f2f2"
         android:src="@drawable/add"
         app:layout_constraintBottom_toBottomOf="@+id/journalButton"
         app:layout_constraintStart_toEndOf="@+id/journalButton"
         app:layout_constraintTop_toTopOf="@+id/journalButton"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
         android:id="@+id/settingButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="24dp"
         android:backgroundTint="#f2f2f2"
         android:src="@drawable/settings_24"
         app:layout_constraintBottom_toBottomOf="@+id/chartButton"
         app:layout_constraintStart_toEndOf="@+id/chartButton"
         app:layout_constraintTop_toTopOf="@+id/chartButton"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
@@ -41,6 +43,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/addButton"
         app:layout_constraintStart_toEndOf="@+id/addButton"
         app:layout_constraintTop_toTopOf="@+id/addButton"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
@@ -53,13 +56,14 @@
         app:layout_constraintBottom_toBottomOf="@+id/homeButton"
         app:layout_constraintStart_toEndOf="@+id/homeButton"
         app:layout_constraintTop_toTopOf="@+id/homeButton"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
         android:id="@+id/homeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="16dp"
         android:backgroundTint="#f2f2f2"
         android:src="@drawable/home_24"
         app:layout_constraintStart_toStartOf="parent"
