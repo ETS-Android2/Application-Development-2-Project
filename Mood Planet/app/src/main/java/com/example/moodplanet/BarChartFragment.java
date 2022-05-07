@@ -1,6 +1,7 @@
 package com.example.moodplanet;
 
 import static java.lang.Integer.parseInt;
+import static java.lang.Integer.rotateRight;
 
 import android.os.Bundle;
 
@@ -22,6 +23,7 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
@@ -166,13 +168,31 @@ public class BarChartFragment extends Fragment {
         YAxis leftAxis = barChart.getAxisLeft();
         //hiding the left y-axis line, default true if not set
         leftAxis.setDrawAxisLine(false);
+        leftAxis.setAxisMaximum(5f);
+        leftAxis.setAxisMinimum(0f);
+        leftAxis.setLabelCount(5);
+//        leftAxis.setValueFormatter(new ValueFormatter() {
+//            @Override
+//            public String getFormattedValue(float value) {
+//                return String.valueOf((int) Math.floor(value));
+//            }
+//        });
+
 //        leftAxis.setValueFormatter(new IndexAxisValueFormatter(rates));
-
-
 
         YAxis rightAxis = barChart.getAxisRight();
         //hiding the right y-axis line, default true if not set
         rightAxis.setDrawAxisLine(false);
+        rightAxis.setAxisMinimum(0f);
+        rightAxis.setAxisMaximum(5f);
+        rightAxis.setLabelCount(5);
+
+//        rightAxis.setValueFormatter(new ValueFormatter() {
+//            @Override
+//            public String getFormattedValue(float value) {
+//                return String.valueOf((int) Math.floor(value));
+//            }
+//        });
 
 
         Legend legend = barChart.getLegend();
