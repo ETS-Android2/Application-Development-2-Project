@@ -100,10 +100,11 @@ public class PieChartFragment extends Fragment {
     private void setupPieChart() {
         pieChart.setDrawHoleEnabled(true);
         pieChart.setUsePercentValues(true);
-        pieChart.setEntryLabelTextSize(8);
+        pieChart.setEntryLabelTextSize(14f);
         pieChart.setEntryLabelColor(Color.BLACK);
-//        pieChart.setCenterText("Spending by Category");
-//        pieChart.setCenterTextSize(18);
+        pieChart.setCenterText("Mood chart this week");
+        pieChart.setCenterTextSize(18);
+
         pieChart.getDescription().setEnabled(false);
 
         // get details of labels included
@@ -154,7 +155,7 @@ public class PieChartFragment extends Fragment {
 
         ArrayList<Integer> colors;
         colors = new ArrayList<>();
-        for (int color: ColorTemplate.MATERIAL_COLORS) {
+        for (int color: ColorTemplate.JOYFUL_COLORS) {
             colors.add(color);
         }
 
@@ -168,12 +169,12 @@ public class PieChartFragment extends Fragment {
         PieData data = new PieData(dataSet);
         data.setDrawValues(true);
         data.setValueFormatter(new PercentFormatter(pieChart));
-        data.setValueTextSize(12f);
+        data.setValueTextSize(16f);
         data.setValueTextColor(Color.BLACK);
 
         pieChart.setData(data);
         pieChart.invalidate();
 
-        pieChart.animateY(1400, Easing.EaseInOutQuad);
+        pieChart.animateY(2000, Easing.EaseInOutQuad);
     }
 }
