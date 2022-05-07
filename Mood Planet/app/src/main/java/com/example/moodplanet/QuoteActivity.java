@@ -127,7 +127,7 @@ public class QuoteActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        }, 8000);
+        }, 800);
     }
     private  void putDataIntoFragment() {
         TextView quotes = (TextView) findViewById(R.id.quoteEditText);

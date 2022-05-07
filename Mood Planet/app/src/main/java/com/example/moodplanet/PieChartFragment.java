@@ -1,7 +1,9 @@
 package com.example.moodplanet;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -13,8 +15,25 @@ import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.charts.Pie;
+import com.example.moodplanet.Model.MoodEntry;
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -23,6 +42,10 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class PieChartFragment extends Fragment {
+    private PieChart pieChart;
+    DatabaseReference databaseReference;
+    ArrayList<PieEntry> entries = new ArrayList<>();
+    HashMap<String, List<MoodEntry>> moodHashMap = new HashMap<>();
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -69,20 +92,88 @@ public class PieChartFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_pie_chart, container, false);
         // Inflate the layout for this fragment
-        AnyChartView anyChartView1 = v.findViewById(R.id.any_chart_view2);
-
-        Pie pie1 = AnyChart.pie();
-
-        List<DataEntry> data1 = new ArrayList<>();
-        data1.add(new ValueDataEntry("Apples", 6371664));
-        data1.add(new ValueDataEntry("Pears", 789622));
-        data1.add(new ValueDataEntry("Bananas", 7216301));
-        data1.add(new ValueDataEntry("Grapes", 1486621));
-        data1.add(new ValueDataEntry("Oranges", 1200000));
-
-        pie1.data(data1);
-
-        anyChartView1.setChart(pie1);
+        pieChart = v.findViewById(R.id.activity_main_piechart);
+        setupPieChart();
+        loadPieChartData();
         return v;
+    }
+    private void setupPieChart() {
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setUsePercentValues(true);
+        pieChart.setEntryLabelTextSize(8);
+        pieChart.setEntryLabelColor(Color.BLACK);
+//        pieChart.setCenterText("Spending by Category");
+//        pieChart.setCenterTextSize(18);
+        pieChart.getDescription().setEnabled(false);
+
+        // get details of labels included
+        Legend l = pieChart.getLegend();
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        l.setOrientation(Legend.LegendOrientation.VERTICAL);
+        l.setDrawInside(false);
+        l.setEnabled(true);
+    }
+
+    private void loadPieChartData() {
+
+        moodHashMap = HomeActivity.moodHashMap;
+
+        //calculate the percentage of the mood
+        float angry = moodHashMap.get("angry").size();
+        float pensive = moodHashMap.get("pensive").size();
+        float optimistic = moodHashMap.get("optimistic").size();
+        float cheerful = moodHashMap.get("cheerful").size();
+        float inlove = moodHashMap.get("inlove").size();
+        float scared = moodHashMap.get("scared").size();
+        float calm = moodHashMap.get("calm").size();
+        float sleepy = moodHashMap.get("sleepy").size();
+        float happy = moodHashMap.get("happy").size();
+        float sad = moodHashMap.get("sad").size();
+
+        if (angry > 0)
+            entries.add(new PieEntry(angry, "angry"));
+        if (pensive > 0)
+            entries.add(new PieEntry(pensive, "pensive"));
+        if (optimistic > 0)
+            entries.add(new PieEntry(optimistic, "optimistic"));
+        if (cheerful > 0)
+            entries.add(new PieEntry(cheerful, "cheerful"));
+        if (inlove > 0)
+            entries.add(new PieEntry(cheerful, "inlove"));
+        if (scared > 0)
+            entries.add(new PieEntry(scared, "scared"));
+        if (calm > 0)
+            entries.add(new PieEntry(calm, "calm"));
+        if (sleepy > 0)
+            entries.add(new PieEntry(sleepy, "sleepy"));
+        if (sad > 0)
+            entries.add(new PieEntry(sad, "sad"));
+        if (happy > 0)
+            entries.add(new PieEntry(happy, "happy"));
+
+        ArrayList<Integer> colors;
+        colors = new ArrayList<>();
+        for (int color: ColorTemplate.MATERIAL_COLORS) {
+            colors.add(color);
+        }
+
+        for (int color: ColorTemplate.VORDIPLOM_COLORS) {
+            colors.add(color);
+        }
+
+        PieDataSet dataSet = new PieDataSet(entries, "");
+        dataSet.setColors(colors);
+
+        PieData data = new PieData(dataSet);
+        data.setDrawValues(true);
+        data.setValueFormatter(new PercentFormatter(pieChart));
+        data.setValueTextSize(12f);
+        data.setValueTextColor(Color.BLACK);
+
+        pieChart.setData(data);
+        pieChart.invalidate();
+
+        pieChart.animateY(1400, Easing.EaseInOutQuad);
     }
 }

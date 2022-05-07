@@ -28,15 +28,32 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.temporal.TemporalField;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 public class HomeActivity extends AppCompatActivity implements MoodRecyclerViewAdapter.MoodEntriesOnClickListener, Serializable {
     RecyclerView moodRecyclerView;
     DatabaseReference databaseReference;
     MoodRecyclerViewAdapter moodRecyclerViewAdapter;
     List<MoodEntry> moodEntries;
+    List<MoodEntry> angry = new ArrayList<>();
+    List<MoodEntry> pensive = new ArrayList<>();
+    List<MoodEntry> sad = new ArrayList<>();
+    List<MoodEntry> optimistic = new ArrayList<>();
+    List<MoodEntry> cheerful = new ArrayList<>();
+    List<MoodEntry> inlove = new ArrayList<>();
+    List<MoodEntry> scared = new ArrayList<>();
+    List<MoodEntry> calm = new ArrayList<>();
+    List<MoodEntry> sleepy = new ArrayList<>();
+    List<MoodEntry> happy = new ArrayList<>();
     Snackbar snack;
+    public static HashMap<String, List<MoodEntry>> moodHashMap = new HashMap<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,17 +66,105 @@ public class HomeActivity extends AppCompatActivity implements MoodRecyclerViewA
         moodRecyclerViewAdapter = new MoodRecyclerViewAdapter(this, moodEntries, this);
         moodRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         Query query = databaseReference.orderByChild("userID").equalTo(FirebaseAuth.getInstance().getUid());
+
         moodRecyclerView.setAdapter(moodRecyclerViewAdapter);
+
+        // get week of year and year
+        LocalDate date = LocalDate. now();
+        TemporalField woy = WeekFields. of(Locale. getDefault()). weekOfWeekBasedYear();
+        String weekNumber =  "" + date. get(woy);
+        String year = date.getYear() + "";
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 moodEntries.clear();
-
+                moodHashMap.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     MoodEntry moodEntry = dataSnapshot.getValue(MoodEntry.class);
                     moodEntries.add(moodEntry);
+                    String choosenMood = moodEntry.getChosenMood();
+
+                    // get moods of this week
+                    // get week of year
+                    LocalDate date = LocalDate. now();
+                    TemporalField woy = WeekFields. of(Locale. getDefault()). weekOfWeekBasedYear();
+                    String weekNumber =  "" + date. get(woy);
+                    String year = date.getYear() + "";
+
+                    if (moodEntry.getWeekOfYear().equals(weekNumber) && moodEntry.getYear().equals(year)) {
+                        // angry
+                        if (choosenMood.equals("angry")) {
+                            angry.add(moodEntry);
+//                        moodHashMap.put("angry", angry);
+                        }
+                        // pensive
+                        else if (choosenMood.equals("pensive")) {
+                            pensive.add(moodEntry);
+
+//                        moodHashMap.put("pensive", pensive);
+                        }
+
+                        // sad
+                        else if (choosenMood.equals("sad")) {
+                            sad.add(moodEntry);
+
+//                        moodHashMap.put("sad", sad);
+                        }
+                        //optimistic
+                        else if (choosenMood.equals("optimistic")) {
+                            optimistic.add(moodEntry);
+//                        moodHashMap.put("optimistic", optimistic);
+                        }
+
+                        //cheerful
+                        else if (choosenMood.equals("cheerful")) {
+                            cheerful.add(moodEntry);
+//                        moodHashMap.put("cheerful", cheerful);
+                        }
+                        //inlove
+                        else if (choosenMood.equals("inlove")) {
+                            inlove.add(moodEntry);
+//                        moodHashMap.put("inlove", inlove);
+                        }
+                        //scared
+                        else if (choosenMood.equals("scared")) {
+                            scared.add(moodEntry);
+//                        moodHashMap.put("scared", scared);
+                        }
+
+                        //calm
+                        else if (choosenMood.equals("calm")) {
+                            calm.add(moodEntry);
+//                        moodHashMap.put("calm", calm);
+                        }
+
+                        //sleepy
+                        else if (choosenMood.equals("sleepy")) {
+                            sleepy.add(moodEntry);
+//                        moodHashMap.put("sleepy", sleepy);
+                        }
+                        //happy
+                        else if (choosenMood.equals("happy")) {
+                            happy.add(moodEntry);
+//                        moodHashMap.put("happy", happy);
+                        }
+                    }
                 }
+                moodHashMap.put("cheerful", cheerful);
+                moodHashMap.put("optimistic", optimistic);
+                moodHashMap.put("sad", sad);
+                moodHashMap.put("angry", angry);
+                moodHashMap.put("pensive", pensive);
+                moodHashMap.put("happy", happy);
+                moodHashMap.put("sleepy", sleepy);
+                moodHashMap.put("calm", calm);
+                moodHashMap.put("scared", scared);
+                moodHashMap.put("inlove", inlove);
+
+
+
+
                 moodRecyclerViewAdapter.notifyDataSetChanged();
             }
 
