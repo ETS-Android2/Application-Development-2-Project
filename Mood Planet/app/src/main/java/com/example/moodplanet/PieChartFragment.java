@@ -141,7 +141,7 @@ public class PieChartFragment extends Fragment {
         if (cheerful > 0)
             entries.add(new PieEntry(cheerful, "cheerful"));
         if (inlove > 0)
-            entries.add(new PieEntry(cheerful, "inlove"));
+            entries.add(new PieEntry(inlove, "inlove"));
         if (scared > 0)
             entries.add(new PieEntry(scared, "scared"));
         if (calm > 0)
