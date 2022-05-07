@@ -171,29 +171,10 @@ public class BarChartFragment extends Fragment {
         leftAxis.setAxisMaximum(5f);
         leftAxis.setAxisMinimum(0f);
         leftAxis.setLabelCount(5);
-//        leftAxis.setValueFormatter(new ValueFormatter() {
-//            @Override
-//            public String getFormattedValue(float value) {
-//                return String.valueOf((int) Math.floor(value));
-//            }
-//        });
-
-//        leftAxis.setValueFormatter(new IndexAxisValueFormatter(rates));
 
         YAxis rightAxis = barChart.getAxisRight();
-        //hiding the right y-axis line, default true if not set
-        rightAxis.setDrawAxisLine(false);
-        rightAxis.setAxisMinimum(0f);
-        rightAxis.setAxisMaximum(5f);
-        rightAxis.setLabelCount(5);
 
-//        rightAxis.setValueFormatter(new ValueFormatter() {
-//            @Override
-//            public String getFormattedValue(float value) {
-//                return String.valueOf((int) Math.floor(value));
-//            }
-//        });
-
+        rightAxis.setEnabled(false);
 
         Legend legend = barChart.getLegend();
         //setting the shape of the legend form to line, default square shape
