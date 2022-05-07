@@ -41,6 +41,8 @@ public class HomeActivity extends AppCompatActivity implements MoodRecyclerViewA
     DatabaseReference databaseReference;
     MoodRecyclerViewAdapter moodRecyclerViewAdapter;
     List<MoodEntry> moodEntries;
+
+    // creating lists for pie chart
     List<MoodEntry> angry = new ArrayList<>();
     List<MoodEntry> pensive = new ArrayList<>();
     List<MoodEntry> sad = new ArrayList<>();
@@ -51,9 +53,21 @@ public class HomeActivity extends AppCompatActivity implements MoodRecyclerViewA
     List<MoodEntry> calm = new ArrayList<>();
     List<MoodEntry> sleepy = new ArrayList<>();
     List<MoodEntry> happy = new ArrayList<>();
-    Snackbar snack;
+
+    // creating lists for the bar chart
+    List<MoodEntry> mon = new ArrayList<>();
+    List<MoodEntry> tue = new ArrayList<>();
+    List<MoodEntry> wed = new ArrayList<>();
+    List<MoodEntry> thu = new ArrayList<>();
+    List<MoodEntry> fri = new ArrayList<>();
+    List<MoodEntry> sat = new ArrayList<>();
+    List<MoodEntry> sun = new ArrayList<>();
+
+    // mood hashmap containing data for the pie chart
     public static HashMap<String, List<MoodEntry>> moodHashMap = new HashMap<>();
 
+    // mood rate hashmap containing data for the bar chart
+    public static HashMap<String, List<MoodEntry>> moodRateHm = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,103 +84,119 @@ public class HomeActivity extends AppCompatActivity implements MoodRecyclerViewA
         moodRecyclerView.setAdapter(moodRecyclerViewAdapter);
 
         // get week of year and year
-        LocalDate date = LocalDate. now();
-        TemporalField woy = WeekFields. of(Locale. getDefault()). weekOfWeekBasedYear();
-        String weekNumber =  "" + date. get(woy);
+        LocalDate date = LocalDate.now();
+        TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
+        String weekNumber = "" + date.get(woy);
         String year = date.getYear() + "";
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 moodEntries.clear();
                 moodHashMap.clear();
+                moodRateHm.clear();
+
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     MoodEntry moodEntry = dataSnapshot.getValue(MoodEntry.class);
                     moodEntries.add(moodEntry);
                     String choosenMood = moodEntry.getChosenMood();
 
-                    // get moods of this week
-                    // get week of year
-                    LocalDate date = LocalDate. now();
-                    TemporalField woy = WeekFields. of(Locale. getDefault()). weekOfWeekBasedYear();
-                    String weekNumber =  "" + date. get(woy);
+                    // get the current weekOfYear and current Year
+                    LocalDate date = LocalDate.now();
+                    TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
+                    String weekNumber = "" + date.get(woy);
                     String year = date.getYear() + "";
 
+                    // pie chart
                     if (moodEntry.getWeekOfYear().equals(weekNumber) && moodEntry.getYear().equals(year)) {
                         // angry
                         if (choosenMood.equals("angry")) {
                             angry.add(moodEntry);
-//                        moodHashMap.put("angry", angry);
                         }
                         // pensive
                         else if (choosenMood.equals("pensive")) {
                             pensive.add(moodEntry);
-
-//                        moodHashMap.put("pensive", pensive);
                         }
-
                         // sad
                         else if (choosenMood.equals("sad")) {
                             sad.add(moodEntry);
-
-//                        moodHashMap.put("sad", sad);
                         }
                         //optimistic
                         else if (choosenMood.equals("optimistic")) {
                             optimistic.add(moodEntry);
-//                        moodHashMap.put("optimistic", optimistic);
                         }
-
                         //cheerful
                         else if (choosenMood.equals("cheerful")) {
                             cheerful.add(moodEntry);
-//                        moodHashMap.put("cheerful", cheerful);
                         }
                         //inlove
                         else if (choosenMood.equals("inlove")) {
                             inlove.add(moodEntry);
-//                        moodHashMap.put("inlove", inlove);
                         }
                         //scared
                         else if (choosenMood.equals("scared")) {
                             scared.add(moodEntry);
-//                        moodHashMap.put("scared", scared);
                         }
-
                         //calm
                         else if (choosenMood.equals("calm")) {
                             calm.add(moodEntry);
-//                        moodHashMap.put("calm", calm);
                         }
-
                         //sleepy
                         else if (choosenMood.equals("sleepy")) {
                             sleepy.add(moodEntry);
-//                        moodHashMap.put("sleepy", sleepy);
                         }
                         //happy
                         else if (choosenMood.equals("happy")) {
                             happy.add(moodEntry);
-//                        moodHashMap.put("happy", happy);
                         }
                     }
+
+
+                        // get dayOfWeek of the current moodEntry
+                    String dayOfWeek = moodEntry.getDayOfWeek();
+
+                        //bar chart
+                    if (moodEntry.getWeekOfYear().equals(weekNumber) && moodEntry.getYear().equals(year)) {
+                        if (dayOfWeek.equals("Monday")) {
+                            mon.add(moodEntry);
+                        } else if (dayOfWeek.equals("Tuesday")) {
+                            tue.add(moodEntry);
+                        } else if (dayOfWeek.equals("Wednesday")) {
+                            wed.add(moodEntry);
+                        } else if (dayOfWeek.equals("Thursday")) {
+                            thu.add(moodEntry);
+                        } else if (dayOfWeek.equals("Friday")) {
+                            fri.add(moodEntry);
+                        } else if (dayOfWeek.equals("Saturday")) {
+                            sat.add(moodEntry);
+                        } else if (dayOfWeek.equals("Sunday")) {
+                            sun.add(moodEntry);
+                        }
+                    }
+
+                    moodHashMap.put("cheerful", cheerful);
+                    moodHashMap.put("optimistic", optimistic);
+                    moodHashMap.put("sad", sad);
+                    moodHashMap.put("angry", angry);
+                    moodHashMap.put("pensive", pensive);
+                    moodHashMap.put("happy", happy);
+                    moodHashMap.put("sleepy", sleepy);
+                    moodHashMap.put("calm", calm);
+                    moodHashMap.put("scared", scared);
+                    moodHashMap.put("inlove", inlove);
+
+                    moodRateHm.put("mon", mon);
+                    moodRateHm.put("tue", tue);
+                    moodRateHm.put("wed", wed);
+                    moodRateHm.put("thu", thu);
+                    moodRateHm.put("fri", fri);
+                    moodRateHm.put("sat", sat);
+                    moodRateHm.put("sun", sun);
+
+                    moodRecyclerViewAdapter.notifyDataSetChanged();
+                    }
                 }
-                moodHashMap.put("cheerful", cheerful);
-                moodHashMap.put("optimistic", optimistic);
-                moodHashMap.put("sad", sad);
-                moodHashMap.put("angry", angry);
-                moodHashMap.put("pensive", pensive);
-                moodHashMap.put("happy", happy);
-                moodHashMap.put("sleepy", sleepy);
-                moodHashMap.put("calm", calm);
-                moodHashMap.put("scared", scared);
-                moodHashMap.put("inlove", inlove);
-
-
-
-
-                moodRecyclerViewAdapter.notifyDataSetChanged();
-            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -178,7 +208,7 @@ public class HomeActivity extends AppCompatActivity implements MoodRecyclerViewA
          * itemTouchHelper is for swiping either left or right to delete (u can set it in the param)
          * when the user swipe either left or right, there will be a dialog appears asking are you sure
          */
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT|  ItemTouchHelper.LEFT ) {
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
                 return false;
@@ -192,7 +222,7 @@ public class HomeActivity extends AppCompatActivity implements MoodRecyclerViewA
                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        switch (which){
+                        switch (which) {
                             /**
                              * if yes, implement the code to delete the specific data here
                              */
@@ -227,7 +257,7 @@ public class HomeActivity extends AppCompatActivity implements MoodRecyclerViewA
                                 /**
                                  * Undo snackbar
                                  */
-                                Snackbar.make(moodRecyclerView,"Mood: " + entry.getChosenMood(), Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
+                                Snackbar.make(moodRecyclerView, "Mood: " + entry.getChosenMood(), Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
                                         databaseReference.push().setValue(entry)
