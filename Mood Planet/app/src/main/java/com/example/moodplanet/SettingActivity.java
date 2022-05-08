@@ -264,11 +264,7 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Fetching the stored data
-        // from the SharedPreference
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
-        // Setting the fetched data
-        // in the EditTexts
 
         notifSwitch.setChecked(sh.getBoolean("checked", false));
     }

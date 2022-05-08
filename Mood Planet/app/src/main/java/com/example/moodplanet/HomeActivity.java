@@ -32,6 +32,8 @@ import java.time.LocalDate;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -168,6 +170,9 @@ public class HomeActivity extends AppCompatActivity implements MoodRecyclerViewA
                             sun.add(moodEntry);
                         }
                     }
+
+                    // reverse the list so the newest data will be displayed on top
+                    Collections.reverse(moodEntries);
 
                     moodHashMap.put("cheerful", cheerful);
                     moodHashMap.put("optimistic", optimistic);

@@ -32,6 +32,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.core.Tag;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Queue;
 
@@ -81,7 +83,7 @@ public class JournalActivity extends AppCompatActivity implements JournalRecycle
                     journalEntry.setKey(key);
                     journalEntryList.add(journalEntry);
                 }
-
+                Collections.reverse(journalEntryList);
                 recyclerViewAdapter.notifyDataSetChanged();
 
             }
