@@ -39,7 +39,7 @@ import java.util.List;
 public class BarChartFragment extends Fragment {
     BarChart barChart;
     HashMap<String, List<MoodEntry>> moodRateHm = new HashMap<>();
-    String[] keys = {"mon", "tue", "wed", "thu", "fri", "sat", "sun"};
+    String[] keys = {"sun","mon", "tue", "wed", "thu", "fri", "sat"};
     String[] rates = {"0","1", "2", "3", "4", "5", "6", "7"};
 
     // TODO: Rename parameter arguments, choose names that match

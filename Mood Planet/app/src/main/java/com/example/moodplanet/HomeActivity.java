@@ -179,13 +179,13 @@ public class HomeActivity extends AppCompatActivity implements MoodRecyclerViewA
                     moodHashMap.put("scared", scared);
                     moodHashMap.put("inlove", inlove);
 
+                    moodRateHm.put("sun", sun);
                     moodRateHm.put("mon", mon);
                     moodRateHm.put("tue", tue);
                     moodRateHm.put("wed", wed);
                     moodRateHm.put("thu", thu);
                     moodRateHm.put("fri", fri);
                     moodRateHm.put("sat", sat);
-                    moodRateHm.put("sun", sun);
 
                     moodRecyclerViewAdapter.notifyDataSetChanged();
                     }
