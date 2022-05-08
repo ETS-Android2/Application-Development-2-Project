@@ -31,6 +31,8 @@ public class Notification_receiver extends BroadcastReceiver {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(android.R.drawable.btn_star)
+                .setLargeIcon(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(),
+                        R.drawable.hmm), 128, 128, false))
                 .setContentTitle("Mood Planet Notification")
                 .setContentText("Don't forget to add a mood entry! :)")
                 .setContentIntent(pendingIntent)
