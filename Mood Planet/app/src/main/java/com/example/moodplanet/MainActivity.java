@@ -108,18 +108,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    // redirect to quote activity
 
                     // Commenting this block because it is used for email verification
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     if (user.isEmailVerified()) {
-//                        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
-//                        SharedPreferences.Editor myEdit = sharedPreferences.edit();
-//
-//                        // write all the data entered by the user in SharedPreference and apply
-//                        myEdit.putString("email",email);
-//                        myEdit.putString("password", password);
-//                        myEdit.apply();
+
                         startActivity(new Intent(MainActivity.this, QuoteActivity.class));
                         finish();
                     }

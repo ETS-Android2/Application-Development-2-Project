@@ -41,6 +41,7 @@ public class HomeActivity extends AppCompatActivity implements MoodRecyclerViewA
     DatabaseReference databaseReference;
     MoodRecyclerViewAdapter moodRecyclerViewAdapter;
     List<MoodEntry> moodEntries;
+    public static long count;
 
     // creating lists for pie chart
     List<MoodEntry> angry = new ArrayList<>();
@@ -89,7 +90,7 @@ public class HomeActivity extends AppCompatActivity implements MoodRecyclerViewA
                 moodEntries.clear();
                 moodHashMap.clear();
                 moodRateHm.clear();
-
+                count = snapshot.getChildrenCount();
                 // Retrieves all children of MoodEntry class
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     MoodEntry moodEntry = dataSnapshot.getValue(MoodEntry.class);

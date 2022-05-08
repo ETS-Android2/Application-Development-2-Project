@@ -159,7 +159,7 @@ public class SettingActivity extends AppCompatActivity {
         notifSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    Toast.makeText(getApplicationContext(), "Notification on!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Notification on!", Toast.LENGTH_SHORT).show();
 //                    TimePickerDialog timePickerDialog = new TimePickerDialog(SettingActivity.this, new TimePickerDialog.OnTimeSetListener() {
 //                        @Override
 //                        public void onTimeSet(TimePicker timePicker, int i, int i1) {
@@ -178,8 +178,8 @@ public class SettingActivity extends AppCompatActivity {
                     notificationChannel();
                     notifSwitch.setChecked(true);
                     calendar = Calendar.getInstance();
-                    calendar.set(Calendar.HOUR_OF_DAY,3);
-                    calendar.set(Calendar.MINUTE, 29);
+                    calendar.set(Calendar.HOUR_OF_DAY,16);
+                    calendar.set(Calendar.MINUTE, 28);
                     calendar.set(Calendar.SECOND, 00);
 
                     if (Calendar.getInstance().after(calendar)) {
@@ -197,7 +197,7 @@ public class SettingActivity extends AppCompatActivity {
 
                 }
                 else {
-                    Toast.makeText(getApplicationContext(), "Notification off!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Notification off!", Toast.LENGTH_SHORT).show();
                 }
             }
 
