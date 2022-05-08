@@ -184,8 +184,8 @@ public class SettingActivity extends AppCompatActivity {
                     notificationChannel();
                     notifSwitch.setChecked(true);
                     calendar = Calendar.getInstance();
-                    calendar.set(Calendar.HOUR_OF_DAY,16);
-                    calendar.set(Calendar.MINUTE, 28);
+                    calendar.set(Calendar.HOUR_OF_DAY,17);
+                    calendar.set(Calendar.MINUTE, 05);
                     calendar.set(Calendar.SECOND, 00);
 
                     if (Calendar.getInstance().after(calendar)) {
@@ -200,7 +200,6 @@ public class SettingActivity extends AppCompatActivity {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), pendingIntent);
                     }
-
                 }
                 else {
                     sh.edit().putBoolean("checked", false).apply();
@@ -212,6 +211,20 @@ public class SettingActivity extends AppCompatActivity {
 
         });
 
+    }
+
+    private void notificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "MoodPlanet";
+            String description = "Mood Planet Channel";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("MOOD_PLANET_NOTIFICATION_CHANNEL",
+                    name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+
+        }
     }
     private void openLink(String sAppLink, String sPackage, String sWebLink) {
         // Use try catch
@@ -246,18 +259,7 @@ public class SettingActivity extends AppCompatActivity {
 
         }
     }
-    private void notificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "MoodPlanet";
-            String description = "Mood Planet Channel";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("Mood Planet Notification", name, importance);
-            channel.setDescription(description);
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
 
-        }
-    }
 
     @Override
     protected void onResume() {
@@ -265,9 +267,6 @@ public class SettingActivity extends AppCompatActivity {
         // Fetching the stored data
         // from the SharedPreference
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
-
-
-
         // Setting the fetched data
         // in the EditTexts
 
