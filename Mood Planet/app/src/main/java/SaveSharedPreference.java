@@ -3,7 +3,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 public class SaveSharedPreference {
-    static final String PREF_USER_NAME= "e";
+    static final String PREF_USER_NAME= "";
     static final String PPEF_USER_PWD = "";
 
     static SharedPreferences getSharedPreferences(Context ctx) {

@@ -12,9 +12,11 @@ import android.app.TimePickerDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
@@ -51,6 +53,7 @@ public class SettingActivity extends AppCompatActivity {
     private int hour;
     private int minute;
     FirebaseAuth mAuth;
+    boolean isCheckedSF;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,10 +158,13 @@ public class SettingActivity extends AppCompatActivity {
                 openLink(sAppLink, sPackage, sAppLink);
             }
         });
+        boolean checked = true;
+        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
 
         notifSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
+                    sh.edit().putBoolean("checked", true).apply();
                     Toast.makeText(getApplicationContext(), "Notification on!", Toast.LENGTH_SHORT).show();
 //                    TimePickerDialog timePickerDialog = new TimePickerDialog(SettingActivity.this, new TimePickerDialog.OnTimeSetListener() {
 //                        @Override
@@ -197,12 +203,15 @@ public class SettingActivity extends AppCompatActivity {
 
                 }
                 else {
+                    sh.edit().putBoolean("checked", false).apply();
                     Toast.makeText(getApplicationContext(), "Notification off!", Toast.LENGTH_SHORT).show();
                 }
+                isCheckedSF = isChecked;
+
             }
 
-
         });
+
     }
     private void openLink(String sAppLink, String sPackage, String sWebLink) {
         // Use try catch
@@ -230,7 +239,6 @@ public class SettingActivity extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             // Set data
             intent.setData(uri);
-            // Set flag
             //Set flag
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             // Start activity
@@ -249,5 +257,20 @@ public class SettingActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
 
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Fetching the stored data
+        // from the SharedPreference
+        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+
+
+
+        // Setting the fetched data
+        // in the EditTexts
+
+        notifSwitch.setChecked(sh.getBoolean("checked", false));
     }
 }
