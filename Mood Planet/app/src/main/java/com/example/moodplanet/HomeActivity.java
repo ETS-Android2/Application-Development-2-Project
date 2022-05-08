@@ -83,20 +83,14 @@ public class HomeActivity extends AppCompatActivity implements MoodRecyclerViewA
 
         moodRecyclerView.setAdapter(moodRecyclerViewAdapter);
 
-        // get week of year and year
-        LocalDate date = LocalDate.now();
-        TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
-        String weekNumber = "" + date.get(woy);
-        String year = date.getYear() + "";
-
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                 moodEntries.clear();
                 moodHashMap.clear();
                 moodRateHm.clear();
 
+                // Retrieves all children of MoodEntry class
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     MoodEntry moodEntry = dataSnapshot.getValue(MoodEntry.class);
                     moodEntries.add(moodEntry);
@@ -152,11 +146,10 @@ public class HomeActivity extends AppCompatActivity implements MoodRecyclerViewA
                         }
                     }
 
-
-                        // get dayOfWeek of the current moodEntry
+                    // get dayOfWeek of the current moodEntry
                     String dayOfWeek = moodEntry.getDayOfWeek();
 
-                        //bar chart
+                    // bar chart
                     if (moodEntry.getWeekOfYear().equals(weekNumber) && moodEntry.getYear().equals(year)) {
                         if (dayOfWeek.equals("Monday")) {
                             mon.add(moodEntry);
@@ -301,8 +294,6 @@ public class HomeActivity extends AppCompatActivity implements MoodRecyclerViewA
         // link the itemtouchelper to the recycler view
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallback);
         itemTouchHelper.attachToRecyclerView(moodRecyclerView);
-
-
     }
 
     @Override

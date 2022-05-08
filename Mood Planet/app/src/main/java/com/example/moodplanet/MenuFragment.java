@@ -3,12 +3,28 @@ package com.example.moodplanet;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
+
+import com.example.moodplanet.Model.MoodEntry;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.time.LocalDate;
+import java.time.temporal.TemporalField;
+import java.time.temporal.WeekFields;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,6 +35,7 @@ public class
 MenuFragment extends Fragment {
 
     ImageButton addBtn, homeBtn, chartBtn, journalBtn, settingBtn;
+    long count;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -91,8 +108,24 @@ MenuFragment extends Fragment {
         chartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity().getBaseContext(), ChartMainActivity.class);
-                startActivity(intent);
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Mood_Entries");
+                Query query = databaseReference.orderByChild("userID").equalTo(FirebaseAuth.getInstance().getUid());
+                query.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        // Retrieves all children of MoodEntry class and get count
+                        count = snapshot.getChildrenCount();
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+                if (count > 0)
+                    startActivity(new Intent(getActivity().getBaseContext(), ChartMainActivity.class));
+                else
+                    Toast.makeText(getActivity(),"No mood entries to chart!",Toast.LENGTH_LONG).show();
             }
         });
 

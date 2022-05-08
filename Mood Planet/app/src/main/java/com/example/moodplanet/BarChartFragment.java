@@ -98,7 +98,7 @@ public class BarChartFragment extends Fragment {
     }
 
     private void showBarChart(){
-        ArrayList<Double> valueList = new ArrayList<Double>();
+        ArrayList<Double> valueList = new ArrayList<>();
         ArrayList<BarEntry> entries = new ArrayList<>();
         String title = "Mood Rate This Week";
 
