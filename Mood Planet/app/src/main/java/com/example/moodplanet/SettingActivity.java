@@ -85,8 +85,11 @@ public class SettingActivity extends AppCompatActivity implements SharedPreferen
         notifSwitch.setChecked(false);
         Boolean switchState = notifSwitch.isChecked();
         timeTextView = findViewById(R.id.textViewForTime);
-        timeTextView.setText("Notification Time: " + String.format(Locale.getDefault(), "%02d:%02d", hour, minute));
 
+        if (hour != -1 && minute != -1)
+            timeTextView.setText("Notification Time: " + String.format(Locale.getDefault(), "%02d:%02d", hour, minute));
+        else
+            timeTextView.setText("");
 
         // theme color
         mToolbar = findViewById(R.id.tbar);
@@ -201,6 +204,9 @@ public class SettingActivity extends AppCompatActivity implements SharedPreferen
                                 hour = selectedHour;
                                 minute = selectedMinute;
 
+                                SharedPref.saveMinuteInPref(getApplicationContext(), minute);
+                                SharedPref.saveHourInPref(getApplicationContext(), hour);
+
                                 timeTextView.setText("Notification Time: " + String.format(Locale.getDefault(), "%02d:%02d", selectedHour, selectedMinute));
 
                                 calendar = Calendar.getInstance();
@@ -239,13 +245,14 @@ public class SettingActivity extends AppCompatActivity implements SharedPreferen
                     timeTextView.setText("");
                     hour = -1; // set it to -1 again
                     minute = -1; // set it to -1 again
+                    SharedPref.saveMinuteInPref(getApplicationContext(), minute);
+                    SharedPref.saveHourInPref(getApplicationContext(), hour);
                     Toast.makeText(getApplicationContext(), "Notification off!", Toast.LENGTH_SHORT).show();
                     if (alarmManager != null && pendingIntent != null) {
                         alarmManager.cancel(pendingIntent);
                     }
                     notifSwitch.setChecked(false);
                 }
-//                isCheckedSF = isChecked;
             }
         });
 
