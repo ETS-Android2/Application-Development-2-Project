@@ -62,7 +62,7 @@
         app:layout_constraintTop_toBottomOf="@+id/settingsTextView" />
 
     <TextView
-        android:id="@+id/displayFnameTV"
+        android:id="@+id/fn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
@@ -74,7 +74,7 @@
         app:layout_constraintTop_toBottomOf="@+id/accountInforTV" />
 
     <TextView
-        android:id="@+id/displayLnameTV"
+        android:id="@+id/ln"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
@@ -83,7 +83,7 @@
         android:text="Last name: "
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/displayFnameTV" />
+        app:layout_constraintTop_toBottomOf="@+id/fn" />
 
     <TextView
         android:id="@+id/firstNameTV"
@@ -97,7 +97,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.161"
-        app:layout_constraintStart_toEndOf="@+id/displayFnameTV"
+        app:layout_constraintStart_toEndOf="@+id/fn"
         app:layout_constraintTop_toBottomOf="@+id/accountInforTV" />
 
     <TextView
@@ -112,7 +112,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/displayLnameTV"
+        app:layout_constraintStart_toEndOf="@+id/ln"
         app:layout_constraintTop_toBottomOf="@+id/firstNameTV" />
 
     <Button

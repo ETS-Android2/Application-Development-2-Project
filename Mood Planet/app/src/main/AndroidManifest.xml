@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.moodplanet" >
+    package="com.example.moodplanet">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+
     <application
         android:allowBackup="true"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
@@ -14,7 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MoodPlanet"
         android:usesCleartextTraffic="true"
-        tools:replace="android:appComponentFactory" >
+        tools:replace="android:appComponentFactory">
+        <activity
+            android:name=".editProfile"
+            android:exported="false" />
         <activity
             android:name=".ChartMainActivity"
             android:exported="false" />
@@ -56,15 +60,15 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        <receiver android:name=".Model.Notification_receiver"/>
+
+        <receiver android:name=".Model.Notification_receiver" />
     </application>
 
 </manifest>

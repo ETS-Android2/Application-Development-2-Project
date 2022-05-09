@@ -118,6 +118,8 @@ public class SettingActivity extends AppCompatActivity implements SharedPreferen
 //        ----------------------end logout button---------------------------
 
 
+
+
         databaseReference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -141,7 +143,7 @@ public class SettingActivity extends AppCompatActivity implements SharedPreferen
 
         //        -------------end display the user first name and last name------------------
 
-//        -------------------------------edit-------------------------------
+
 
 //
         facebookIV.setOnClickListener(new View.OnClickListener() {
