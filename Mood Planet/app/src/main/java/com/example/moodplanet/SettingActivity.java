@@ -9,12 +9,14 @@ import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TimePickerDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -22,6 +24,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 
@@ -40,7 +43,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 
-public class SettingActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener{
+public class SettingActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private Button edit, logout;
     private FirebaseUser firebaseUser;
@@ -55,14 +58,18 @@ public class SettingActivity extends AppCompatActivity implements SharedPreferen
     private int hour = -1;
     private int minute = -1;
     FirebaseAuth mAuth;
-    Boolean checked = false;
+
+    Boolean checked;
 
     Toolbar mToolbar;
     ImageButton mRedColor, mGreenColor, mYellowColor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+
+        checked = SharedPref.loadCheckedFromPref(this);
 
         edit = findViewById(R.id.editAccountBtn);
         fname = findViewById(R.id.firstNameTV);
@@ -168,14 +175,15 @@ public class SettingActivity extends AppCompatActivity implements SharedPreferen
                 openLink(sAppLink, sPackage, sAppLink);
             }
         });
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        notifSwitch.setChecked(checked);
 
         notifSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                checked = isChecked;
+                SharedPref.saveChekedInPref(getApplicationContext(), isChecked);
+
                 if (isChecked) {
                     if (hour == 0 && minute == 0) {
-                        prefs.edit().putBoolean("isChecked", true).commit();
                         Toast.makeText(getApplicationContext(), "Notification on!", Toast.LENGTH_SHORT).show();
                         TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
                             @Override
@@ -214,7 +222,7 @@ public class SettingActivity extends AppCompatActivity implements SharedPreferen
                     }
 
                 } else {
-                    prefs.edit().putBoolean("isChecked", false).commit();
+//                    sh.edit().putBoolean("checked", false).apply();
 
                     timeTextView.setText("");
                     hour = 0;
@@ -225,12 +233,13 @@ public class SettingActivity extends AppCompatActivity implements SharedPreferen
                     }
                     notifSwitch.setChecked(false);
                 }
+//                isCheckedSF = isChecked;
             }
         });
 
         // theme color buttons
 
-        if(getColor() != getResources().getColor(R.color.colorPrimary)){
+        if (getColor() != getResources().getColor(R.color.colorPrimary)) {
             mToolbar.setBackgroundColor(getColor());
             getWindow().setStatusBarColor(getColor());
         }
@@ -268,7 +277,7 @@ public class SettingActivity extends AppCompatActivity implements SharedPreferen
 
 
     // store the theme color to sharedPreferences
-    private void storeColor(int color){
+    private void storeColor(int color) {
         SharedPreferences mSharedPreferences = getSharedPreferences("ToolbarColor", MODE_PRIVATE);
         SharedPreferences.Editor mEditor = mSharedPreferences.edit();
         mEditor.putInt("color", color);
@@ -276,7 +285,7 @@ public class SettingActivity extends AppCompatActivity implements SharedPreferen
     }
 
     //get the color from sharedPreferences
-    private int getColor(){
+    private int getColor() {
         SharedPreferences mSharedPreferences = getSharedPreferences("ToolbarColor", MODE_PRIVATE);
         int selectedColor = mSharedPreferences.getInt("color", getResources().getColor(R.color.colorPrimary));
 
@@ -331,33 +340,52 @@ public class SettingActivity extends AppCompatActivity implements SharedPreferen
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
-        Boolean isChecked = sh.getBoolean("isChecked", false);
-
-        notifSwitch.setChecked(isChecked);
-        hour = sh.getInt("hour", -1);
-        minute = sh.getInt("minute", -1);
-
+    public void resetPreferences(View view) {
+        SharedPref.removeDataFromPref(this);
     }
+
     @Override
-    protected void onPause() {
-        super.onPause();
-
-        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
-        SharedPreferences.Editor myEdit = sharedPreferences.edit();
-
-        myEdit.putBoolean("isChecked", false);
-        myEdit.putInt("hour", hour);
-        myEdit.putInt("minute", minute);
-        myEdit.apply();
-
+    protected void onStart() {
+        super.onStart();
+        SharedPref.registerPref(this, this);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SharedPref.unregisterPref(this, this);
+    }
+
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+//        Boolean isChecked = sh.getBoolean("isChecked", false);
+//
+//        notifSwitch.setChecked(isChecked);
+//        hour = sh.getInt("hour", -1);
+//        minute = sh.getInt("minute", -1);
+//
+//    }
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//
+//        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+//        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+//
+//        myEdit.putBoolean("isChecked", false);
+//        myEdit.putInt("hour", hour);
+//        myEdit.putInt("minute", minute);
+//        myEdit.apply();
+//
+//    }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
-//        if (s.equals())
+        if (s.equals(SharedPref.PREF_CHECKED_KEY)) {
+            checked = SharedPref.loadCheckedFromPref(this);
+            notifSwitch.setChecked(checked);
+        }
     }
 }
