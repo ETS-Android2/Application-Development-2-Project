@@ -63,7 +63,7 @@ public class QuoteActivity extends AppCompatActivity {
         stop = findViewById(R.id.stopButton);
         pause = findViewById(R.id.pauseButton);
         mediaPlayer = MediaPlayer.create(this, R.raw.song);
-
+        mediaPlayer.setVolume(1.0f, 1.0f);
         mToolbar = findViewById(R.id.quotetoolbar);
         mToolbar.setTitle("Quote");
         // toolbar depended on theme color
@@ -78,16 +78,9 @@ public class QuoteActivity extends AppCompatActivity {
                 if (!isPlaying) {
                     mediaPlayer.start();
                     isPlaying = true;
-                }
-            }
-        });
+                    Toast.makeText(QuoteActivity.this, "Music started playing", Toast.LENGTH_SHORT).show();
 
-        stop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isPlaying) {
-                    mediaPlayer.pause();
-                    isPlaying = false;
+
                 }
             }
         });
@@ -95,8 +88,21 @@ public class QuoteActivity extends AppCompatActivity {
         pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (isPlaying) {
+                    mediaPlayer.pause();
+                    isPlaying = false;
+                    Toast.makeText(QuoteActivity.this, "Music paused", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        stop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 mediaPlayer.stop();
                 isPlaying = false;
+                Toast.makeText(QuoteActivity.this, "Music stopped", Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -170,13 +176,13 @@ public class QuoteActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 }
             });
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                startActivity(intent);
-            }
-        }, 1000);
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+//                startActivity(intent);
+//            }
+//        }, 1000);
     }
     private  void putDataIntoFragment() {
         TextView quotes = (TextView) findViewById(R.id.quoteEditText);

@@ -20,6 +20,6 @@ public interface Api {
     // each call yields its own HTTP request and response pair
     Call<List<Quotes>> getAllQuotes();
 
-    @GET("cat")
+    @GET("cats")
     Call<List<CatMemes>> getALlCats();
 }
