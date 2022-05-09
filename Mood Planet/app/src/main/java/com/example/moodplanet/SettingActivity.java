@@ -16,7 +16,6 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -38,7 +37,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -117,7 +115,13 @@ public class SettingActivity extends AppCompatActivity implements SharedPreferen
         });
 //        ----------------------end logout button---------------------------
 
-
+        // edit button fucntionality
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SettingActivity.this, EditProfile.class));
+            }
+        });
 
 
         databaseReference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -143,9 +147,6 @@ public class SettingActivity extends AppCompatActivity implements SharedPreferen
 
         //        -------------end display the user first name and last name------------------
 
-
-
-//
         facebookIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

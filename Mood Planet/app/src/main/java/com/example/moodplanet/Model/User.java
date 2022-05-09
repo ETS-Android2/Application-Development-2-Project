@@ -14,5 +14,4 @@ public class User {
         this.lastName = lastName;
         this.email = email;
     }
-
 }
