@@ -2,8 +2,10 @@ package com.example.moodplanet;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -41,6 +43,7 @@ public class AddJournalActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
 
     JournalEntry journalEntry;
+    Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +52,18 @@ public class AddJournalActivity extends AppCompatActivity {
 
         content = findViewById(R.id.editJournalEditTv);
         save = findViewById(R.id.cancelEditJournalBtn);
-
+        mToolbar = findViewById(R.id.addjTB);
+        mToolbar.setTitle("Write a Journal");
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("journals");
+
+
+        // toolbar depended on theme color
+        SharedPreferences mSharedPreferences = getSharedPreferences("ToolbarColor", MODE_PRIVATE);
+        int selectedColor = mSharedPreferences.getInt("color", getResources().getColor(R.color.colorPrimary));
+        mToolbar.setBackgroundColor(selectedColor);
+        getWindow().setStatusBarColor(selectedColor);
+
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override

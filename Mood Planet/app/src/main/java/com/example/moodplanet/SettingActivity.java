@@ -2,30 +2,27 @@ package com.example.moodplanet;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.TimePickerDialog;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
+
 
 import com.example.moodplanet.Model.Notification_receiver;
 import com.example.moodplanet.Model.User;
@@ -55,6 +52,8 @@ public class SettingActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     boolean isCheckedSF;
 
+    Toolbar mToolbar;
+    ImageButton mRedColor, mGreenColor, mYellowColor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +74,13 @@ public class SettingActivity extends AppCompatActivity {
         notifSwitch.setChecked(false);
         Boolean switchState = notifSwitch.isChecked();
         timeTextView = findViewById(R.id.textViewForTime);
+
+        // theme color
+        mToolbar = findViewById(R.id.tbar);
+        mRedColor = findViewById(R.id.themeRed);
+        mGreenColor = findViewById(R.id.themeGreen);
+        mYellowColor = findViewById(R.id.themeYellow);
+        mToolbar.setTitle("Setting");
 
 //        ---------------------------display the user first name and last name------------------
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -211,7 +217,61 @@ public class SettingActivity extends AppCompatActivity {
 
         });
 
+        // theme color buttons
+
+        if(getColor() != getResources().getColor(R.color.colorPrimary)){
+            mToolbar.setBackgroundColor(getColor());
+            getWindow().setStatusBarColor(getColor());
+        }
+        mRedColor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mToolbar.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                getWindow().setStatusBarColor(getResources().getColor(R.color.colorRed));
+
+                storeColor(getResources().getColor(R.color.colorRed));
+            }
+        });
+
+        mGreenColor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mToolbar.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+                getWindow().setStatusBarColor(getResources().getColor(R.color.colorGreen));
+
+                storeColor(getResources().getColor(R.color.colorGreen));
+            }
+        });
+
+        mYellowColor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mToolbar.setBackgroundColor(getResources().getColor(R.color.colorYellow));
+                getWindow().setStatusBarColor(getResources().getColor(R.color.colorYellow));
+
+                storeColor(getResources().getColor(R.color.colorYellow));
+            }
+        });
+
+    }// onCreate()
+
+
+    // store the theme color to sharedPreferences
+    private void storeColor(int color){
+        SharedPreferences mSharedPreferences = getSharedPreferences("ToolbarColor", MODE_PRIVATE);
+        SharedPreferences.Editor mEditor = mSharedPreferences.edit();
+        mEditor.putInt("color", color);
+        mEditor.apply();
     }
+
+    //get the color from sharedPreferences
+    private int getColor(){
+        SharedPreferences mSharedPreferences = getSharedPreferences("ToolbarColor", MODE_PRIVATE);
+        int selectedColor = mSharedPreferences.getInt("color", getResources().getColor(R.color.colorPrimary));
+
+        return selectedColor;
+    }
+
 
     private void notificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

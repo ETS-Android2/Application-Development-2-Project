@@ -70,4 +70,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/addjou" />
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/addjTB"
+        android:layout_width="407dp"
+        android:layout_height="40dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
