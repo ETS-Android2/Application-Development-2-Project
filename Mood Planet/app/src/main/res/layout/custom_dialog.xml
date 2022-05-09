@@ -2,13 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/imageView7"
         android:layout_width="1087dp"
-        android:layout_height="723dp"
+        android:layout_height="350dp"
         android:layout_weight="1"
+
         tools:srcCompat="@tools:sample/avatars" />
 </LinearLayout>

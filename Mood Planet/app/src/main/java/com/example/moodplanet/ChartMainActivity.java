@@ -4,54 +4,35 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.anychart.APIlib;
-import com.anychart.AnyChart;
-import com.anychart.AnyChartView;
-import com.anychart.chart.common.dataentry.DataEntry;
-import com.anychart.chart.common.dataentry.ValueDataEntry;
-import com.anychart.charts.Cartesian;
-import com.anychart.charts.Pie;
-import com.anychart.core.cartesian.series.Column;
-import com.anychart.enums.Anchor;
-import com.anychart.enums.HoverMode;
-import com.anychart.enums.Position;
-import com.anychart.enums.TooltipPositionMode;
 import com.bumptech.glide.Glide;
-import com.example.moodplanet.Model.CatMemes;
 import com.example.moodplanet.Model.MoodEntry;
-import com.example.moodplanet.Model.Quotes;
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.time.LocalDate;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
+import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -67,9 +48,10 @@ public class ChartMainActivity extends AppCompatActivity {
     TextView suggestion;
     Toolbar mToolbar;
     Button catPower;
-    ImageView imageView;
-    private  List<CatMemes> catMemesList = new ArrayList<>();
+    ArrayList<HashMap<String, String>> catMemesList;
 
+    ProgressDialog progressDialog;      // when connecting to the cloud -> show the progress of the data retrieval from the cloud
+    private static String url = "https://cataas.com/api/cats";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,16 +71,74 @@ public class ChartMainActivity extends AppCompatActivity {
 
         getMood();
 
+        catMemesList = new ArrayList<>();
+        // Call the executor of Async class
+
         catPower = findViewById(R.id.catPowerBtn);
         catPower.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getCatMeme();
+                new getCatMemes().execute();
             }
         });
-
-
     }
+
+    private class getCatMemes extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            // showing progress dialog
+            progressDialog = new ProgressDialog(ChartMainActivity.this);
+            progressDialog.setMessage("Please wait");
+            progressDialog.setCancelable(true);
+            progressDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            HTTPHandler sh = new HTTPHandler();  // after this do code in HttpHandler
+
+            // making a request
+            String jsonStr = sh.makeServiceCall(url);
+
+            if (jsonStr != null) {
+                try {
+                    JSONArray jsonArray = new JSONArray(jsonStr);
+
+                    // looping through all the context
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                        String id = String.valueOf(jsonObject.getString("id"));
+//                        String countryName = jsonObject.getString("countryName");
+
+                        // create a hashmap -> store the data from the cloud to the local HashMap
+                        HashMap<String, String> catMemes_hashMap = new HashMap<>();
+                        catMemes_hashMap.put("id", id);
+//                        country_hashMap.put("countryName", countryName);
+                        catMemesList.add(catMemes_hashMap);
+                        // all data in contact list
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+
+        protected void onPostExecute(Void unused) {
+            super.onPostExecute(unused);
+
+            // dismiss the progress dialog
+            if (progressDialog.isShowing())
+                progressDialog.dismiss();
+
+            // updated parsed data to ListView
+            buildDialog();
+        }
+    }
+
 
     /**
      * calculate average mood rate and the most regular mood
@@ -192,41 +232,7 @@ public class ChartMainActivity extends AppCompatActivity {
         }
         return moodsFreq[mainMood - 1];
     }
-    private void getCatMeme() {
 
-        // create a retrofit instance
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Api.BASE_URL_QUOTE)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        // create an instance of class Api
-        Api api = retrofit.create(Api.class);
-
-        Call<List<CatMemes>> call = api.getALlCats();
-        call.enqueue(new Callback<List<CatMemes>>() {
-            @Override
-            public void onResponse(Call<List<CatMemes>> call, Response<List<CatMemes>> response) {
-                if (response.code() != 200) {
-                    // handling the error & display it
-                    return;
-                }
-                List<CatMemes> cats = response.body();
-
-                for (CatMemes cat : cats) {
-                    catMemesList.add(cat);
-                }
-                if (response.isSuccessful())
-                    buildDialog();
-            }
-
-            @Override
-            public void onFailure(Call<List<CatMemes>> call, Throwable t) {
-                Log.w("MyTag", "requestFailed", t);
-                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-    }
 
     private void buildDialog() {
 
@@ -239,8 +245,12 @@ public class ChartMainActivity extends AppCompatActivity {
         });
         LayoutInflater inflater = getLayoutInflater();
         View dialogLayout = inflater.inflate(R.layout.custom_dialog, null);
+        Random rand = new Random(); //instance of random class
+        int upperbound = catMemesList.size();
+        int int_random = rand.nextInt(upperbound);
+        String url = "https://cataas.com/cat/" + catMemesList.get(int_random).get("id");
         Glide.with(dialogLayout)
-                .load(Api.BASE_URL_CAT_MEMES  +"/"+ catMemesList.get(0).getUrl())
+                .load(url)
                 .into((ImageView) dialogLayout.findViewById(R.id.imageView7));
 
         builder.setView(dialogLayout);
