@@ -188,52 +188,54 @@ public class SettingActivity extends AppCompatActivity implements SharedPreferen
                 SharedPref.saveChekedInPref(getApplicationContext(), isChecked);
 
                 if (isChecked) {
-                    if (hour == 0 && minute == 0) {
+                    // if no time is set
+                    if (hour == -1 && minute == -1) {   // hour and minute will depend on shared pref   // WE ONLY NEEDED TO DO THE ALARM MANAGER ONCE
                         Toast.makeText(getApplicationContext(), "Notification on!", Toast.LENGTH_SHORT).show();
+
                         TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                                 hour = selectedHour;
                                 minute = selectedMinute;
+
                                 timeTextView.setText("Notification Time: " + String.format(Locale.getDefault(), "%02d:%02d", selectedHour, selectedMinute));
-                                notificationChannel();
+
                                 calendar = Calendar.getInstance();
                                 calendar.set(Calendar.HOUR_OF_DAY, hour);
                                 calendar.set(Calendar.MINUTE, minute);
                                 calendar.set(Calendar.SECOND, 0);
                                 notifSwitch.setChecked(true);
 
-                                SharedPref.saveHourInPref(getApplicationContext(), hour);
-                                SharedPref.saveMinuteInPref(getApplicationContext(), minute);
-                                if ((selectedHour >= 0 && selectedMinute > 0) || (selectedHour > 0 && selectedMinute >= 0)) {
-                                    Intent intent = new Intent(getApplicationContext(), Notification_receiver.class);
-                                    pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),
-                                            0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                                    alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-                                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
-                                            calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-                                    }
-                                } else {
-                                    timeTextView.setText("");
-                                    notifSwitch.setChecked(false);
-                                    Toast.makeText(getApplicationContext(), "No selected time", Toast.LENGTH_SHORT).show();
+                                // need this condition to prevent 00:00 from notifying
+                                if (Calendar.getInstance().after(calendar)) {
+                                    calendar.add(Calendar.DAY_OF_MONTH, 1); // means to add another day
+                                }
+
+                                notificationChannel();
+                                Intent intent = new Intent(getApplicationContext(), Notification_receiver.class);
+                                pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),
+                                        0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                                alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
+                                        calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,
+                                            calendar.getTimeInMillis(), pendingIntent);
                                 }
                             }
+
                         };
                         int style = AlertDialog.THEME_HOLO_DARK;
-                        TimePickerDialog timePickerDialog = new TimePickerDialog(SettingActivity.this, style,
-                                onTimeSetListener, hour, minute, true);
+                        TimePickerDialog timePickerDialog = new TimePickerDialog(SettingActivity.this, style, onTimeSetListener, hour, minute, true);
                         timePickerDialog.setTitle("Select Time");
                         timePickerDialog.show();
                     }
 
                 } else {
-
+//                    sh.edit().putBoolean("checked", false).apply();
                     timeTextView.setText("");
-                    hour = 0;
-                    minute = 0;
+                    hour = -1; // set it to -1 again
+                    minute = -1; // set it to -1 again
                     Toast.makeText(getApplicationContext(), "Notification off!", Toast.LENGTH_SHORT).show();
                     if (alarmManager != null && pendingIntent != null) {
                         alarmManager.cancel(pendingIntent);
