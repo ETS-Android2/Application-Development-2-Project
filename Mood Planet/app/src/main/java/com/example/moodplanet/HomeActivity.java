@@ -44,7 +44,7 @@ public class HomeActivity extends AppCompatActivity implements MoodRecyclerViewA
     RecyclerView moodRecyclerView;
     DatabaseReference databaseReference;
     MoodRecyclerViewAdapter moodRecyclerViewAdapter;
-    List<MoodEntry> moodEntries;
+    public static List<MoodEntry> moodEntries;
     public static long count;
     Toolbar mToolbar;
 

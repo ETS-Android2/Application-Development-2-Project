@@ -9,7 +9,7 @@ import retrofit2.http.GET;
 
 public interface Api {
     //json string
-    String BASE_URL = "https://type.fit/api/";
+    String BASE_URL_QUOTE = "https://type.fit/api/";
 
     // get the array named 'quotes'
     @GET("quotes")
