@@ -2,8 +2,10 @@ package com.example.moodplanet;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -30,11 +32,21 @@ public class EditJournalEntryActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
 
     JournalEntry journalEntry;
+    Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_journal_entry);
+
+        mToolbar = findViewById(R.id.editjTB);
+        mToolbar.setTitle("Edit Journal");
+        // toolbar depended on theme color
+        SharedPreferences mSharedPreferences = getSharedPreferences("ToolbarColor", MODE_PRIVATE);
+        int selectedColor = mSharedPreferences.getInt("color", getResources().getColor(R.color.colorPrimary));
+        mToolbar.setBackgroundColor(selectedColor);
+        getWindow().setStatusBarColor(selectedColor);
+
 
         Intent intent = getIntent();
         String content = intent.getStringExtra("content");

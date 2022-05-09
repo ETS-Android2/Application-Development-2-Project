@@ -2,8 +2,10 @@ package com.example.moodplanet;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -35,6 +37,7 @@ public class EditMoodEntryActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     SeekBar moodSeekBar;
     ImageView moodImage;
+    Toolbar mToolbar;
 
     MoodEntry moodEntry;
     int progressRate;
@@ -42,6 +45,16 @@ public class EditMoodEntryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_mood_entry);
+
+
+        mToolbar = findViewById(R.id.editEtoolbar);
+        mToolbar.setTitle("Edit Mood");
+        // toolbar depended on theme color
+        SharedPreferences mSharedPreferences = getSharedPreferences("ToolbarColor", MODE_PRIVATE);
+        int selectedColor = mSharedPreferences.getInt("color", getResources().getColor(R.color.colorPrimary));
+        mToolbar.setBackgroundColor(selectedColor);
+        getWindow().setStatusBarColor(selectedColor);
+
 
         // For the intent object
         if (getIntent().getExtras() != null) {

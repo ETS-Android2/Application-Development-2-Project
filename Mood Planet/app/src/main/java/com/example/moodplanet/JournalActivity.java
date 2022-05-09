@@ -3,12 +3,14 @@ package com.example.moodplanet;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -49,6 +51,7 @@ public class JournalActivity extends AppCompatActivity implements JournalRecycle
     RecyclerView recyclerView;
     List<JournalEntry> journalEntryList;
     String key;
+    Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,14 @@ public class JournalActivity extends AppCompatActivity implements JournalRecycle
         journalEntryList = new ArrayList<>();
         recyclerViewAdapter = new JournalRecyclerViewAdapter(this, journalEntryList, this);
         recyclerView.setAdapter(recyclerViewAdapter);
+
+        mToolbar = findViewById(R.id.journaltoolbar);
+        mToolbar.setTitle("My Journal");
+        // toolbar depended on theme color
+        SharedPreferences mSharedPreferences = getSharedPreferences("ToolbarColor", MODE_PRIVATE);
+        int selectedColor = mSharedPreferences.getInt("color", getResources().getColor(R.color.colorPrimary));
+        mToolbar.setBackgroundColor(selectedColor);
+        getWindow().setStatusBarColor(selectedColor);
 
         /**
          * this will fetch all the data from firebase

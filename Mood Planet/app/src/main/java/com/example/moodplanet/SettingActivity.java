@@ -9,12 +9,14 @@ import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TimePickerDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -22,6 +24,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 
@@ -58,7 +61,7 @@ public class SettingActivity extends AppCompatActivity implements SharedPreferen
     Boolean checked = false;
 
     Toolbar mToolbar;
-    ImageButton mRedColor, mGreenColor, mYellowColor;
+    ImageButton mRedColor, mGreenColor, mYellowColor, mPurpleColor, mBlueColor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +88,8 @@ public class SettingActivity extends AppCompatActivity implements SharedPreferen
         mRedColor = findViewById(R.id.themeRed);
         mGreenColor = findViewById(R.id.themeGreen);
         mYellowColor = findViewById(R.id.themeYellow);
+        mBlueColor = findViewById(R.id.themeBlue);
+        mPurpleColor = findViewById(R.id.themePurple);
         mToolbar.setTitle("Setting");
 
 //        ---------------------------display the user first name and last name------------------
@@ -263,6 +268,28 @@ public class SettingActivity extends AppCompatActivity implements SharedPreferen
                 storeColor(getResources().getColor(R.color.colorYellow));
             }
         });
+
+        mBlueColor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mToolbar.setBackgroundColor(getResources().getColor(R.color.colorBlue));
+                getWindow().setStatusBarColor(getResources().getColor(R.color.colorBlue));
+
+                storeColor(getResources().getColor(R.color.colorBlue));
+            }
+        });
+
+        mPurpleColor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mToolbar.setBackgroundColor(getResources().getColor(R.color.colorPurple));
+                getWindow().setStatusBarColor(getResources().getColor(R.color.colorPurple));
+
+                storeColor(getResources().getColor(R.color.colorPurple));
+            }
+        });
+
+
 
     }// onCreate()
 

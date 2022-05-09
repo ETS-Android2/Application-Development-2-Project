@@ -11,10 +11,9 @@
         android:id="@+id/fragmentContainerView"
         android:name="com.example.moodplanet.BarChartFragment"
         android:layout_width="410dp"
-        android:layout_height="272dp"
-        android:layout_marginTop="4dp"
+        android:layout_height="256dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
@@ -23,7 +22,7 @@
         android:name="com.example.moodplanet.PieChartFragment"
         android:layout_width="411dp"
         android:layout_height="245dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,28 +31,24 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView9"
         android:name="com.example.moodplanet.MenuFragment"
-        android:layout_width="410dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="4dp"
+        android:layout_width="414dp"
+        android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/suggestionTv"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="343dp"
         android:layout_height="40dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="casual"
         android:gravity="center"
         android:text="Your mood so far xD"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -61,13 +56,24 @@
         android:id="@+id/suggestionTv"
         android:layout_width="401dp"
         android:layout_height="41dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="4dp"
         android:fontFamily="casual"
         android:gravity="center"
         android:text=""
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView8" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/chartToolbar"
+        android:layout_width="411dp"
+        android:layout_height="33dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

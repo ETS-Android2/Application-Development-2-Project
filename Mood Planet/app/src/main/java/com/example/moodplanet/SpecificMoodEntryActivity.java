@@ -1,8 +1,10 @@
 package com.example.moodplanet;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,11 +26,20 @@ public class SpecificMoodEntryActivity extends AppCompatActivity implements Seri
     ImageView moodImage;
     MoodEntry entry;
     Snackbar snack;
+    Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_specific_mood_entry_activity);
+
+        mToolbar = findViewById(R.id.specificMoodToolbar);
+        mToolbar.setTitle("Specific Mood");
+        // toolbar depended on theme color
+        SharedPreferences mSharedPreferences = getSharedPreferences("ToolbarColor", MODE_PRIVATE);
+        int selectedColor = mSharedPreferences.getInt("color", getResources().getColor(R.color.colorPrimary));
+        mToolbar.setBackgroundColor(selectedColor);
+        getWindow().setStatusBarColor(selectedColor);
 
         // database setup
         firebaseDatabase = FirebaseDatabase.getInstance();

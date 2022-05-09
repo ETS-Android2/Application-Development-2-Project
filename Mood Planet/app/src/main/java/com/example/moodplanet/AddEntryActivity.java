@@ -1,8 +1,10 @@
 package com.example.moodplanet;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -18,10 +20,21 @@ public class AddEntryActivity extends AppCompatActivity implements View.OnClickL
     ImageButton sad, happy, calm, inlove, sleepy, cheerful, scared, optimistic, pensive, angry;
     MoodEntry moodEntry;
     Intent editIntent, intent;
+    Toolbar mToolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_entry);
+
+        mToolbar = findViewById(R.id.addeTb);
+        mToolbar.setTitle("Add Entry");
+        // toolbar depended on theme color
+        SharedPreferences mSharedPreferences = getSharedPreferences("ToolbarColor", MODE_PRIVATE);
+        int selectedColor = mSharedPreferences.getInt("color", getResources().getColor(R.color.colorPrimary));
+        mToolbar.setBackgroundColor(selectedColor);
+        getWindow().setStatusBarColor(selectedColor);
+
         moodEntry = null;
         // For the intent object
         if (getIntent().getExtras() != null) {

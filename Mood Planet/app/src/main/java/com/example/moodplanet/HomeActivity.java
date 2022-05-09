@@ -3,12 +3,14 @@ package com.example.moodplanet;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -44,6 +46,7 @@ public class HomeActivity extends AppCompatActivity implements MoodRecyclerViewA
     MoodRecyclerViewAdapter moodRecyclerViewAdapter;
     List<MoodEntry> moodEntries;
     public static long count;
+    Toolbar mToolbar;
 
     // creating lists for pie chart
     List<MoodEntry> angry = new ArrayList<>();
@@ -76,6 +79,14 @@ public class HomeActivity extends AppCompatActivity implements MoodRecyclerViewA
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        mToolbar = findViewById(R.id.hometoolbar);
+        mToolbar.setTitle("My Moods");
+        // toolbar depended on theme color
+        SharedPreferences mSharedPreferences = getSharedPreferences("ToolbarColor", MODE_PRIVATE);
+        int selectedColor = mSharedPreferences.getInt("color", getResources().getColor(R.color.colorPrimary));
+        mToolbar.setBackgroundColor(selectedColor);
+        getWindow().setStatusBarColor(selectedColor);
 
         moodEntries = new ArrayList<>();
         moodRecyclerView = findViewById(R.id.moodRecyclerView);

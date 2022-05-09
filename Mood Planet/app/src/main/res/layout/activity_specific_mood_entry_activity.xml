@@ -12,8 +12,8 @@
         android:id="@+id/editMoodOfTheDayTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="48dp"
         android:fontFamily="casual"
         android:text="Mood of the Day"
         android:textSize="30sp"
@@ -78,7 +78,7 @@
         android:id="@+id/editButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
+        android:layout_marginStart="64dp"
         android:layout_marginTop="28dp"
         android:text="EDIT"
         app:layout_constraintStart_toStartOf="parent"
@@ -137,5 +137,16 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/specificMoodToolbar"
+        android:layout_width="412dp"
+        android:layout_height="39dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

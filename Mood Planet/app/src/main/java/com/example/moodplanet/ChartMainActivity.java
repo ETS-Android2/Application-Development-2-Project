@@ -1,7 +1,9 @@
 package com.example.moodplanet;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -35,6 +37,7 @@ public class ChartMainActivity extends AppCompatActivity {
     HashMap<String, List<MoodEntry>> moodRateHm = new HashMap<>();
     HashMap<String, List<MoodEntry>> moodHashMap = new HashMap<>();
     TextView suggestion;
+    Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,14 @@ public class ChartMainActivity extends AppCompatActivity {
         suggestion = findViewById(R.id.suggestionTv);
         moodRateHm = HomeActivity.moodRateHm;
         moodHashMap = HomeActivity.moodHashMap;
+
+        mToolbar = findViewById(R.id.chartToolbar);
+        mToolbar.setTitle("Mood Report");
+        // toolbar depended on theme color
+        SharedPreferences mSharedPreferences = getSharedPreferences("ToolbarColor", MODE_PRIVATE);
+        int selectedColor = mSharedPreferences.getInt("color", getResources().getColor(R.color.colorPrimary));
+        mToolbar.setBackgroundColor(selectedColor);
+        getWindow().setStatusBarColor(selectedColor);
 
         setSuggestion();
     }

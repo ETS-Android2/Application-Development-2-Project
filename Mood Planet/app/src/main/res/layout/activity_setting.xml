@@ -158,11 +158,13 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageButton
-        android:id="@+id/theme2"
+        android:id="@+id/themePurple"
         android:layout_width="49dp"
         android:layout_height="47dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="8dp"
+        android:background="#D6B9E1"
+        android:text="@string/purple_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/themeTV"
         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck"
@@ -176,7 +178,7 @@
         android:layout_marginEnd="28dp"
         android:background="#6E809C"
         android:text="@string/blue_color"
-        app:layout_constraintEnd_toStartOf="@+id/theme2"
+        app:layout_constraintEnd_toStartOf="@+id/themePurple"
         app:layout_constraintTop_toBottomOf="@+id/themeTV"
         tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"
         tools:srcCompat="@tools:sample/avatars" />
@@ -187,7 +189,7 @@
         android:layout_height="47dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="24dp"
-        android:background="#FDF5A7"
+        android:background="#FFE2BE"
         android:text="@string/yellow_color"
         app:layout_constraintEnd_toStartOf="@+id/themeBlue"
         app:layout_constraintTop_toBottomOf="@+id/themeTV"
@@ -200,7 +202,7 @@
         android:layout_height="47dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="28dp"
-        android:background="#C3EFC0"
+        android:background="#BEE1BB"
         android:text="@string/green_color"
         app:layout_constraintEnd_toStartOf="@+id/themeYellow"
         app:layout_constraintTop_toBottomOf="@+id/themeTV"

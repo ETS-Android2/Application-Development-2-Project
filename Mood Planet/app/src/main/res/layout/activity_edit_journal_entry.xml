@@ -22,7 +22,7 @@
         android:id="@+id/textView4"
         android:layout_width="244dp"
         android:layout_height="36dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="serif-monospace"
         android:text="Edit Journal"
         android:textAlignment="center"
@@ -39,7 +39,7 @@
         android:id="@+id/editJournalEditTv"
         android:layout_width="277dp"
         android:layout_height="359dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="68dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:gravity="start|top"
@@ -74,9 +74,19 @@
         android:layout_width="379dp"
         android:layout_height="495dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="2dp"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
         app:srcCompat="@mipmap/dog" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/editjTB"
+        android:layout_width="413dp"
+        android:layout_height="36dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
