@@ -61,8 +61,6 @@ public class QuoteActivity extends AppCompatActivity {
         pause = findViewById(R.id.pauseButton);
         mediaPlayer = MediaPlayer.create(this, R.raw.song);
 
-        mediaPlayer.start();
-        isPlaying = true;
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
