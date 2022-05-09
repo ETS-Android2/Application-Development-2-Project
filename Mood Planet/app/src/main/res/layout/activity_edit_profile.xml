@@ -200,6 +200,7 @@
         android:layout_width="91dp"
         android:layout_height="48dp"
         android:layout_marginTop="8dp"
+        android:backgroundTint="#D9EFE9"
         android:text="Settings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.049"
