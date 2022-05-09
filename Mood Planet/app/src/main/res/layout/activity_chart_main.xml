@@ -11,18 +11,18 @@
         android:id="@+id/fragmentContainerView"
         android:name="com.example.moodplanet.BarChartFragment"
         android:layout_width="410dp"
-        android:layout_height="256dp"
+        android:layout_height="240dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView8"
         android:name="com.example.moodplanet.PieChartFragment"
-        android:layout_width="411dp"
-        android:layout_height="245dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="410dp"
+        android:layout_height="240dp"
+        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,8 +35,10 @@
         android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView6"
@@ -52,19 +54,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/suggestionTv"
-        android:layout_width="401dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="4dp"
-        android:fontFamily="casual"
-        android:gravity="center"
-        android:text=""
-        android:textSize="18sp"
-        android:textStyle="normal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView8" />
+
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/chartToolbar"
@@ -76,4 +66,30 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="113dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="16dp"
+        android:text="Get instant cat power"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView8" />
+
+    <TextView
+        android:id="@+id/suggestion"
+        android:layout_width="250dp"
+        android:layout_height="135dp"
+        android:layout_marginStart="4dp"
+        android:fontFamily="casual"
+        android:text="Your mood so far xD"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/fragmentContainerView9"
+        app:layout_constraintEnd_toStartOf="@+id/button"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView8"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -90,7 +90,7 @@ public class QuoteActivity extends AppCompatActivity {
     private void getQuotes() {
         // create a retrofit instance
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Api.BASE_URL)
+                .baseUrl(Api.BASE_URL_QUOTE)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
