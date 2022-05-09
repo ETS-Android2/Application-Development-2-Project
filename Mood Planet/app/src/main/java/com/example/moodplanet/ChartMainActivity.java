@@ -1,12 +1,22 @@
 package com.example.moodplanet;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anychart.APIlib;
 import com.anychart.AnyChart;
@@ -20,12 +30,17 @@ import com.anychart.enums.Anchor;
 import com.anychart.enums.HoverMode;
 import com.anychart.enums.Position;
 import com.anychart.enums.TooltipPositionMode;
+import com.bumptech.glide.Glide;
+import com.example.moodplanet.Model.CatMemes;
 import com.example.moodplanet.Model.MoodEntry;
+import com.example.moodplanet.Model.Quotes;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.time.LocalDate;
 import java.time.temporal.TemporalField;
@@ -38,6 +53,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class ChartMainActivity extends AppCompatActivity {
 
     HashMap<String, List<MoodEntry>> moodRateHm = new HashMap<>();
@@ -45,6 +66,10 @@ public class ChartMainActivity extends AppCompatActivity {
     List<MoodEntry> moodEntries = HomeActivity.moodEntries;
     TextView suggestion;
     Toolbar mToolbar;
+    Button catPower;
+    ImageView imageView;
+    private  List<CatMemes> catMemesList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +88,16 @@ public class ChartMainActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(selectedColor);
 
         getMood();
+
+        catPower = findViewById(R.id.catPowerBtn);
+        catPower.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getCatMeme();
+            }
+        });
+
+
     }
 
     /**
@@ -157,6 +192,59 @@ public class ChartMainActivity extends AppCompatActivity {
         }
         return moodsFreq[mainMood - 1];
     }
+    private void getCatMeme() {
 
+        // create a retrofit instance
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Api.BASE_URL_QUOTE)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        // create an instance of class Api
+        Api api = retrofit.create(Api.class);
+
+        Call<List<CatMemes>> call = api.getALlCats();
+        call.enqueue(new Callback<List<CatMemes>>() {
+            @Override
+            public void onResponse(Call<List<CatMemes>> call, Response<List<CatMemes>> response) {
+                if (response.code() != 200) {
+                    // handling the error & display it
+                    return;
+                }
+                List<CatMemes> cats = response.body();
+
+                for (CatMemes cat : cats) {
+                    catMemesList.add(cat);
+                }
+                if (response.isSuccessful())
+                    buildDialog();
+            }
+
+            @Override
+            public void onFailure(Call<List<CatMemes>> call, Throwable t) {
+                Log.w("MyTag", "requestFailed", t);
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void buildDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(ChartMainActivity.this);
+        builder.setPositiveButton("Close", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogLayout = inflater.inflate(R.layout.custom_dialog, null);
+        Glide.with(dialogLayout)
+                .load(Api.BASE_URL_CAT_MEMES  +"/"+ catMemesList.get(0).getUrl())
+                .into((ImageView) dialogLayout.findViewById(R.id.imageView7));
+
+        builder.setView(dialogLayout);
+        builder.show();
+    }
 
 }

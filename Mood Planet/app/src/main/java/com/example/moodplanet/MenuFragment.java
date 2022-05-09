@@ -109,19 +109,7 @@ MenuFragment extends Fragment {
         chartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Mood_Entries");
-//                Query query = databaseReference.orderByChild("userID").equalTo(FirebaseAuth.getInstance().getUid());
-//                query.addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                        // Retrieves all children of MoodEntry class and get count
-//                        count = snapshot.getChildrenCount();
-//                    }
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//
-//                    }
-//                });
+
                 count = HomeActivity.count;
                 if (count > 0)
                     startActivity(new Intent(getActivity().getBaseContext(), ChartMainActivity.class));

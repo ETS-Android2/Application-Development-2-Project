@@ -37,7 +37,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/catPowerBtn"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
@@ -68,7 +68,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/catPowerBtn"
         android:layout_width="113dp"
         android:layout_height="66dp"
         android:layout_marginTop="44dp"
@@ -79,15 +79,15 @@
 
     <TextView
         android:id="@+id/suggestion"
-        android:layout_width="250dp"
-        android:layout_height="135dp"
+        android:layout_width="247dp"
+        android:layout_height="137dp"
         android:layout_marginStart="4dp"
         android:fontFamily="casual"
         android:text="Your mood so far xD"
         android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/fragmentContainerView9"
-        app:layout_constraintEnd_toStartOf="@+id/button"
+        app:layout_constraintEnd_toStartOf="@+id/catPowerBtn"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView8"
