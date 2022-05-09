@@ -43,7 +43,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 
-public class SettingActivity extends AppCompatActivity {
+public class SettingActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener{
 
     private Button edit, logout;
     private FirebaseUser firebaseUser;
@@ -55,10 +55,10 @@ public class SettingActivity extends AppCompatActivity {
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
     private Calendar calendar;
-    private int hour;
-    private int minute;
+    private int hour = -1;
+    private int minute = -1;
     FirebaseAuth mAuth;
-    boolean isCheckedSF;
+    Boolean checked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,13 +162,14 @@ public class SettingActivity extends AppCompatActivity {
                 openLink(sAppLink, sPackage, sAppLink);
             }
         });
-        boolean checked = true;
-        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         notifSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                checked = isChecked;
                 if (isChecked) {
                     if (hour == 0 && minute == 0) {
+                        prefs.edit().putBoolean("isChecked", true).commit();
                         Toast.makeText(getApplicationContext(), "Notification on!", Toast.LENGTH_SHORT).show();
                         TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
                             @Override
@@ -207,7 +208,8 @@ public class SettingActivity extends AppCompatActivity {
                     }
 
                 } else {
-                    sh.edit().putBoolean("checked", false).apply();
+                    prefs.edit().putBoolean("isChecked", false).commit();
+
                     timeTextView.setText("");
                     hour = 0;
                     minute = 0;
@@ -217,9 +219,7 @@ public class SettingActivity extends AppCompatActivity {
                     }
                     notifSwitch.setChecked(false);
                 }
-                isCheckedSF = isChecked;
             }
-
         });
 
     }
@@ -275,8 +275,29 @@ public class SettingActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        Boolean isChecked = sh.getBoolean("isChecked", false);
 
-        notifSwitch.setChecked(sh.getBoolean("checked", false));
+        notifSwitch.setChecked(isChecked);
+        hour = sh.getInt("hour", -1);
+        minute = sh.getInt("minute", -1);
 
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+
+        myEdit.putBoolean("isChecked", false);
+        myEdit.putInt("hour", hour);
+        myEdit.putInt("minute", minute);
+        myEdit.apply();
+
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+//        if (s.equals())
     }
 }

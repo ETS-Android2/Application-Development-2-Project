@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         register = (TextView) findViewById(R.id.register);
         register.setOnClickListener(this);
 
@@ -75,8 +76,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void userLogin() {
+        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+
 
         if (email.isEmpty()) {
             editTextEmail.setError("Email is required");
@@ -149,5 +153,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // in the EditTexts
         editTextEmail.setText(email);
         editTextPassword.setText(String.valueOf(pwd));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+
+        myEdit.putString("email", editTextEmail.getText().toString());
+        myEdit.putString("password", editTextPassword.getText().toString());
+        myEdit.apply();
+
     }
 }
