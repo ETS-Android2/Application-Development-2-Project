@@ -55,8 +55,8 @@ public class SettingActivity extends AppCompatActivity implements SharedPreferen
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
     private Calendar calendar;
-    private int hour = -1;
-    private int minute = -1;
+    private int hour;
+    private int minute;
     FirebaseAuth mAuth;
 
     Boolean checked;
@@ -70,6 +70,8 @@ public class SettingActivity extends AppCompatActivity implements SharedPreferen
         setContentView(R.layout.activity_setting);
 
         checked = SharedPref.loadCheckedFromPref(this);
+        hour = SharedPref.loadHourFromPref(this);
+        minute = SharedPref.loadMinuteFromPref(this);
 
         edit = findViewById(R.id.editAccountBtn);
         fname = findViewById(R.id.firstNameTV);
@@ -86,6 +88,8 @@ public class SettingActivity extends AppCompatActivity implements SharedPreferen
         notifSwitch.setChecked(false);
         Boolean switchState = notifSwitch.isChecked();
         timeTextView = findViewById(R.id.textViewForTime);
+        timeTextView.setText("Notification Time: " + String.format(Locale.getDefault(), "%02d:%02d", hour, minute));
+
 
         // theme color
         mToolbar = findViewById(R.id.tbar);
@@ -197,7 +201,10 @@ public class SettingActivity extends AppCompatActivity implements SharedPreferen
                                 calendar.set(Calendar.MINUTE, minute);
                                 calendar.set(Calendar.SECOND, 0);
                                 notifSwitch.setChecked(true);
-                                if (selectedHour >= 0 && selectedMinute > 0) {
+
+                                SharedPref.saveHourInPref(getApplicationContext(), hour);
+                                SharedPref.saveMinuteInPref(getApplicationContext(), minute);
+                                if ((selectedHour >= 0 && selectedMinute > 0) || (selectedHour > 0 && selectedMinute >= 0)) {
                                     Intent intent = new Intent(getApplicationContext(), Notification_receiver.class);
                                     pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),
                                             0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -222,7 +229,6 @@ public class SettingActivity extends AppCompatActivity implements SharedPreferen
                     }
 
                 } else {
-//                    sh.edit().putBoolean("checked", false).apply();
 
                     timeTextView.setText("");
                     hour = 0;
@@ -386,6 +392,12 @@ public class SettingActivity extends AppCompatActivity implements SharedPreferen
         if (s.equals(SharedPref.PREF_CHECKED_KEY)) {
             checked = SharedPref.loadCheckedFromPref(this);
             notifSwitch.setChecked(checked);
+        }
+        if (s.equals(SharedPref.PREF_HOUR_KEY)) {
+            hour = SharedPref.loadHourFromPref(this);
+        }
+        if (s.equals(SharedPref.PREF_MINUTE_KEY)) {
+            minute = SharedPref.loadMinuteFromPref(this);
         }
     }
 }
