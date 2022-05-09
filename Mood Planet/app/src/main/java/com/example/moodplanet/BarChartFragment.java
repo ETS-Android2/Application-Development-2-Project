@@ -105,7 +105,6 @@ public class BarChartFragment extends Fragment {
         //input data
         for(int i = 0; i < 7; i++){
 
-//            double moodRate = moodRateHm.get("mon").size();
             // get size of a key in moodRateHm
             int size = moodRateHm.get(keys[i]).size();
             double moodRate = 0;
@@ -168,12 +167,13 @@ public class BarChartFragment extends Fragment {
         YAxis leftAxis = barChart.getAxisLeft();
         //hiding the left y-axis line, default true if not set
         leftAxis.setDrawAxisLine(false);
+        // set the value of left axis from 0 to 5
         leftAxis.setAxisMaximum(5f);
         leftAxis.setAxisMinimum(0f);
         leftAxis.setLabelCount(5);
 
         YAxis rightAxis = barChart.getAxisRight();
-
+        // hide the right axis of the barchart
         rightAxis.setEnabled(false);
 
         Legend legend = barChart.getLegend();

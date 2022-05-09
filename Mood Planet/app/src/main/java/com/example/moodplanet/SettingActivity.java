@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -34,10 +35,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Locale;
 
 
-public class SettingActivity extends AppCompatActivity {
+public class SettingActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener{
 
     private Button edit, logout;
     private FirebaseUser firebaseUser;
@@ -46,11 +49,13 @@ public class SettingActivity extends AppCompatActivity {
     private TextView fname, lname, timeTextView;
     private ImageView facebookIV, twitterIV, instagramIV;
     private Switch notifSwitch;
+    private AlarmManager alarmManager;
+    private PendingIntent pendingIntent;
     private Calendar calendar;
-    private int hour;
-    private int minute;
+    private int hour = -1;
+    private int minute = -1;
     FirebaseAuth mAuth;
-    boolean isCheckedSF;
+    Boolean checked = false;
 
     Toolbar mToolbar;
     ImageButton mRedColor, mGreenColor, mYellowColor;
@@ -88,16 +93,15 @@ public class SettingActivity extends AppCompatActivity {
         userID = firebaseUser.getUid();
 
 
-
         //-------------logout button------------------
         logout = findViewById(R.id.setringLogoutButton);
         logout.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            mAuth.signOut();
+            @Override
+            public void onClick(View view) {
+                mAuth.signOut();
 
-          startActivity(new Intent(SettingActivity.this, MainActivity.class));
-        }
+                startActivity(new Intent(SettingActivity.this, MainActivity.class));
+            }
         });
 //        ----------------------end logout button---------------------------
 
@@ -107,7 +111,7 @@ public class SettingActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
 
-                if (user != null){
+                if (user != null) {
                     String firstname = user.firstName;
                     String lastname = user.lastName;
                     fname.setText(firstname);
@@ -164,57 +168,64 @@ public class SettingActivity extends AppCompatActivity {
                 openLink(sAppLink, sPackage, sAppLink);
             }
         });
-        boolean checked = true;
-        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         notifSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                checked = isChecked;
                 if (isChecked) {
-                    sh.edit().putBoolean("checked", true).apply();
-                    Toast.makeText(getApplicationContext(), "Notification on!", Toast.LENGTH_SHORT).show();
-//                    TimePickerDialog timePickerDialog = new TimePickerDialog(SettingActivity.this, new TimePickerDialog.OnTimeSetListener() {
-//                        @Override
-//                        public void onTimeSet(TimePicker timePicker, int i, int i1) {
-//                            // Initialize house and minute
-//                            hour = i;
-//                            minute = i1;
-//                            // Initialize calendar
-//                            calendar = Calendar.getInstance();
-//                            // Set hour and minute
-//                            calendar.set(0, 0, 0, hour, minute);
-//
-//                            timeTextView.setText(DateFormat.format("hh:mm: aa", calendar));
-//                        }
-//                    }, 12, 0, false);
-
-                    notificationChannel();
-                    notifSwitch.setChecked(true);
-                    calendar = Calendar.getInstance();
-                    calendar.set(Calendar.HOUR_OF_DAY,17);
-                    calendar.set(Calendar.MINUTE, 05);
-                    calendar.set(Calendar.SECOND, 00);
-
-                    if (Calendar.getInstance().after(calendar)) {
-                        calendar.add(Calendar.DAY_OF_MONTH, 1);
+                    if (hour == 0 && minute == 0) {
+                        prefs.edit().putBoolean("isChecked", true).commit();
+                        Toast.makeText(getApplicationContext(), "Notification on!", Toast.LENGTH_SHORT).show();
+                        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                                hour = selectedHour;
+                                minute = selectedMinute;
+                                timeTextView.setText("Notification Time: " + String.format(Locale.getDefault(), "%02d:%02d", selectedHour, selectedMinute));
+                                notificationChannel();
+                                calendar = Calendar.getInstance();
+                                calendar.set(Calendar.HOUR_OF_DAY, hour);
+                                calendar.set(Calendar.MINUTE, minute);
+                                calendar.set(Calendar.SECOND, 0);
+                                notifSwitch.setChecked(true);
+                                if (selectedHour >= 0 && selectedMinute > 0) {
+                                    Intent intent = new Intent(getApplicationContext(), Notification_receiver.class);
+                                    pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),
+                                            0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                                    alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
+                                            calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                                    }
+                                } else {
+                                    timeTextView.setText("");
+                                    notifSwitch.setChecked(false);
+                                    Toast.makeText(getApplicationContext(), "No selected time", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        };
+                        int style = AlertDialog.THEME_HOLO_DARK;
+                        TimePickerDialog timePickerDialog = new TimePickerDialog(SettingActivity.this, style,
+                                onTimeSetListener, hour, minute, true);
+                        timePickerDialog.setTitle("Select Time");
+                        timePickerDialog.show();
                     }
-                    Intent intent = new Intent(getApplicationContext(), Notification_receiver.class);
-                    PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),
-                            0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                    AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
-                            calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), pendingIntent);
-                    }
-                }
-                else {
-                    sh.edit().putBoolean("checked", false).apply();
+
+                } else {
+                    prefs.edit().putBoolean("isChecked", false).commit();
+
+                    timeTextView.setText("");
+                    hour = 0;
+                    minute = 0;
                     Toast.makeText(getApplicationContext(), "Notification off!", Toast.LENGTH_SHORT).show();
+                    if (alarmManager != null && pendingIntent != null) {
+                        alarmManager.cancel(pendingIntent);
+                    }
+                    notifSwitch.setChecked(false);
                 }
-                isCheckedSF = isChecked;
-
             }
-
         });
 
         // theme color buttons
@@ -286,6 +297,7 @@ public class SettingActivity extends AppCompatActivity {
 
         }
     }
+
     private void openLink(String sAppLink, String sPackage, String sWebLink) {
         // Use try catch
         try {
@@ -303,8 +315,7 @@ public class SettingActivity extends AppCompatActivity {
             // start Actitivy
             startActivity(intent);
 
-        }
-        catch (ActivityNotFoundException e) {
+        } catch (ActivityNotFoundException e) {
             // Open link in browser
             // Initialize uri
             Uri uri = Uri.parse(sWebLink);
@@ -320,16 +331,33 @@ public class SettingActivity extends AppCompatActivity {
         }
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
-        // Fetching the stored data
-        // from the SharedPreference
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
-        // Setting the fetched data
-        // in the EditTexts
+        Boolean isChecked = sh.getBoolean("isChecked", false);
 
-        notifSwitch.setChecked(sh.getBoolean("checked", false));
+        notifSwitch.setChecked(isChecked);
+        hour = sh.getInt("hour", -1);
+        minute = sh.getInt("minute", -1);
+
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+
+        myEdit.putBoolean("isChecked", false);
+        myEdit.putInt("hour", hour);
+        myEdit.putInt("minute", minute);
+        myEdit.apply();
+
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+//        if (s.equals())
     }
 }
