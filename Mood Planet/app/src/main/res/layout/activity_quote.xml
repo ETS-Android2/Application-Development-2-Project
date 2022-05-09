@@ -3,20 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@mipmap/bg"
     android:layout_height="match_parent"
+    android:background="@mipmap/bg"
     tools:context=".QuoteActivity">
 
     <Button
         android:id="@+id/logoutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="52dp"
+
         android:fontFamily="casual"
         android:text="LOGOUT"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintHorizontal_bias="0.086"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,21 +25,20 @@
         android:id="@+id/userGreetingTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="casual"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.17"
+        app:layout_constraintHorizontal_bias="0.172"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logoutButton" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView2"
         android:name="com.example.moodplanet.QuoteFragment"
-        android:layout_width="412dp"
-        android:layout_height="280dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="411dp"
+        android:layout_height="287dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/quoteOfTheDayTextView" />
@@ -47,7 +47,7 @@
         android:id="@+id/quoteOfTheDayTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="casual"
         android:text="Quote of the Day:"
         android:textSize="20sp"
@@ -60,11 +60,71 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView3"
         android:name="com.example.moodplanet.MenuFragment"
-        android:layout_width="412dp"
+        android:layout_width="411dp"
         android:layout_height="46dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pauseButton"
+        app:layout_constraintVertical_bias="1.0"
         tools:layout="@layout/fragment_menu" />
+
+    <ImageButton
+        android:id="@+id/playButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="68dp"
+        android:background="@drawable/button_bg"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toStartOf="@+id/pauseButton"
+        app:layout_constraintHorizontal_bias="0.888"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView2"
+        app:srcCompat="@drawable/play"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageButton
+        android:id="@+id/pauseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/button_bg"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toStartOf="@+id/stopButton"
+        app:layout_constraintHorizontal_bias="0.714"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView2"
+        app:srcCompat="@drawable/pause"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageButton
+        android:id="@+id/stopButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/button_bg"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView2"
+        app:srcCompat="@drawable/stop"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/quotetoolbar"
+        android:layout_width="413dp"
+        android:layout_height="48dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

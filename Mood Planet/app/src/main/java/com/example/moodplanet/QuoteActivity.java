@@ -4,13 +4,17 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +47,10 @@ public class QuoteActivity extends AppCompatActivity {
     private String userID;
     private  List<Quotes> quotesList;
     private FirebaseAuth mAuth;
+    private ImageButton play, stop, pause;
+    private MediaPlayer mediaPlayer;
+    private boolean isPlaying = false;
+    Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +59,48 @@ public class QuoteActivity extends AppCompatActivity {
         quotesList = new ArrayList<>();
         mAuth = FirebaseAuth.getInstance();
         logout = (Button) findViewById(R.id.logoutButton);
+        play = findViewById(R.id.playButton);
+        stop = findViewById(R.id.stopButton);
+        pause = findViewById(R.id.pauseButton);
+        mediaPlayer = MediaPlayer.create(this, R.raw.song);
+
+        mToolbar = findViewById(R.id.quotetoolbar);
+        mToolbar.setTitle("Quote");
+        // toolbar depended on theme color
+        SharedPreferences mSharedPreferences = getSharedPreferences("ToolbarColor", MODE_PRIVATE);
+        int selectedColor = mSharedPreferences.getInt("color", getResources().getColor(R.color.colorPrimary));
+        mToolbar.setBackgroundColor(selectedColor);
+        getWindow().setStatusBarColor(selectedColor);
+
+        play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!isPlaying) {
+                    mediaPlayer.start();
+                    isPlaying = true;
+                }
+            }
+        });
+
+        stop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isPlaying) {
+                    mediaPlayer.pause();
+                    isPlaying = false;
+                }
+            }
+        });
+
+        pause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mediaPlayer.stop();
+                isPlaying = false;
+            }
+        });
+
+
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
