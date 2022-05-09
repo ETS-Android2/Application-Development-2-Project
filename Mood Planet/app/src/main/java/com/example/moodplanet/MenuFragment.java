@@ -34,7 +34,7 @@ import java.util.Locale;
 public class
 MenuFragment extends Fragment {
 
-    ImageButton addBtn, homeBtn, chartBtn, journalBtn, settingBtn;
+    ImageButton addBtn, homeBtn, chartBtn, journalBtn, settingBtn, quoteBtn;
     long count;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -88,6 +88,7 @@ MenuFragment extends Fragment {
         addBtn = v.findViewById(R.id.addButton);
         journalBtn = v.findViewById(R.id.journalButton);
         settingBtn = v.findViewById(R.id.settingButton);
+        quoteBtn = v.findViewById(R.id.quoteButton);
 
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,6 +142,15 @@ MenuFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity().getBaseContext(), JournalActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        quoteBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity().getBaseContext(), QuoteActivity.class);
                 startActivity(intent);
             }
         });
