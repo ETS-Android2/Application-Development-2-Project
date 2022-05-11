@@ -18,7 +18,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.SignInMethodQueryResult;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 
@@ -28,13 +30,17 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
     private ProgressBar progressBar;
 
     private FirebaseAuth mAuth;
-
+    private DatabaseReference databaseReference;
+    private FirebaseDatabase firebaseDatabase;
+    private FirebaseUser newUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user);
 
         mAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("Users");
         banner = (TextView) findViewById(R.id.banner);
         banner.setOnClickListener(this);
 
@@ -145,7 +151,10 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
                                                     public void onComplete(@NonNull Task<Void> task) {
                                                         if (task.isSuccessful()) {
                                                             Toast.makeText(RegisterUserActivity.this,
-                                                                    "User has been registered successfully", Toast.LENGTH_LONG).show();
+                                                                    "User has been registered successfully. Check the sent verification email!", Toast.LENGTH_LONG).show();
+                                                            newUser = FirebaseAuth.getInstance().getCurrentUser();
+                                                            newUser.sendEmailVerification();
+
                                                             progressBar.setVisibility(View.VISIBLE);
 
                                                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
