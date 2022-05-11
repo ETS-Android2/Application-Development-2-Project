@@ -1,7 +1,5 @@
 package com.example.moodplanet;
 
-import static android.content.ContentValues.TAG;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -28,7 +26,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +37,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class QuoteActivity extends AppCompatActivity {
+public class WelcomeActivity extends AppCompatActivity {
     private Button logout;
     private FirebaseUser firebaseUser;
     private DatabaseReference databaseReference;
@@ -55,7 +52,7 @@ public class QuoteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quote);
+        setContentView(R.layout.welcome);
         quotesList = new ArrayList<>();
         mAuth = FirebaseAuth.getInstance();
         logout = (Button) findViewById(R.id.logoutButton);
@@ -78,7 +75,7 @@ public class QuoteActivity extends AppCompatActivity {
                 if (!isPlaying) {
                     mediaPlayer.start();
                     isPlaying = true;
-                    Toast.makeText(QuoteActivity.this, "Music started playing", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WelcomeActivity.this, "Music started playing", Toast.LENGTH_SHORT).show();
 
 
                 }
@@ -91,7 +88,7 @@ public class QuoteActivity extends AppCompatActivity {
                 if (isPlaying) {
                     mediaPlayer.pause();
                     isPlaying = false;
-                    Toast.makeText(QuoteActivity.this, "Music paused", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WelcomeActivity.this, "Music paused", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -101,7 +98,7 @@ public class QuoteActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mediaPlayer.stop();
                 isPlaying = false;
-                Toast.makeText(QuoteActivity.this, "Music stopped", Toast.LENGTH_SHORT).show();
+                Toast.makeText(WelcomeActivity.this, "Music stopped", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -112,7 +109,7 @@ public class QuoteActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mAuth.signOut();
-                startActivity(new Intent(QuoteActivity.this, MainActivity.class));
+                startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
                 }
 
         });
@@ -137,7 +134,7 @@ public class QuoteActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(QuoteActivity.this, "Something wrong happened!", Toast.LENGTH_LONG).show();
+                Toast.makeText(WelcomeActivity.this, "Something wrong happened!", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -176,13 +173,13 @@ public class QuoteActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 }
             });
-//        new Handler().postDelayed(new Runnable() {
+//       new Handler().postDelayed(new Runnable() {
 //            @Override
 //            public void run() {
 //                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
 //                startActivity(intent);
 //            }
-//        }, 1000);
+//        }, 3000);
     }
     private  void putDataIntoFragment() {
         TextView quotes = (TextView) findViewById(R.id.quoteEditText);

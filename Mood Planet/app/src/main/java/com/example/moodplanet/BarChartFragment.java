@@ -89,11 +89,13 @@ public class BarChartFragment extends Fragment {
         View v =  inflater.inflate(R.layout.fragment_bar_chart, container, false);
         barChart = v.findViewById(R.id.barChart_view);
         moodRateHm = HomeActivity.moodRateHm;
+        if  (moodRateHm.size() != 0) {
+            showBarChart();
+            initBarChart();
+            barChart.setOnChartValueSelectedListener(new barChartOnChartValueSelectedListener());
 
-        showBarChart();
-        initBarChart();
+        }
 
-        barChart.setOnChartValueSelectedListener(new barChartOnChartValueSelectedListener());
         return v;
     }
 

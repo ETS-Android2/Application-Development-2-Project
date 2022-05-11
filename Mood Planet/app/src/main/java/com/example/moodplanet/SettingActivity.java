@@ -256,6 +256,7 @@ public class SettingActivity extends AppCompatActivity implements SharedPreferen
             }
         });
 
+        
         // theme color buttons
 
         if (getColor() != getResources().getColor(R.color.colorPrimary)) {

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
@@ -93,8 +94,12 @@ public class PieChartFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_pie_chart, container, false);
         // Inflate the layout for this fragment
         pieChart = v.findViewById(R.id.activity_main_piechart);
-        setupPieChart();
-        loadPieChartData();
+        moodHashMap = HomeActivity.moodHashMap;
+        if (moodHashMap.size() != 0) {
+
+            setupPieChart();
+            loadPieChartData();
+        }
         return v;
     }
     private void setupPieChart() {
@@ -118,7 +123,6 @@ public class PieChartFragment extends Fragment {
 
     private void loadPieChartData() {
 
-        moodHashMap = HomeActivity.moodHashMap;
 
         //calculate the percentage of the mood
         float angry = moodHashMap.get("angry").size();

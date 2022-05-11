@@ -68,8 +68,12 @@ public class ChartMainActivity extends AppCompatActivity {
         int selectedColor = mSharedPreferences.getInt("color", getResources().getColor(R.color.colorPrimary));
         mToolbar.setBackgroundColor(selectedColor);
         getWindow().setStatusBarColor(selectedColor);
+        if (moodHashMap.size() != 0 && moodRateHm.size() != 0) {
+            getMood();
+        }
+        else {
 
-        getMood();
+        }
 
         catMemesList = new ArrayList<>();
         // Call the executor of Async class
@@ -129,13 +133,10 @@ public class ChartMainActivity extends AppCompatActivity {
 
         protected void onPostExecute(Void unused) {
             super.onPostExecute(unused);
-
+            buildDialog();
             // dismiss the progress dialog
             if (progressDialog.isShowing())
                 progressDialog.dismiss();
-
-            // updated parsed data to ListView
-            buildDialog();
         }
     }
 

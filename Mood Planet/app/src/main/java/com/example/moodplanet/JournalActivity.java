@@ -50,7 +50,6 @@ public class JournalActivity extends AppCompatActivity implements JournalRecycle
     FirebaseDatabase firebaseDatabase;
     RecyclerView recyclerView;
     List<JournalEntry> journalEntryList;
-    String key;
     Toolbar mToolbar;
 
     @Override

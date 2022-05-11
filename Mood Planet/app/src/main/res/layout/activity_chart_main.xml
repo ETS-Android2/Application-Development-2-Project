@@ -83,7 +83,7 @@
         android:layout_height="137dp"
         android:layout_marginStart="4dp"
         android:fontFamily="casual"
-        android:text="Your mood so far xD"
+        android:text=""
         android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/fragmentContainerView9"
@@ -92,4 +92,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView8"
         app:layout_constraintVertical_bias="0.0" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
