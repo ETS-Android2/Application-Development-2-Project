@@ -116,12 +116,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     // Commenting this block because it is used for email verification
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     if (user.isEmailVerified()) {
-
                         startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
                         finish();
                     }
                     else {
-                        user.sendEmailVerification();
+                        user.sendEmailVerification(); //send a new one
                         Toast.makeText(MainActivity.this, "Check your email to verify your account!",
                                 Toast.LENGTH_LONG).show();
                         progressBar.setVisibility(View.GONE);

@@ -98,6 +98,21 @@ public class EditProfile extends AppCompatActivity {
                 String newPassword = newpassword.getText().toString().trim();
                 String confirmpass = confirmpassword.getText().toString().trim();
 
+                String validNamePattern = "(?i)[a-z]([- ',.a-z]{0,23}[a-z])?";
+                // validates first name
+                if (!firstName.matches(validNamePattern)){
+                    fname.setError("Please enter a first name");
+                    fname.requestFocus();
+                    return;
+                }
+
+                // validates last name
+                if (!lastName.matches(validNamePattern)){
+                    lname.setError("Please enter a valid last name");
+                    lname.requestFocus();
+                    return;
+                }
+
                 // if email is empty, just use the old email
                 if (newEmail.isEmpty())
                     useremail.setText(dataUser.email);
@@ -118,14 +133,14 @@ public class EditProfile extends AppCompatActivity {
                 }
 
                 // if password is below 6 then error, stop method
-                if (newPassword.length() < 6) {
+                if (newPassword.length() < 6 && confirmpass.length() > 0) {
                     newpassword.setError("Minimum password length is 6 characters!");
                     newpassword.requestFocus();
                     return;
                 }
 
                 // if confirm pass is below 6, then error, stop method
-                if (confirmpass.length() < 6) {
+                if (confirmpass.length() < 6 && confirmpass.length() > 0) {
                     confirmpassword.setError("Minimum password length is 6 characters!");
                     confirmpassword.requestFocus();
                     return;
@@ -142,19 +157,21 @@ public class EditProfile extends AppCompatActivity {
 
                 // good password SO change password in firebase authentication
                 else {
-                    user.updatePassword(newPassword)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Log.d(TAG, "User password updated.");
-                                }
-                            }
-                        });
+                    if  (!newPassword.isEmpty() && !confirmpass.isEmpty()) {
+                        user.updatePassword(newPassword)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Log.d(TAG, "User password updated.");
+                                        }
+                                    }
+                                });
+                    }
                 }
 
                 // update only when the user has a different email
-                if (!dataUser.email.equals(newEmail)) {
+                if (!dataUser.email.equals(newEmail))  {
                     user.updateEmail(newEmail)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
