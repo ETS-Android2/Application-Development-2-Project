@@ -88,8 +88,8 @@ public class BarChartFragment extends Fragment {
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_bar_chart, container, false);
         barChart = v.findViewById(R.id.barChart_view);
-        moodRateHm = ChartMainActivity.moodRateHm;
 
+        moodRateHm = ChartMainActivity.moodRateHm;
         // if there are mood entries inside the mood rate hashmap, then create the bar chart for the current week
         if  (moodRateHm.size() != 0) {
             showBarChart();

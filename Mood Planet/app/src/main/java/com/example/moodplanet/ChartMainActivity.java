@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -20,6 +22,8 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.anychart.charts.Pie;
+import com.anychart.core.gauge.pointers.Bar;
 import com.bumptech.glide.Glide;
 import com.example.moodplanet.Model.MoodEntry;
 import com.google.firebase.auth.FirebaseAuth;
@@ -97,33 +101,24 @@ public class ChartMainActivity extends AppCompatActivity {
 
         mToolbar = findViewById(R.id.chartToolbar);
         mToolbar.setTitle("Mood Report");
+
+
         // toolbar depended on theme color
         SharedPreferences mSharedPreferences = getSharedPreferences("ToolbarColor", MODE_PRIVATE);
         int selectedColor = mSharedPreferences.getInt("color", getResources().getColor(R.color.colorPrimary));
         mToolbar.setBackgroundColor(selectedColor);
         getWindow().setStatusBarColor(selectedColor);
 
-        // if there are data inside 2 hashmaps, then trigger getMood()
-        if (moodHashMap.size() != 0 && moodRateHm.size() != 0) {
-            getMood();
-        }
-
-        // to trigger cat memes api
-        catPower = findViewById(R.id.catPowerBtn);
-        catPower.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new getCatMemes().execute();
-            }
-        });
-
         databaseReference = FirebaseDatabase.getInstance().getReference("Mood_Entries");
         Query query = databaseReference.orderByChild("userID").equalTo(FirebaseAuth.getInstance().getUid());
+        moodEntries = new ArrayList<>();
+
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 moodHashMap.clear();
                 moodRateHm.clear();
+                moodEntries.clear();
                 // Retrieves all children of MoodEntry class
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     MoodEntry moodEntry = dataSnapshot.getValue(MoodEntry.class);
@@ -221,12 +216,27 @@ public class ChartMainActivity extends AppCompatActivity {
                     moodRateHm.put("fri", fri);
                     moodRateHm.put("sat", sat);
 
+                    // if there are data inside 2 hashmaps, then trigger getMood()
+                    if (moodHashMap.size() != 0 && moodRateHm.size() != 0) {
+                        getMoodRate();
+                    }
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+
+
+        // to trigger cat memes api
+        catPower = findViewById(R.id.catPowerBtn);
+        catPower.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new getCatMemes().execute();
             }
         });
     }
@@ -287,7 +297,7 @@ public class ChartMainActivity extends AppCompatActivity {
     /**
      * calculate average mood rate and the most regular mood of the current week
      */
-    private void getMood() {
+    private void getMoodRate() {
         double moodRates = 0;
 
         int angry = moodHashMap.get("angry").size();
@@ -327,7 +337,7 @@ public class ChartMainActivity extends AppCompatActivity {
     }
 
     /**
-    Set suggested captions based on user's entry moods of the current week
+     * Set suggested captions based on user's entry moods of the current week
      */
     private void setSuggestion(double moodRate, String mostFreqMood) {
         moodRate = Math.ceil(moodRate);
@@ -367,7 +377,8 @@ public class ChartMainActivity extends AppCompatActivity {
     }
 
     /**
-     *  get the main mood of the current week
+     * get the main mood of the current week
+     *
      * @param moodsFreq
      * @param mainMood
      * @return

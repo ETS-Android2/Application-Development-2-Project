@@ -173,13 +173,13 @@ public class WelcomeActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 }
             });
-//       new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
+       new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
 //                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
 //                startActivity(intent);
-//            }
-//        }, 3000);
+            }
+        }, 3000);
     }
     private  void putDataIntoFragment() {
         TextView quotes = (TextView) findViewById(R.id.quoteEditText);

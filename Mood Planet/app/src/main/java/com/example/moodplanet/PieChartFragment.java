@@ -94,6 +94,7 @@ public class PieChartFragment extends Fragment {
         // Inflate the layout for this fragment
         pieChart = v.findViewById(R.id.activity_main_piechart);
         moodHashMap = ChartMainActivity.moodHashMap;
+
         // if there are entries in the moodHashMap, then create the pie chart
         if (moodHashMap.size() != 0) {
             setupPieChart();
