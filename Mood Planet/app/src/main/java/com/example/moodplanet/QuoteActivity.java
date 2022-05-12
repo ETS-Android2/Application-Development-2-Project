@@ -37,7 +37,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class WelcomeActivity extends AppCompatActivity {
+public class QuoteActivity extends AppCompatActivity {
     private Button logout;
     private FirebaseUser firebaseUser;
     private DatabaseReference databaseReference;
@@ -52,7 +52,7 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.welcome);
+        setContentView(R.layout.quote);
         quotesList = new ArrayList<>();
         mAuth = FirebaseAuth.getInstance();
         logout = (Button) findViewById(R.id.logoutButton);
@@ -75,7 +75,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 if (!isPlaying) {
                     mediaPlayer.start();
                     isPlaying = true;
-                    Toast.makeText(WelcomeActivity.this, "Music started playing", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(QuoteActivity.this, "Music started playing", Toast.LENGTH_SHORT).show();
 
 
                 }
@@ -88,7 +88,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 if (isPlaying) {
                     mediaPlayer.pause();
                     isPlaying = false;
-                    Toast.makeText(WelcomeActivity.this, "Music paused", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(QuoteActivity.this, "Music paused", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -98,7 +98,7 @@ public class WelcomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mediaPlayer.stop();
                 isPlaying = false;
-                Toast.makeText(WelcomeActivity.this, "Music stopped", Toast.LENGTH_SHORT).show();
+                Toast.makeText(QuoteActivity.this, "Music stopped", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -109,7 +109,7 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mAuth.signOut();
-                startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+                startActivity(new Intent(QuoteActivity.this, MainActivity.class));
                 }
 
         });
@@ -134,7 +134,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(WelcomeActivity.this, "Something wrong happened!", Toast.LENGTH_LONG).show();
+                Toast.makeText(QuoteActivity.this, "Something wrong happened!", Toast.LENGTH_LONG).show();
             }
         });
 

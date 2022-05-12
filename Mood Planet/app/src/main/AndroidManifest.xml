@@ -53,7 +53,7 @@
             android:name=".ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".WelcomeActivity"
+            android:name=".QuoteActivity"
             android:exported="false" />
         <activity
             android:name=".RegisterUserActivity"

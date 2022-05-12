@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.ProgressDialog;
@@ -230,7 +231,6 @@ public class ChartMainActivity extends AppCompatActivity {
         });
 
 
-
         // to trigger cat memes api
         catPower = findViewById(R.id.catPowerBtn);
         catPower.setOnClickListener(new View.OnClickListener() {
@@ -239,7 +239,18 @@ public class ChartMainActivity extends AppCompatActivity {
                 new getCatMemes().execute();
             }
         });
+
+//        Fragment fragment = new PieChartFragment();
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
+//
+//        Fragment fragment1 = new BarChartFragment();
+//        fragmentTransaction.replace(R.id.fragmentContainerView8, fragment1);
+//        fragmentTransaction.commit();
+
     }
+
 
     /**
      * to fetch data from the cat memes api (using AsyncTask)

@@ -14,17 +14,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.moodplanet.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private TextView register, forgotPassword;
@@ -116,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     // Commenting this block because it is used for email verification
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     if (user.isEmailVerified()) {
-                        startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
+                        startActivity(new Intent(MainActivity.this, QuoteActivity.class));
                         finish();
                     }
                     else {

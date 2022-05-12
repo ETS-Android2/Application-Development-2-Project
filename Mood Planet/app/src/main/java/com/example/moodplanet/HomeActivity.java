@@ -14,6 +14,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.moodplanet.Model.JournalEntry;
@@ -46,6 +47,8 @@ public class HomeActivity extends AppCompatActivity implements MoodRecyclerViewA
     MoodRecyclerViewAdapter moodRecyclerViewAdapter;
     public static List<MoodEntry> moodEntries;
     Toolbar mToolbar;
+    long count =  0;
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,8 @@ public class HomeActivity extends AppCompatActivity implements MoodRecyclerViewA
 
         mToolbar = findViewById(R.id.hometoolbar);
         mToolbar.setTitle("My Moods");
+
+        textView = findViewById(R.id.textView8);
         // toolbar depended on theme color
         SharedPreferences mSharedPreferences = getSharedPreferences("ToolbarColor", MODE_PRIVATE);
         int selectedColor = mSharedPreferences.getInt("color", getResources().getColor(R.color.colorPrimary));
@@ -77,11 +82,20 @@ public class HomeActivity extends AppCompatActivity implements MoodRecyclerViewA
                 // Retrieves all children of MoodEntry class
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     MoodEntry moodEntry = dataSnapshot.getValue(MoodEntry.class);
+                    count = snapshot.getChildrenCount();
                     moodEntries.add(moodEntry);
                     // reverse the list so the newest data will be displayed on top
                     Collections.reverse(moodEntries);
                     moodRecyclerViewAdapter.notifyDataSetChanged();
+
+
                     }
+                if (count == 0) {
+                    textView.setText("You have no mood entries so far! Please tell us how you feel xD");
+                }
+                else {
+                    textView.setText("");
+                }
                 }
 
             @Override
@@ -89,6 +103,7 @@ public class HomeActivity extends AppCompatActivity implements MoodRecyclerViewA
 
             }
         });
+
 
         /**
          * itemTouchHelper is for swiping either left or right to delete (u can set it in the param)

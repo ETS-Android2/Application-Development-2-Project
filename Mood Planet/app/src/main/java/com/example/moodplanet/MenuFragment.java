@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -123,7 +122,7 @@ MenuFragment extends Fragment {
 
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity().getBaseContext(), WelcomeActivity.class);
+                Intent intent = new Intent(getActivity().getBaseContext(), QuoteActivity.class);
                 startActivity(intent);
             }
         });
