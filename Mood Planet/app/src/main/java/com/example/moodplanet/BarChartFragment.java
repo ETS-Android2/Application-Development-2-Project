@@ -88,14 +88,14 @@ public class BarChartFragment extends Fragment {
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_bar_chart, container, false);
         barChart = v.findViewById(R.id.barChart_view);
-        moodRateHm = HomeActivity.moodRateHm;
+        moodRateHm = ChartMainActivity.moodRateHm;
+
+        // if there are mood entries inside the mood rate hashmap, then create the bar chart for the current week
         if  (moodRateHm.size() != 0) {
             showBarChart();
             initBarChart();
             barChart.setOnChartValueSelectedListener(new barChartOnChartValueSelectedListener());
-
         }
-
         return v;
     }
 
@@ -198,7 +198,6 @@ public class BarChartFragment extends Fragment {
         @Override
         public void onValueSelected(Entry e, Highlight h) {
             //trigger activity when the bar value is selected
-
         }
 
         @Override

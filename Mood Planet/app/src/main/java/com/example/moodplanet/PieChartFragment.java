@@ -44,7 +44,6 @@ import java.util.List;
  */
 public class PieChartFragment extends Fragment {
     private PieChart pieChart;
-    DatabaseReference databaseReference;
     ArrayList<PieEntry> entries = new ArrayList<>();
     HashMap<String, List<MoodEntry>> moodHashMap = new HashMap<>();
 
@@ -94,14 +93,18 @@ public class PieChartFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_pie_chart, container, false);
         // Inflate the layout for this fragment
         pieChart = v.findViewById(R.id.activity_main_piechart);
-        moodHashMap = HomeActivity.moodHashMap;
+        moodHashMap = ChartMainActivity.moodHashMap;
+        // if there are entries in the moodHashMap, then create the pie chart
         if (moodHashMap.size() != 0) {
-
             setupPieChart();
             loadPieChartData();
         }
         return v;
     }
+
+    /**
+     * to set up the pie chart
+     */
     private void setupPieChart() {
         pieChart.setDrawHoleEnabled(true);
         pieChart.setUsePercentValues(true);
@@ -121,9 +124,10 @@ public class PieChartFragment extends Fragment {
         l.setEnabled(true);
     }
 
+    /**
+     * load data into the pie chart (contains only the data of the current week)
+     */
     private void loadPieChartData() {
-
-
         //calculate the percentage of the mood
         float angry = moodHashMap.get("angry").size();
         float pensive = moodHashMap.get("pensive").size();
@@ -179,6 +183,7 @@ public class PieChartFragment extends Fragment {
         pieChart.setData(data);
         pieChart.invalidate();
 
+        // put animation for the pie chart
         pieChart.animateY(2000, Easing.EaseInOutQuad);
     }
 }

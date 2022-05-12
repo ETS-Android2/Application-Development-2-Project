@@ -1,5 +1,6 @@
 package com.example.moodplanet;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -21,6 +22,13 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.moodplanet.Model.MoodEntry;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -29,6 +37,7 @@ import java.time.LocalDate;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -42,13 +51,39 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ChartMainActivity extends AppCompatActivity {
 
-    HashMap<String, List<MoodEntry>> moodRateHm = new HashMap<>();
-    HashMap<String, List<MoodEntry>> moodHashMap = new HashMap<>();
     List<MoodEntry> moodEntries = HomeActivity.moodEntries;
     TextView suggestion;
     Toolbar mToolbar;
     Button catPower;
+    DatabaseReference databaseReference;
     ArrayList<HashMap<String, String>> catMemesList;
+
+    // creating lists for pie chart
+    List<MoodEntry> angry = new ArrayList<>();
+    List<MoodEntry> pensive = new ArrayList<>();
+    List<MoodEntry> sad = new ArrayList<>();
+    List<MoodEntry> optimistic = new ArrayList<>();
+    List<MoodEntry> cheerful = new ArrayList<>();
+    List<MoodEntry> inlove = new ArrayList<>();
+    List<MoodEntry> scared = new ArrayList<>();
+    List<MoodEntry> calm = new ArrayList<>();
+    List<MoodEntry> sleepy = new ArrayList<>();
+    List<MoodEntry> happy = new ArrayList<>();
+
+    // creating lists for the bar chart
+    List<MoodEntry> mon = new ArrayList<>();
+    List<MoodEntry> tue = new ArrayList<>();
+    List<MoodEntry> wed = new ArrayList<>();
+    List<MoodEntry> thu = new ArrayList<>();
+    List<MoodEntry> fri = new ArrayList<>();
+    List<MoodEntry> sat = new ArrayList<>();
+    List<MoodEntry> sun = new ArrayList<>();
+
+    // mood hashmap containing data for the pie chart
+    public static HashMap<String, List<MoodEntry>> moodHashMap = new HashMap<>();
+
+    // mood rate hashmap containing data for the bar chart
+    public static HashMap<String, List<MoodEntry>> moodRateHm = new HashMap<>();
 
     ProgressDialog progressDialog;      // when connecting to the cloud -> show the progress of the data retrieval from the cloud
     private static String url = "https://cataas.com/api/cats";
@@ -58,8 +93,7 @@ public class ChartMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart_main);
         suggestion = findViewById(R.id.suggestion);
-        moodRateHm = HomeActivity.moodRateHm;
-        moodHashMap = HomeActivity.moodHashMap;
+        catMemesList = new ArrayList<>();
 
         mToolbar = findViewById(R.id.chartToolbar);
         mToolbar.setTitle("Mood Report");
@@ -68,16 +102,13 @@ public class ChartMainActivity extends AppCompatActivity {
         int selectedColor = mSharedPreferences.getInt("color", getResources().getColor(R.color.colorPrimary));
         mToolbar.setBackgroundColor(selectedColor);
         getWindow().setStatusBarColor(selectedColor);
+
+        // if there are data inside 2 hashmaps, then trigger getMood()
         if (moodHashMap.size() != 0 && moodRateHm.size() != 0) {
             getMood();
         }
-        else {
 
-        }
-
-        catMemesList = new ArrayList<>();
-        // Call the executor of Async class
-
+        // to trigger cat memes api
         catPower = findViewById(R.id.catPowerBtn);
         catPower.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,8 +116,124 @@ public class ChartMainActivity extends AppCompatActivity {
                 new getCatMemes().execute();
             }
         });
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("Mood_Entries");
+        Query query = databaseReference.orderByChild("userID").equalTo(FirebaseAuth.getInstance().getUid());
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                moodHashMap.clear();
+                moodRateHm.clear();
+                // Retrieves all children of MoodEntry class
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    MoodEntry moodEntry = dataSnapshot.getValue(MoodEntry.class);
+                    moodEntries.add(moodEntry);
+                    String choosenMood = moodEntry.getChosenMood();
+
+                    // get the current weekOfYear and current Year
+                    LocalDate date = LocalDate.now();
+                    TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
+                    String weekNumber = "" + date.get(woy);
+                    String year = date.getYear() + "";
+
+                    // query only mood entries of the current week to the pie chart
+                    if (moodEntry.getWeekOfYear().equals(weekNumber) && moodEntry.getYear().equals(year)) {
+                        // angry
+                        if (choosenMood.equals("angry")) {
+                            angry.add(moodEntry);
+                        }
+                        // pensive
+                        else if (choosenMood.equals("pensive")) {
+                            pensive.add(moodEntry);
+                        }
+                        // sad
+                        else if (choosenMood.equals("sad")) {
+                            sad.add(moodEntry);
+                        }
+                        //optimistic
+                        else if (choosenMood.equals("optimistic")) {
+                            optimistic.add(moodEntry);
+                        }
+                        //cheerful
+                        else if (choosenMood.equals("cheerful")) {
+                            cheerful.add(moodEntry);
+                        }
+                        //inlove
+                        else if (choosenMood.equals("inlove")) {
+                            inlove.add(moodEntry);
+                        }
+                        //scared
+                        else if (choosenMood.equals("scared")) {
+                            scared.add(moodEntry);
+                        }
+                        //calm
+                        else if (choosenMood.equals("calm")) {
+                            calm.add(moodEntry);
+                        }
+                        //sleepy
+                        else if (choosenMood.equals("sleepy")) {
+                            sleepy.add(moodEntry);
+                        }
+                        //happy
+                        else if (choosenMood.equals("happy")) {
+                            happy.add(moodEntry);
+                        }
+                    }
+
+                    // get dayOfWeek of the current moodEntry
+                    String dayOfWeek = moodEntry.getDayOfWeek();
+
+                    // query only mood entries of the current week to the bar chart
+                    if (moodEntry.getWeekOfYear().equals(weekNumber) && moodEntry.getYear().equals(year)) {
+                        if (dayOfWeek.equals("Monday")) {
+                            mon.add(moodEntry);
+                        } else if (dayOfWeek.equals("Tuesday")) {
+                            tue.add(moodEntry);
+                        } else if (dayOfWeek.equals("Wednesday")) {
+                            wed.add(moodEntry);
+                        } else if (dayOfWeek.equals("Thursday")) {
+                            thu.add(moodEntry);
+                        } else if (dayOfWeek.equals("Friday")) {
+                            fri.add(moodEntry);
+                        } else if (dayOfWeek.equals("Saturday")) {
+                            sat.add(moodEntry);
+                        } else if (dayOfWeek.equals("Sunday")) {
+                            sun.add(moodEntry);
+                        }
+                    }
+
+                    moodHashMap.put("cheerful", cheerful);
+                    moodHashMap.put("optimistic", optimistic);
+                    moodHashMap.put("sad", sad);
+                    moodHashMap.put("angry", angry);
+                    moodHashMap.put("pensive", pensive);
+                    moodHashMap.put("happy", happy);
+                    moodHashMap.put("sleepy", sleepy);
+                    moodHashMap.put("calm", calm);
+                    moodHashMap.put("scared", scared);
+                    moodHashMap.put("inlove", inlove);
+
+                    moodRateHm.put("sun", sun);
+                    moodRateHm.put("mon", mon);
+                    moodRateHm.put("tue", tue);
+                    moodRateHm.put("wed", wed);
+                    moodRateHm.put("thu", thu);
+                    moodRateHm.put("fri", fri);
+                    moodRateHm.put("sat", sat);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
+    /**
+     * to fetch data from the cat memes api (using AsyncTask)
+     */
     private class getCatMemes extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
@@ -114,15 +261,11 @@ public class ChartMainActivity extends AppCompatActivity {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                         String id = String.valueOf(jsonObject.getString("id"));
-//                        String countryName = jsonObject.getString("countryName");
 
                         // create a hashmap -> store the data from the cloud to the local HashMap
                         HashMap<String, String> catMemes_hashMap = new HashMap<>();
                         catMemes_hashMap.put("id", id);
-//                        country_hashMap.put("countryName", countryName);
                         catMemesList.add(catMemes_hashMap);
-                        // all data in contact list
-
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -142,7 +285,7 @@ public class ChartMainActivity extends AppCompatActivity {
 
 
     /**
-     * calculate average mood rate and the most regular mood
+     * calculate average mood rate and the most regular mood of the current week
      */
     private void getMood() {
         double moodRates = 0;
@@ -183,6 +326,9 @@ public class ChartMainActivity extends AppCompatActivity {
         setSuggestion(moodRate, mostFreqMood);
     }
 
+    /**
+    Set suggested captions based on user's entry moods of the current week
+     */
     private void setSuggestion(double moodRate, String mostFreqMood) {
         moodRate = Math.ceil(moodRate);
         String moodRateText = "";
@@ -220,6 +366,12 @@ public class ChartMainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     *  get the main mood of the current week
+     * @param moodsFreq
+     * @param mainMood
+     * @return
+     */
     private int getMainMood(int[] moodsFreq, int mainMood) {
         int temp;
         for (int i = 0; i < mainMood; i++) {
@@ -234,9 +386,10 @@ public class ChartMainActivity extends AppCompatActivity {
         return moodsFreq[mainMood - 1];
     }
 
-
+    /**
+     * to build a dialog which contains a random image that if fetched from the cat memes api
+     */
     private void buildDialog() {
-
         AlertDialog.Builder builder = new AlertDialog.Builder(ChartMainActivity.this);
         builder.setPositiveButton("Close", new DialogInterface.OnClickListener() {
             @Override
@@ -257,5 +410,4 @@ public class ChartMainActivity extends AppCompatActivity {
         builder.setView(dialogLayout);
         builder.show();
     }
-
 }
