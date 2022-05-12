@@ -28,7 +28,7 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
     private TextView banner, registerUser, returnToLogin;
     private EditText editTextFirstName, editTextLastName, editTextEmail, editTextPassword;
     private ProgressBar progressBar;
-
+    private String validNamePattern;
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
     private FirebaseDatabase firebaseDatabase;
@@ -98,8 +98,21 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
             return;
         }
 
+        validNamePattern = "(?i)[a-z]([- ',.a-z]{0,23}[a-z])?";
+        if (!firstName.matches(validNamePattern)) {
+            editTextFirstName.setError("First name not valid");
+            editTextFirstName.requestFocus();
+            return;
+        }
+
         if (lastName.isEmpty()) {
             editTextLastName.setError("Last Name is required!");
+            editTextLastName.requestFocus();
+            return;
+        }
+
+        if (!lastName.matches(validNamePattern)) {
+            editTextLastName.setError("First name not valid");
             editTextLastName.requestFocus();
             return;
         }
